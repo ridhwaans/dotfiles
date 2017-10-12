@@ -52,8 +52,8 @@ eval "$(pyenv virtualenv-init -)"
 # TERMINAL EMULATOR
 
 # ITerm2 -> iterm2-nightly
-# New Window Style -> no Title Bar
-# Environment -> set locale variables manually
+# Profiles -> Window -> Style -> no Title Bar
+# Profiles -> Terminal -> Environment -> set locale variables manually
 # Font -> Roboto Mono for Powerline
 # Color Preset -> Gotham
 
