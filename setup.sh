@@ -76,13 +76,13 @@ git init
 git remote add origin git@github.com:ridhwaans/dotfiles.git
 
 # Install submodules
-git submodule add git@github.com:VundleVim/Vundle.vim.git .vim/bundle/Vundle.vim
-git submodule add git@github.com:zsh-users/antigen.git .zsh/bundle
-git submodule add git@github.com:pyenv/pyenv.git .pyenv
+git submodule add -f git@github.com:VundleVim/Vundle.vim.git .vim/bundle/Vundle.vim
+git submodule add -f git@github.com:zsh-users/antigen.git .zsh/bundle
+git submodule add -f git@github.com:pyenv/pyenv.git .pyenv
 cd .pyenv
-git submodule add git@github.com:pyenv/pyenv-virtualenv.git plugins/pyenv-virtualenv
+git submodule add -f git@github.com:pyenv/pyenv-virtualenv.git plugins/pyenv-virtualenv
 cd ..
-git submodule add git@github.com:rbenv/rbenv.git .rbenv
+git submodule add -f git@github.com:rbenv/rbenv.git .rbenv
 cd .rbenv
 git submodule add -f git@github.com:rbenv/ruby-build.git plugins/ruby-build
 git submodule add -f git@github.com:jf/rbenv-gemset.git plugins/rbenv-gemset
