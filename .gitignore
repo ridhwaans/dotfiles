@@ -1,0 +1,29 @@
+# Aws
+.aws/credentials
+
+# Ssh
+.ssh/config_wishabi
+.ssh/id_rsa
+.ssh/known_hosts
+
+# Submodules
+.gitmodules
+.pyenv/
+.rbenv/
+.vim/
+.zsh/
+
+# Compiled Python files
+*.pyc
+
+# Folder view configuration files
+.DS_Store
+Desktop.ini
+
+# Thumbnail cache files
+._*
+Thumbs.db
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes
