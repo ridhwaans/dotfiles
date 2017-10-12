@@ -53,6 +53,7 @@ brew tap caskroom/versions
 # flux
 apps=(
 	cyberduck
+	dropbox
 	google-chrome
 	iterm2-nightly
 	postico
@@ -72,7 +73,7 @@ brew cleanup
 cd "$(dirname "${BASH_SOURCE}")";
 
 git init
-git remote add origin https://github.com/ridhwaans/dotfiles.git
+git remote add origin git@github.com:ridhwaans/dotfiles.git
 
 # Install submodules
 git submodule add git@github.com:VundleVim/Vundle.vim.git .vim/bundle/Vundle.vim

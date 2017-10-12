@@ -2,9 +2,9 @@
 .aws/credentials
 
 # Ssh
-.ssh/config_wishabi
 .ssh/id_rsa
 .ssh/known_hosts
+.ssh/wishabi_config
 
 # Submodules
 .gitmodules
