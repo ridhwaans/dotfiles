@@ -8,8 +8,8 @@ export EDITOR=/usr/bin/vim
 
 export ADOTDIR=$HOME/.zsh/bundle
 
-#export JAVA_HOME=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+#OLD export JAVA_HOME=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home
+export JAVA_HOME=$(/usr/libexec/java_home)
 
 export SPARK_HOME=/usr/local/Cellar/apache-spark/2.1.0/libexec
 

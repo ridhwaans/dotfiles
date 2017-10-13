@@ -19,12 +19,14 @@ brew upgrade --all
 apps=(
 	apache-spark
 	dockutil
+	elasticsearch
 	figlet
 	git
 	imagemagick
 	jmeter
 	koekeishiya/formulae/khd
 	koekeishiya/formulae/kwm
+	maven
 	mysql
 	npm
 	phantomjs
@@ -50,17 +52,19 @@ sudo easy_install pip
 brew tap caskroom/cask
 brew tap caskroom/versions
 
-# flux
+# TODO flux
 apps=(
 	cyberduck
 	dropbox
 	google-chrome
+	hipchat
 	iterm2-nightly
 	postico
 	postman
 	pycharm
 	rubymine
 	sequel-pro
+	skype
 	slack
 	spotify
 	sublime-text
@@ -121,6 +125,8 @@ apps=(
 	PyCharm
 	Spotify
 	Slack
+	HipChat
+	Skype
 	Cyberduck
 	'System Preferences'
 	'Sequel Pro'

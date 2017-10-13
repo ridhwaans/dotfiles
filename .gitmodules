@@ -1,0 +1,12 @@
+[submodule ".vim/bundle/Vundle.vim"]
+	path = .vim/bundle/Vundle.vim
+	url = git@github.com:VundleVim/Vundle.vim.git
+[submodule ".zsh/bundle"]
+	path = .zsh/bundle
+	url = git@github.com:zsh-users/antigen.git
+[submodule ".pyenv"]
+	path = .pyenv
+	url = git@github.com:pyenv/pyenv.git
+[submodule ".rbenv"]
+	path = .rbenv
+	url = git@github.com:rbenv/rbenv.git
