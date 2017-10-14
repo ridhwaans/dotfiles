@@ -144,45 +144,8 @@ killall Dock
 # restore $IFS
 IFS=$OLDIFS
 
-# # Get Flipp projects
-# projects=(
-# 	pushback
-# 	editorials
-# 	module-templates
-# 	fadmin
-# 	HealthCheck-2.0
-# 	flyer_availability_service
-# 	auction_house
-# 	marketing_automation
-# 	groda
-# 	editorials_automation
-# 	backflipp
-# 	biggerdata
-# 	merchants
-# 	qa_data
-# 	qa
-# 	qa_process
-# )
+# Get Flipp projects
+#sh ./setup_wishabi.sh
+# Get Canadian Tire projects
+sh ./setup_corp_ad_ctc.sh
 
-# for project in "${projects[@]}"
-# do
-# 	git clone git@github.com:wishabi/$project.git $HOME/Source/$project
-# done
-
-# # Setup ruby and python environments
-# echo "Setup ruby and python environments"
-# CC=/usr/bin/gcc rbenv install 1.9.3-p194
-# rbenv install 2.1.1
-# rbenv rehash
-# rbenv global 1.9.3-p194
-# gem install bundler
-# cd $HOME/Source/editorials
-# rbenv local 1.9.3-p194
-# rbenv gemset init
-# bundle install
-
-# pyenv install 2.7.6
-# pyenv install 3.6.0
-# pyenv rehash
-# pyenv global 2.7.6
-# pyenv virtualenv 2.7.6 hc
