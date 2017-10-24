@@ -52,10 +52,11 @@ sudo easy_install pip
 brew tap caskroom/cask
 brew tap caskroom/versions
 
-# TODO flux
 apps=(
 	cyberduck
+	discord
 	dropbox
+	flux
 	google-chrome
 	hipchat
 	iterm2-nightly
@@ -67,6 +68,7 @@ apps=(
 	skype
 	slack
 	spotify
+	steam
 	sublime-text
 )
 brew cask install "${apps[@]}"

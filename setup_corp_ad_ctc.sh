@@ -5,6 +5,7 @@ projects=(
 	adaptive-model
 	admin-api
 	admin-tools
+	ansible-atlas
 	data-lib
 	data-loader
 	data-processing
