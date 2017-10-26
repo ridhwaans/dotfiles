@@ -13,6 +13,8 @@ export JAVA_HOME=$(/usr/libexec/java_home)
 
 export SPARK_HOME=/usr/local/Cellar/apache-spark/2.1.0/libexec
 
+export GROOVY_HOME=/usr/local/opt/groovy/libexec
+
 export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/mysql/lib
 
 export PYENV_ROOT=$HOME/.pyenv

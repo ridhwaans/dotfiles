@@ -17,11 +17,13 @@ brew tap homebrew/versions
 brew upgrade --all
 
 apps=(
+	ant
 	apache-spark
 	dockutil
 	elasticsearch
 	figlet
 	git
+	groovy
 	imagemagick
 	jmeter
 	koekeishiya/formulae/khd
