@@ -21,6 +21,8 @@ export PYENV_ROOT=$HOME/.pyenv
 
 export RBENV_ROOT=$HOME/.rbenv
 
+export JENV_ROOT=$HOME/.jenv
+
 export PYTHONPATH='.'
 
 export PYTHONPATH=$PYTHONPATH:$SPARK_HOME/python/
@@ -30,6 +32,8 @@ export PYTHONPATH=$PYTHONPATH:$SPARK_HOME/python/
 export PATH=$PATH:$PYENV_ROOT/bin
 
 export PATH=$PATH:$RBENV_ROOT/bin
+
+export PATH=$PATH:$JENV_ROOT/bin
 
 export PATH=$PATH:$HOME/Source/HealthCheck-2.0/bin
 
@@ -50,6 +54,7 @@ export PATH=$PATH:/usr/local/Cellar/kwm/4.0.4
 eval "$(rbenv init -)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+eval "$(jenv init -)"
 
 # TERMINAL EMULATOR
 

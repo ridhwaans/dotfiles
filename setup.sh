@@ -23,13 +23,16 @@ apps=(
 	elasticsearch
 	figlet
 	git
+	gradle
 	groovy
 	imagemagick
+	jenkins
 	jmeter
 	koekeishiya/formulae/khd
 	koekeishiya/formulae/kwm
 	maven
 	mysql
+	node
 	npm
 	phantomjs
 	postgresql
@@ -56,6 +59,7 @@ brew tap caskroom/versions
 
 apps=(
 	cyberduck
+	docker
 	discord
 	dropbox
 	flux
@@ -95,6 +99,7 @@ cd .rbenv
 git submodule add -f git@github.com:rbenv/ruby-build.git plugins/ruby-build
 git submodule add -f git@github.com:jf/rbenv-gemset.git plugins/rbenv-gemset
 cd ..
+git submodule add -f git@github.com:gcuisinier/jenv.git .jenv
 
 # Symlink dotfiles
 git pull origin master;
