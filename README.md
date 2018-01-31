@@ -1,11 +1,14 @@
 # dotfiles
-macOS environment https://github.com/ridhwaans/dotfiles
+ https://github.com/ridhwaans/dotfiles
 
 ![screenfetch](https://github.com/ridhwaans/dotfiles/raw/master/images/screenfetch.png)
 
 ## prerequisites
+macOS
 - **GET** Xcode Command Line Tools `xcode-select --install`
 - **GET** Latest JDK `java -version`
+windowsOS
+- **GET** Windows Subsystem for Linux `https://docs.microsoft.com/en-us/windows/wsl/install-win10`
 
 ## installation
 git:
@@ -29,3 +32,5 @@ sh -c "`wget -O - --no-check-certificate https://raw.githubusercontent.com/ridhw
 - shell (`.zsh-theme`),
 - editor (`.vim`)
 - promptline (`zsh`, `vim`)
+2. add win10 terminal image
+3. fix .zshrc for win10

@@ -6,6 +6,7 @@
 
 # Submodules
 .gitmodules
+.jenv/
 .pyenv/
 .rbenv/
 .vim/
