@@ -10,3 +10,6 @@
 [submodule ".rbenv"]
 	path = .rbenv
 	url = git@github.com:rbenv/rbenv.git
+[submodule ".jenv"]
+	path = .jenv
+	url = git@github.com:gcuisinier/jenv.git

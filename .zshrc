@@ -1,5 +1,7 @@
 alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 
+alias win_subl="/mnt/c/Program\ Files/Sublime\ Text\ 3/sublime_text.exe"
+
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
@@ -8,7 +10,9 @@ export EDITOR=/usr/bin/vim
 
 export ADOTDIR=$HOME/.zsh/bundle
 
-#OLD export JAVA_HOME=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home
+export WINDOWS_HOME=/mnt/c/Users/:$LOGIN
+
+#DEPRECATED export JAVA_HOME=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home
 export JAVA_HOME=$(/usr/libexec/java_home)
 
 export SPARK_HOME=/usr/local/Cellar/apache-spark/2.1.0/libexec
