@@ -1,13 +1,14 @@
 # dotfiles
  https://github.com/ridhwaans/dotfiles
 
-![screenfetch_mac](https://github/ridhwaans/dotfiles/raw/master/images/screenfetch_mac.png)
+![screenfetch_mac](https://github.com/ridhwaans/dotfiles/raw/master/images/screenfetch_mac.png)
 ![screenfetch_windows](https://github.com/ridhwaans/dotfiles/raw/master/images/screenfetch_windows.png)
 
 ## prerequisites
 macOS
 - **GET** Xcode Command Line Tools `xcode-select --install`
 - **GET** Latest JDK `java -version`
+
 windowsOS
 - **GET** Windows Subsystem for Linux `https://docs.microsoft.com/en-us/windows/wsl/install-win10`
 
