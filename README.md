@@ -1,7 +1,8 @@
 # dotfiles
  https://github.com/ridhwaans/dotfiles
 
-![screenfetch](https://github.com/ridhwaans/dotfiles/raw/master/images/screenfetch.png)
+![screenfetch_mac](https://github/ridhwaans/dotfiles/raw/master/images/screenfetch_mac.png)
+![screenfetch_windows](https://github.com/ridhwaans/dotfiles/raw/master/images/screenfetch_windows.png)
 
 ## prerequisites
 macOS
@@ -28,9 +29,7 @@ sh -c "`wget -O - --no-check-certificate https://raw.githubusercontent.com/ridhw
 
 ## todo
 1. unify and automate setting color schemes for
-- terminal emulator (`.itermcolors`), 
-- shell (`.zsh-theme`),
-- editor (`.vim`)
-- promptline (`zsh`, `vim`)
-2. add win10 terminal image
-3. fix .zshrc for win10
+- terminal emulator (iterm, hyperterm), 
+- shell (zsh),
+- editor (vim),
+- promptline (zsh, vim)

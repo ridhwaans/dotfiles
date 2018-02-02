@@ -1,7 +1,3 @@
-alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
-
-alias win_subl="/mnt/c/Program\ Files/Sublime\ Text\ 3/sublime_text.exe"
-
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
@@ -10,7 +6,7 @@ export EDITOR=/usr/bin/vim
 
 export ADOTDIR=$HOME/.zsh/bundle
 
-export WINDOWS_HOME=/mnt/c/Users/:$LOGIN
+export WINDOWS_HOME=/mnt/c/Users/ridhwaan
 
 #DEPRECATED export JAVA_HOME=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home
 export JAVA_HOME=$(/usr/libexec/java_home)
@@ -39,11 +35,11 @@ export PATH=$PATH:$RBENV_ROOT/bin
 
 export PATH=$PATH:$JENV_ROOT/bin
 
-export PATH=$PATH:$HOME/Source/HealthCheck-2.0/bin
-
-export PATH=$PATH:/usr/local/opt/openssl/bin
+export PATH=$PATH:$HOME/bin
 
 export PATH=$PATH:$HOME/.local/bin
+
+export PATH=$PATH:/usr/local/opt/openssl/bin
 
 export PATH=$PATH:/usr/local/bin
 
@@ -55,6 +51,10 @@ export PATH=$PATH:/usr/local/Cellar/khd/2.0.0/bin
 
 export PATH=$PATH:/usr/local/Cellar/kwm/4.0.4
 
+export PATH=$PATH:/mnt/c/Program\ Files/Docker/Docker/resources/bin
+
+export PATH=$PATH:/mnt/c/Program\ Files/Sublime\ Text\ 3
+
 eval "$(rbenv init -)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
@@ -62,11 +62,14 @@ eval "$(jenv init -)"
 
 # TERMINAL EMULATOR
 
-# ITerm2 -> iterm2-nightly
-# Profiles -> Window -> Style -> no Title Bar
-# Profiles -> Terminal -> Environment -> set locale variables manually
-# Font -> Roboto Mono for Powerline
-# Color Preset -> Gotham
+#ITerm2 -> iterm2-nightly
+#Profiles -> Window -> Style -> no Title Bar
+#Profiles -> Terminal -> Environment -> set locale variables manually
+#Font -> Roboto Mono for Powerline
+#Color Preset -> Gotham
+
+#HyperTerm -> Hyper 2.0.0-canary.11 (stable)
+#Plugins -> hyperterm-gotham (0.0.1)
 
 source $HOME/.zsh/bundle/bin/antigen.zsh
 
