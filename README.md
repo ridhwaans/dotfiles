@@ -12,6 +12,7 @@ macOS
 windowsOS
 - **GET** Windows 10 Creators Update `https://support.microsoft.com/en-ca/help/4028685/windows-10-get-the-fall-creators-update`
 - **GET** Windows Subsystem for Linux `https://docs.microsoft.com/en-us/windows/wsl/install-win10`
+- **GET** ubuntuOS `Ubuntu 17.10 (Artful Aardvark)`
 
 ## installation
 git

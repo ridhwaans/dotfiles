@@ -77,12 +77,6 @@ antigen use oh-my-zsh # Load the oh-my-zsh's library.
 
 # Bundles from oh-my-zsh.
 antigen bundle git
-antigen bundle pip
-antigen bundle lein
-antigen bundle command-not-found
-antigen bundle zsh-users/zsh-syntax-highlighting 
-antigen bundle l4u/zsh-output-highlighting
-antigen bundle rimraf/k
 # Color schemes
 antigen theme agnoster
 
