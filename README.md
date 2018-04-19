@@ -1,8 +1,8 @@
 # dotfiles
  https://github.com/ridhwaans/dotfiles
 
-![screenfetch_mac](https://github.com/ridhwaans/dotfiles/raw/master/images/screenfetch_mac.png)
-![screenfetch_windows](https://github.com/ridhwaans/dotfiles/raw/master/images/screenfetch_windows.png)
+![screenfetch_mac](https://github.com/ridhwaans/dotfiles/raw/master/media/screenfetch-mac.png)
+![screenfetch_windows](https://github.com/ridhwaans/dotfiles/raw/master/media/screenfetch-windows.png)
 
 ## prerequisites
 macOS

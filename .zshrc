@@ -11,8 +11,6 @@ export WINDOWS_HOME=/mnt/c/Users/ridhwaan
 #DEPRECATED export JAVA_HOME=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home
 export JAVA_HOME=$(/usr/libexec/java_home)
 
-export SPARK_HOME=/usr/local/Cellar/apache-spark/2.1.0/libexec
-
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
 
 export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/mysql/lib
@@ -24,8 +22,6 @@ export RBENV_ROOT=$HOME/.rbenv
 export JENV_ROOT=$HOME/.jenv
 
 export PYTHONPATH='.'
-
-export PYTHONPATH=$PYTHONPATH:$SPARK_HOME/python/
 
 # PATH
 
@@ -55,6 +51,9 @@ export PATH=$PATH:/mnt/c/Program\ Files/Docker/Docker/resources/bin
 
 export PATH=$PATH:/mnt/c/Program\ Files/Sublime\ Text\ 3
 
+export PATH=$PATH:/opt/gradle/gradle-3.5.1/bin
+export PATH=$PATH:/mnt/c/Program\ Files/MySQL/MySQL\ Server\ 5.7/bin
+
 eval "$(rbenv init -)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
@@ -68,7 +67,7 @@ eval "$(jenv init -)"
 #Font -> Roboto Mono for Powerline
 #Color Preset -> Gotham
 
-#(WINDOWS) HyperTerm -> Hyper 2.0.0-canary.11 (stable)
+#(WINDOWS) HyperTerm -> Hyper 2.0.0 (stable)
 #Plugins -> hyperterm-gotham (0.0.1)
 
 source $HOME/.zsh/bundle/bin/antigen.zsh

@@ -19,9 +19,7 @@ if [ "$(uname)" == "Darwin" ]; then
 
 	apps=(
 		ant
-		apache-spark
 		dockutil
-		elasticsearch
 		figlet
 		git
 		gradle
@@ -34,7 +32,6 @@ if [ "$(uname)" == "Darwin" ]; then
 		maven
 		mysql
 		node
-		npm
 		phantomjs
 		postgresql
 		python
@@ -125,7 +122,6 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 
 	# Make sure we’re using the latest repositories
 	apt update
-    apt-get install build-essential
 
 	apps=(
 		ant
@@ -134,12 +130,13 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 		gradle
 		groovy
 		maven
-		node
+		nodejs
 		npm
 		python
 		python3
 		ruby
 		s3cmd
+        scala
 		screen
 		stow
 		tig
@@ -147,7 +144,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 		wget
 	)
 	apt install "${apps[@]}"
-    apt-get install python-pip python-dev build-essential
+    apt install python-pip python-dev build-essential
 fi
 
 cd "$(dirname "${BASH_SOURCE}")";
