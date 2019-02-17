@@ -23,6 +23,7 @@ if [ "$(uname)" == "Darwin" ]; then
 		figlet
 		git
 		gradle
+        graphviz
 		groovy
 		imagemagick
 		jenkins
@@ -134,6 +135,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 		npm
 		python
 		python3
+        graphviz
 		ruby
 		s3cmd
         scala
