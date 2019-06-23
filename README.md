@@ -14,7 +14,7 @@ windowsOS
 - **GET** Windows Subsystem for Linux `https://docs.microsoft.com/en-us/windows/wsl/install-win10`
 - **GET** `Ubuntu 18.04 (Bionic Beaver)` from the Microsoft Store
 
-[Adding a new SSH key to your GitHub account](https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account)
+[Adding a new SSH key to your GitHub account](https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account)  
 [Managing multiple Linux Distributions](https://docs.microsoft.com/en-us/windows/wsl/wsl-config#managing-multiple-linux-distributions)
 
 ## installation
@@ -39,4 +39,4 @@ bash -c "`wget -O - --no-check-certificate https://raw.githubusercontent.com/rid
     - shell (zsh),
     - editor (vim, sublimetext),
     - promptline (zsh, vim)
-2. sublimetext config
+2. sublimetext config, .ssh/config, WSL2

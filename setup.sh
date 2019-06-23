@@ -25,6 +25,7 @@ if [ "$(uname)" == "Darwin" ]; then
 		gradle
 		graphviz
 		groovy
+        heroku
 		imagemagick
 		jenkins
 		jmeter
@@ -41,6 +42,7 @@ if [ "$(uname)" == "Darwin" ]; then
 		s3cmd
 		scala
 		screen
+        screenfetch
 		sphinx
 		stow
 		tig
@@ -149,6 +151,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 	)
 	apt install "${apps[@]}"
 	apt install python-pip python-dev build-essential
+    curl https://cli-assets.heroku.com/install.sh | sh
 fi
 
 # Go to the base directory
