@@ -140,17 +140,19 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 		s3cmd
         scala
 		screen
+        screenfetch
 		stow
 		tig
 		tree
 		wget
+        zsh
 	)
 	apt install "${apps[@]}"
     apt install python-pip python-dev build-essential
 fi
 
+# Go to the base directory
 cd "$(dirname "${BASH_SOURCE}")";
-echo -n 'current location: ' && pwd
 git init
 git remote add origin git@github.com:ridhwaans/dotfiles.git
 
@@ -175,8 +177,13 @@ for file in $(ls -A); do
 if [ "$file" != ".git" ] && \
    [ "$file" != "setup.sh" ] && \
    [ "$file" != "remote-setup.sh" ] && \
+   [ "$file" != "setup-corp-ad-ctc.sh" ] && \
+   [ "$file" != "setup-wishabi.sh" ] && \
    [ "$file" != "README.md" ] && \
-   [ "$file" != "images" ]; then
+   [ "$file" != "media" ]; then
     ln -sf $PWD/$file $HOME/
 fi
 done
+
+# Add `bash -c zsh` to the top of ~/.bashrc
+# Run :PluginInstall in Vim
