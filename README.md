@@ -13,10 +13,11 @@ windowsOS
 - **GET** Windows 10 Creators Update `https://support.microsoft.com/en-ca/help/4028685/windows-10-get-the-fall-creators-update`
 - **GET** Windows Subsystem for Linux `https://docs.microsoft.com/en-us/windows/wsl/install-win10`
 - **GET** `Ubuntu 18.04 (Bionic Beaver)` from the Microsoft Store
-- To remove legacy linux distributions, see `https://docs.microsoft.com/en-us/windows/wsl/wsl-config#managing-multiple-linux-distributions`
+
+[Adding a new SSH key to your GitHub account](https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account)
+[Managing multiple Linux Distributions](https://docs.microsoft.com/en-us/windows/wsl/wsl-config#managing-multiple-linux-distributions)
 
 ## installation
-[Adding a new SSH key to your GitHub account](https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account)
 git
 ```sh
 git clone git@github.com:ridhwaans/dotfiles.git ~/dotfiles
@@ -33,8 +34,9 @@ bash -c "`wget -O - --no-check-certificate https://raw.githubusercontent.com/rid
 ```
 
 ## todo
-1. unify and automate setting color schemes for
+1. color schemes for
     - terminal emulator (iterm, hyperterm), 
     - shell (zsh),
-    - editor (vim),
+    - editor (vim, sublimetext),
     - promptline (zsh, vim)
+2. sublimetext config

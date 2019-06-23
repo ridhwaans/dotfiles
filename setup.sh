@@ -23,7 +23,7 @@ if [ "$(uname)" == "Darwin" ]; then
 		figlet
 		git
 		gradle
-        graphviz
+		graphviz
 		groovy
 		imagemagick
 		jenkins
@@ -135,20 +135,20 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 		npm
 		python
 		python3
-        graphviz
+		graphviz
 		ruby
 		s3cmd
-        scala
+		scala
 		screen
-        screenfetch
+		screenfetch
 		stow
 		tig
 		tree
 		wget
-        zsh
+		zsh
 	)
 	apt install "${apps[@]}"
-    apt install python-pip python-dev build-essential
+	apt install python-pip python-dev build-essential
 fi
 
 # Go to the base directory
@@ -181,7 +181,7 @@ if [ "$file" != ".git" ] && \
    [ "$file" != "setup-wishabi.sh" ] && \
    [ "$file" != "README.md" ] && \
    [ "$file" != "media" ]; then
-    ln -sf $PWD/$file $HOME/
+	ln -sf $PWD/$file $HOME/
 fi
 done
 

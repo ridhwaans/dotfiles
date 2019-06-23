@@ -61,13 +61,14 @@ eval "$(jenv init -)"
 
 # TERMINAL EMULATOR
 
-#(MAC) ITerm2 -> iterm2-nightly
+#(MAC) ITerm2 -> iTerm2 3.2.9
 #Profiles -> Window -> Style -> no Title Bar
 #Profiles -> Terminal -> Environment -> set locale variables manually
 #Font -> Roboto Mono for Powerline
 #Color Preset -> Gotham
 
-#(WINDOWS) HyperTerm -> Hyper 2.0.0 (stable)
+#(WINDOWS) HyperTerm -> Hyper 3.0.2 (stable)
+#Font -> Roboto Mono for Powerline
 #Plugins -> hyperterm-gotham (0.0.1)
 
 source $HOME/.zsh/bundle/bin/antigen.zsh
