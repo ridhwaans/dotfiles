@@ -150,7 +150,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 fi
 
 cd "$(dirname "${BASH_SOURCE}")";
-
+echo -n 'current location: ' && pwd
 git init
 git remote add origin git@github.com:ridhwaans/dotfiles.git
 
