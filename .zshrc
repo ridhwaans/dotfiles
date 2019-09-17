@@ -52,6 +52,7 @@ export PATH=$PATH:/mnt/c/Program\ Files/Docker/Docker/resources/bin
 export PATH=$PATH:/mnt/c/Program\ Files/Sublime\ Text\ 3
 
 export PATH=$PATH:/opt/gradle/gradle-3.5.1/bin
+
 export PATH=$PATH:/mnt/c/Program\ Files/MySQL/MySQL\ Server\ 5.7/bin
 
 eval "$(rbenv init -)"
@@ -64,8 +65,8 @@ eval "$(jenv init -)"
 #(MAC) ITerm2 -> iTerm2 3.2.9
 #Profiles -> Window -> Style -> no Title Bar
 #Profiles -> Terminal -> Environment -> set locale variables manually
-#Font -> Roboto Mono for Powerline
-#Color Preset -> Gotham
+#Profiles -> Text -> Font -> Roboto Mono for Powerline
+#Profiles -> Colors -> Color Preset -> Gotham
 
 #(WINDOWS) HyperTerm -> Hyper 3.0.2 (stable)
 #Font -> Roboto Mono for Powerline

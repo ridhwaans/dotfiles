@@ -25,7 +25,7 @@ if [ "$(uname)" == "Darwin" ]; then
 		gradle
 		graphviz
 		groovy
-        heroku
+		heroku
 		imagemagick
 		jenkins
 		jmeter
@@ -42,7 +42,7 @@ if [ "$(uname)" == "Darwin" ]; then
 		s3cmd
 		scala
 		screen
-        screenfetch
+		screenfetch
 		sphinx
 		stow
 		tig
@@ -100,7 +100,6 @@ if [ "$(uname)" == "Darwin" ]; then
 		PyCharm
 		Spotify
 		Slack
-		HipChat
 		Skype
 		Cyberduck
 		'System Preferences'
@@ -151,7 +150,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 	)
 	apt install "${apps[@]}"
 	apt install python-pip python-dev build-essential
-    curl https://cli-assets.heroku.com/install.sh | sh
+	curl https://cli-assets.heroku.com/install.sh | sh
 fi
 
 # Go to the base directory
@@ -188,5 +187,6 @@ if [ "$file" != ".git" ] && \
 fi
 done
 
-# Add `bash -c zsh` to the top of ~/.bashrc
+# Add `bash -c zsh` to the top of ~/.profile
 # Run :PluginInstall in Vim
+# Show battery percentage, bluetooth, sound in menu bar
