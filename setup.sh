@@ -15,36 +15,27 @@ if [ "$(uname)" == "Darwin" ]; then
 	brew update
 	# Upgrade any already-installed formulae
 	brew tap homebrew/versions
+	brew tap heroku/brew
 	brew upgrade --all
 
 	apps=(
-		ant
 		dockutil
 		figlet
 		git
-		gradle
 		graphviz
-		groovy
 		heroku
 		imagemagick
 		jenkins
 		jmeter
 		koekeishiya/formulae/khd
 		koekeishiya/formulae/kwm
-		maven
 		mysql
 		node
 		phantomjs
 		postgresql
-		python
-		python3
-		ruby
-		s3cmd
-		scala
 		screen
 		screenfetch
 		sphinx
-		stow
 		tig
 		tree
 		v8-315
@@ -83,8 +74,13 @@ if [ "$(uname)" == "Darwin" ]; then
 	# Remove outdated versions from the cellar
 	brew cleanup
 
-	# Set screencapture location
+	# Set defaults
 	defaults write com.apple.screencapture location -string "$HOME/Pictures/Screenshots"
+	defaults write com.apple.systemuiserver menuExtras -array 
+	"/System/Library/CoreServices/Menu Extras/Bluetooth.menu"
+	"/System/Library/CoreServices/Menu Extras/Clock.menu" 
+	"/System/Library/CoreServices/Menu Extras/Displays.menu"
+	"/System/Library/CoreServices/Menu Extras/Volume.menu"
 	killall SystemUIServer
 
 	# Set Dock items
@@ -126,32 +122,25 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 	apt update
 
 	apps=(
-		ant
 		figlet
 		git
-		gradle
-		groovy
-		maven
 		nodejs
-		npm
-		python
-		python3
 		graphviz
-		ruby
-		s3cmd
-		scala
 		screen
 		screenfetch
-		stow
 		tig
 		tree
 		wget
 		zsh
 	)
 	apt install "${apps[@]}"
-	apt install python-pip python-dev build-essential
 	curl https://cli-assets.heroku.com/install.sh | sh
 fi
+
+# Install AWS CLI
+curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+unzip awscli-bundle.zip
+sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
 
 # Go to the base directory
 cd "$(dirname "${BASH_SOURCE}")";
@@ -176,17 +165,15 @@ git submodule add -f git@github.com:gcuisinier/jenv.git .jenv
 git pull origin master;
 
 for file in $(ls -A); do
-if [ "$file" != ".git" ] && \
-   [ "$file" != "setup.sh" ] && \
-   [ "$file" != "remote-setup.sh" ] && \
-   [ "$file" != "setup-corp-ad-ctc.sh" ] && \
-   [ "$file" != "setup-wishabi.sh" ] && \
-   [ "$file" != "README.md" ] && \
-   [ "$file" != "media" ]; then
+if ! [[ "$file" =~ ^(.git|media|setup.sh|remote-setup.sh|setup-corp-ad-ctc.sh|setup-wishabi.sh|README.md)$ ]]; then 
 	ln -sf $PWD/$file $HOME/
 fi
 done
 
-# Add `bash -c zsh` to the top of ~/.profile
-# Run :PluginInstall in Vim
-# Show battery percentage, bluetooth, sound in menu bar
+: '
+NOTES:
+Add `bash -c zsh` to the top of ~/.profile
+Add zsh to Full Disk Access in Security & Privacy (cmd+shift+G in Finder)
+Run :PluginInstall in Vim
+Install Node, PIP, Maven, Gradle separately under virtual-env (npm is installed with node)
+'

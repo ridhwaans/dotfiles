@@ -1,12 +1,12 @@
 [user]
-	name = Rid
+    name = Rid Shakeel
     email = shakeel.ridhwaan@gmail.com
 [push]
-	default = simple
+    default = simple
 [alias]
-    co = checkout
     ec = config --global -e
     up = !git pull --rebase --prune $@ && git submodule update --init --recursive
+    co = checkout
     cob = checkout -b
     cm = !git add -A && git commit -m
     save = !git add -A && git commit -m 'SAVEPOINT'
