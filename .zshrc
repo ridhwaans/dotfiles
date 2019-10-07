@@ -62,7 +62,7 @@ eval "$(jenv init -)"
 
 # TERMINAL EMULATOR
 
-#(MAC) ITerm2 -> iTerm2 3.2.9
+#(MAC) ITerm2 -> iTerm2 3.3.2-nightly
 #Profiles -> Window -> Style -> no Title Bar
 #Profiles -> Terminal -> Environment -> set locale variables manually
 #Profiles -> Text -> Font -> Roboto Mono for Powerline

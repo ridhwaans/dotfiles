@@ -6,7 +6,7 @@
 
 ## prerequisites
 macOS
-- **GET** Mojave Update `https://www.apple.com/ca/macos/how-to-upgrade/`
+- **GET** Catalina Update `https://www.apple.com/macos/how-to-upgrade/`
 - **GET** Xcode Command Line Tools `xcode-select --install`
 
 windowsOS

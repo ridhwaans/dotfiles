@@ -19,6 +19,7 @@ if [ "$(uname)" == "Darwin" ]; then
 	brew upgrade --all
 
 	apps=(
+		awscli
 		dockutil
 		figlet
 		git
@@ -35,7 +36,6 @@ if [ "$(uname)" == "Darwin" ]; then
 		postgresql
 		screen
 		screenfetch
-		sphinx
 		tig
 		tree
 		v8-315
@@ -122,10 +122,13 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 	apt update
 
 	apps=(
+		awscli
 		figlet
 		git
-		nodejs
 		graphviz
+		mysql-server
+		nodejs
+		postgresql postgresql-contrib
 		screen
 		screenfetch
 		tig
@@ -136,11 +139,6 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 	apt install "${apps[@]}"
 	curl https://cli-assets.heroku.com/install.sh | sh
 fi
-
-# Install AWS CLI
-curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-unzip awscli-bundle.zip
-sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
 
 # Go to the base directory
 cd "$(dirname "${BASH_SOURCE}")";
@@ -170,10 +168,7 @@ if ! [[ "$file" =~ ^(.git|media|setup.sh|remote-setup.sh|setup-corp-ad-ctc.sh|se
 fi
 done
 
-: '
-NOTES:
-Add `bash -c zsh` to the top of ~/.profile
-Add zsh to Full Disk Access in Security & Privacy (cmd+shift+G in Finder)
-Run :PluginInstall in Vim
-Install Node, PIP, Maven, Gradle separately under virtual-env (npm is installed with node)
-'
+# Add `bash -c zsh` to the top of ~/.profile
+# Add zsh to Full Disk Access in Security & Privacy (cmd+shift+G in Finder)
+# Run :PluginInstall in Vim
+# Install Node, PIP, Maven, Gradle separately under virtual-env (npm is installed with node)
