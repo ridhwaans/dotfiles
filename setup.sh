@@ -168,7 +168,8 @@ if ! [[ "$file" =~ ^(.git|media|setup.sh|remote-setup.sh|setup-corp-ad-ctc.sh|se
 fi
 done
 
+# In Ubuntu, `sudo apt-get install zsh` to install zsh
 # Add `bash -c zsh` to the top of ~/.profile
 # Add zsh to Full Disk Access in Security & Privacy (cmd+shift+G in Finder)
 # Run :PluginInstall in Vim
-# Install Node, PIP, Maven, Gradle separately under virtual-env (npm is installed with node)
+# Install language package managers separately under virtual-env

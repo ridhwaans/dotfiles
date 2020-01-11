@@ -10,9 +10,11 @@ macOS
 - **GET** Xcode Command Line Tools `xcode-select --install`
 
 windowsOS
-- **GET** Windows 10 Creators Update `https://support.microsoft.com/en-ca/help/4028685/windows-10-get-the-fall-creators-update`
 - **GET** Windows Subsystem for Linux `https://docs.microsoft.com/en-us/windows/wsl/install-win10`
 - **GET** `Ubuntu 18.04 (Bionic Beaver)` from the Microsoft Store
+- Add symlinks in WSL
+   * `ln -s /mnt/c/Users/<USERNAME>/dotfiles ~`
+   * `ln -s /mnt/c/Users/<USERNAME>/Source ~`
 
 [Adding a new SSH key to your GitHub account](https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account)  
 [Managing multiple Linux Distributions](https://docs.microsoft.com/en-us/windows/wsl/wsl-config#managing-multiple-linux-distributions)
