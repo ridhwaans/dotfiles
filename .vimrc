@@ -8,6 +8,8 @@ set incsearch       " search as characters are entered
 set hlsearch        " highlight matches
 set lazyredraw      " redraw only when we need to.
 set showmatch       " highlight matching [{()}]
+set modelines=0     " disable modeline as a security precaution
+set nomodeline
 
 " turn off search highlight
 nnoremap <leader><space> :nohlsearch<CR>
