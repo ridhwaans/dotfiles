@@ -8,6 +8,8 @@ set incsearch       " search as characters are entered
 set hlsearch        " highlight matches
 set lazyredraw      " redraw only when we need to.
 set showmatch       " highlight matching [{()}]
+set number          " show line numbers
+set laststatus=2    " display status line
 
 " turn off search highlight
 nnoremap <leader><space> :nohlsearch<CR>
@@ -32,12 +34,10 @@ Plugin 'whatyouhide/vim-gotham'
 Plugin 'dracula/vim'
 Plugin 'tyrannicaltoucan/vim-deep-space' 
 Plugin 'vim-scripts/ChocolateLiquor'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'cocopon/iceberg.vim'
 call vundle#end()    
 filetype plugin indent on "load filetype-specific files
-
-set number
-set laststatus=2
 
 map <F1> :set nonumber!<CR>
 map <F2> :AirlineToggle<CR>
@@ -62,4 +62,4 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 
 colorscheme gotham
-let g:airline_theme='term'
+let g:airline_theme='gotham'

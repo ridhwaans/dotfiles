@@ -23,7 +23,7 @@ export JENV_ROOT=$HOME/.jenv
 
 export PYTHONPATH='.'
 
-# PATH
+#PATH
 
 export PATH=$PATH:$PYENV_ROOT/bin
 
@@ -60,17 +60,17 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 eval "$(jenv init -)"
 
-# TERMINAL EMULATOR
+#TERMINAL EMULATOR
 
-#(MAC) ITerm2 -> iTerm2 3.3.2-nightly
-#Profiles -> Window -> Style -> no Title Bar
-#Profiles -> Terminal -> Environment -> set locale variables manually
-#Profiles -> Text -> Font -> Roboto Mono for Powerline
-#Profiles -> Colors -> Color Preset -> Gotham
+#iTerm2 > iTerm2 3.3.2-nightly
+#Profiles > Window > Style > no Title Bar
+#Profiles > Terminal > Environment > set locale variables manually
+#Profiles > Text > Font > Roboto Mono for Powerline
+#Profiles > Colors > Color Preset > Gotham
 
-#(WINDOWS) HyperTerm -> Hyper 3.0.2 (stable)
-#Font -> Roboto Mono for Powerline
-#Plugins -> hyperterm-gotham (0.0.1)
+#Hyper > Hyper 3.0.2 (stable)
+#Font > Roboto Mono for Powerline
+#Plugins > hyperterm-gotham (0.0.1)
 
 source $HOME/.zsh/bundle/bin/antigen.zsh
 

@@ -35,7 +35,7 @@ bash -c "`wget -O - --no-check-certificate https://raw.githubusercontent.com/rid
 
 ## todo
 1. color schemes for
-    - terminal emulator (iterm, hyperterm), 
+    - terminal emulator (iterm, hyper),
     - shell (zsh),
     - editor (vim, sublimetext),
     - promptline (zsh, vim)
