@@ -21,19 +21,16 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Raimondi/delimitMate'
 "colorschemes
-Plugin 'flazz/vim-colorschemes'
 Plugin 'sjl/badwolf'
 Plugin 'morhetz/gruvbox'
 Plugin 'whatyouhide/vim-gotham'
 Plugin 'dracula/vim'
 Plugin 'tyrannicaltoucan/vim-deep-space' 
-Plugin 'vim-scripts/ChocolateLiquor'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'cocopon/iceberg.vim'
 call vundle#end()    

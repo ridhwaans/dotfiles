@@ -163,13 +163,12 @@ git submodule add -f git@github.com:gcuisinier/jenv.git .jenv
 git pull origin master;
 
 for file in $(ls -A); do
-if ! [[ "$file" =~ ^(.git|media|setup.sh|remote-setup.sh|setup-corp-ad-ctc.sh|setup-wishabi.sh|README.md)$ ]]; then 
+if ! [[ "$file" =~ ^(.git|media|README.md|setup.sh|remote-setup.sh|setup-corp-ad-ctc.sh|setup-wishabi.sh)$ ]]; then 
 	ln -sf $PWD/$file $HOME/
 fi
 done
 
 # In Ubuntu, `sudo apt-get install zsh` to install zsh
-# Add `bash -c zsh` to the top of ~/.profile
-# Add zsh to Full Disk Access in Security & Privacy (cmd+shift+G in Finder)
+# In Mac, add zsh to Full Disk Access in Security & Privacy (cmd+shift+G in Finder)
 # Run :PluginInstall in Vim
 # Install language package managers separately under virtual-env

@@ -10,9 +10,9 @@ macOS
 - **GET** Xcode Command Line Tools `xcode-select --install`
 
 windowsOS
-- **GET** Windows Subsystem for Linux `https://docs.microsoft.com/en-us/windows/wsl/install-win10`
-- **GET** `Ubuntu 18.04 (Bionic Beaver)` from the Microsoft Store
-- Add symlinks in WSL
+- **GET** Windows Subsystem for Linux `https://docs.microsoft.com/en-us/windows/wsl/install-win10#update-to-wsl-2`
+- **GET** `Ubuntu 20.04 (Focal Fossa)` from the Microsoft Store
+- Add symlinks in WSL 2
    * `ln -s /mnt/c/Users/<USERNAME>/dotfiles ~`
    * `ln -s /mnt/c/Users/<USERNAME>/Source ~`
 
@@ -41,4 +41,4 @@ bash -c "`wget -O - --no-check-certificate https://raw.githubusercontent.com/rid
     - shell (zsh),
     - editor (vim, sublimetext),
     - promptline (zsh, vim)
-2. sublimetext config, .ssh/config, WSL2
+2. notion, datagrip, vscode
