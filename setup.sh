@@ -39,7 +39,6 @@ if [ "$(uname)" == "Darwin" ]; then
 		tig
 		tree
 		v8-315
-		vegeta
 		wget
 	)
 	brew install "${apps[@]}"
@@ -171,4 +170,4 @@ done
 # In Ubuntu, `sudo apt-get install zsh` to install zsh
 # In Mac, add zsh to Full Disk Access in Security & Privacy (cmd+shift+G in Finder)
 # Run :PluginInstall in Vim
-# Install language package managers separately under virtual-env
+# Install language versions & package managers separately under virtual-env

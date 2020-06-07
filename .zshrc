@@ -6,7 +6,7 @@ export EDITOR=/usr/bin/vim
 
 export ADOTDIR=$HOME/.zsh/bundle
 
-export WINDOWS_HOME=/mnt/c/Users/ridhwaan
+export WINDOWS_HOME=/mnt/c/Users/ridhwaans
 
 #DEPRECATED export JAVA_HOME=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home
 export JAVA_HOME=$(/usr/libexec/java_home)
@@ -70,15 +70,11 @@ eval "$(jenv init -)"
 
 #Hyper > Hyper 3.0.2 (stable)
 #Font > Roboto Mono for Powerline
+#Shell > `C:\\Windows\\System32\\wsl.exe`
 #Plugins > hyperterm-gotham (0.0.1)
 
 source $HOME/.zsh/bundle/bin/antigen.zsh
 
 antigen use oh-my-zsh # Load the oh-my-zsh's library.
-
-# Bundles from oh-my-zsh.
-antigen bundle git
-# Color schemes
-antigen theme agnoster
-
+antigen theme agnoster # Load the theme.
 antigen apply # Tell antigen that you're done.
