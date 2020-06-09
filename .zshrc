@@ -41,37 +41,20 @@ export PATH=$PATH:/usr/local/bin
 
 export PATH=$PATH:/usr/local/mysql/bin
 
-export PATH=$PATH:/Library/Python/2.7/bin
-
 export PATH=$PATH:/usr/local/Cellar/khd/2.0.0/bin
 
 export PATH=$PATH:/usr/local/Cellar/kwm/4.0.4
 
+export PATH=$PATH:/Library/Python/2.7/bin
+
 export PATH=$PATH:/mnt/c/Program\ Files/Docker/Docker/resources/bin
 
-export PATH=$PATH:/mnt/c/Program\ Files/Sublime\ Text\ 3
-
 export PATH=$PATH:/opt/gradle/gradle-3.5.1/bin
-
-export PATH=$PATH:/mnt/c/Program\ Files/MySQL/MySQL\ Server\ 5.7/bin
 
 eval "$(rbenv init -)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 eval "$(jenv init -)"
-
-#TERMINAL EMULATOR
-
-#iTerm2 > iTerm2 3.3.2-nightly
-#Profiles > Window > Style > no Title Bar
-#Profiles > Terminal > Environment > set locale variables manually
-#Profiles > Text > Font > Roboto Mono for Powerline
-#Profiles > Colors > Color Preset > Gotham
-
-#Hyper > Hyper 3.0.2 (stable)
-#Font > Roboto Mono for Powerline
-#Shell > `C:\\Windows\\System32\\wsl.exe`
-#Plugins > hyperterm-gotham (0.0.1)
 
 source $HOME/.zsh/bundle/bin/antigen.zsh
 

@@ -45,9 +45,4 @@ not a Windows directory,
 - pin `~/dotfiles`, `~/Source` to Favorites  
 
 ## todo
-1. color schemes for
-    - terminal emulator (iterm, hyper),
-    - shell (zsh),
-    - editor (vim, sublimetext),
-    - promptline (zsh, vim)
-2. notion, datagrip, vscode
+

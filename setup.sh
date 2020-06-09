@@ -50,6 +50,7 @@ if [ "$(uname)" == "Darwin" ]; then
 
 	apps=(
 		cyberduck
+		datagrip
 		docker
 		discord
 		dropbox
@@ -57,16 +58,12 @@ if [ "$(uname)" == "Darwin" ]; then
 		google-chrome
 		hipchat
 		iterm2-nightly
-		postico
 		postman
-		pycharm
-		rubymine
-		sequel-pro
 		skype
 		slack
 		spotify
 		steam
-		sublime-text
+		visual-studio-code
 	)
 	brew cask install "${apps[@]}"
 
@@ -88,18 +85,15 @@ if [ "$(uname)" == "Darwin" ]; then
 
 	apps=(
 		'Google Chrome'
-		'Sublime Text'
+		'Visual Studio Code'
 		iTerm
 		Postman
-		RubyMine
-		PyCharm
 		Spotify
 		Slack
 		Skype
 		Cyberduck
 		'System Preferences'
-		'Sequel Pro'
-		Postico
+		DataGrip
 	)
 
 	dockutil --no-restart --remove all $HOME
@@ -168,6 +162,6 @@ fi
 done
 
 # In Ubuntu, `sudo apt-get install zsh` to install zsh
-# In Mac, add zsh to Full Disk Access in Security & Privacy (cmd+shift+G in Finder)
-# Run :PluginInstall in Vim
+# In Mac, add `zsh` to Full Disk Access in Security & Privacy (cmd+shift+G in Finder)
+# Run `:PluginInstall` in Vim
 # Install language versions & package managers separately under virtual-env
