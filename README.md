@@ -13,8 +13,8 @@ windowsOS
 - **GET** Windows Subsystem for Linux `https://docs.microsoft.com/en-us/windows/wsl/install-win10#update-to-wsl-2`
 - **GET** `Ubuntu 20.04 LTS (Focal Fossa)` from the Microsoft Store
 
-[Adding a new SSH key to your GitHub account](https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account)  
-[Managing multiple Linux Distributions](https://docs.microsoft.com/en-us/windows/wsl/wsl-config#managing-multiple-linux-distributions)
+[Managing multiple Linux Distributions](https://docs.microsoft.com/en-us/windows/wsl/wsl-config#managing-multiple-linux-distributions)   
+[Adding a new SSH key to your GitHub account](https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account)   
 
 ## installation
 git
