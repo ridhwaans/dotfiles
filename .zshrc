@@ -6,7 +6,7 @@ export EDITOR=/usr/bin/vim
 
 export ADOTDIR=$HOME/.zsh/bundle
 
-export WINDOWS_HOME=/mnt/c/Users/ridhwaans
+export WINDOWS_HOME=/mnt/c/Users/shake
 
 #DEPRECATED export JAVA_HOME=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home
 export JAVA_HOME=$(/usr/libexec/java_home)
