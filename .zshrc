@@ -2,6 +2,10 @@ alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall 
 
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 
+alias cdw='cd $WINDOWS_HOME'
+
+alias cds='cd $HOME/Source'
+
 export EDITOR=/usr/bin/vim
 
 export ADOTDIR=$HOME/.zsh/bundle
