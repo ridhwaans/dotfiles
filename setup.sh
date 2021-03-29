@@ -28,11 +28,8 @@ if [ "$(uname)" == "Darwin" ]; then
 		imagemagick
 		jenkins
 		jmeter
-		koekeishiya/formulae/khd
-		koekeishiya/formulae/kwm
 		mysql
 		node
-		phantomjs
 		postgresql
 		screen
 		screenfetch
@@ -150,7 +147,7 @@ cd .rbenv
 git submodule add -f git@github.com:rbenv/ruby-build.git plugins/ruby-build
 git submodule add -f git@github.com:jf/rbenv-gemset.git plugins/rbenv-gemset
 cd ..
-git submodule add -f git@github.com:gcuisinier/jenv.git .jenv
+git submodule add -f git@github.com:jenv/jenv.git .jenv
 
 # Symlink dotfiles
 git pull origin master;
@@ -164,4 +161,4 @@ done
 # In Ubuntu, `sudo apt-get install zsh` to install zsh
 # In Mac, add `zsh` to Full Disk Access in Security & Privacy (cmd+shift+G in Finder)
 # Run `:PluginInstall` in Vim
-# Install language versions & package managers separately under virtual-env
+# Install language versions & package managers separately under version managers
