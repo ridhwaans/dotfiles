@@ -46,15 +46,17 @@ if [ "$(uname)" == "Darwin" ]; then
 	brew tap caskroom/versions
 
 	apps=(
+		beekeeper-studio
 		cyberduck
 		datagrip
 		docker
 		discord
 		dropbox
+		figma
 		flux
 		google-chrome
-		hipchat
 		iterm2-nightly
+		mounty
 		postman
 		skype
 		slack
@@ -62,7 +64,7 @@ if [ "$(uname)" == "Darwin" ]; then
 		steam
 		visual-studio-code
 	)
-	brew cask install "${apps[@]}"
+	brew install --cask "${apps[@]}"
 
 	# Remove outdated versions from the cellar
 	brew cleanup
