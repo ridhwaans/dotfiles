@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
 if [ "$(uname)" == "Darwin" ]; then
-	# Ask for the administrator password upfront
-	sudo -v
+	# Write permissions for Homebrew 
+	sudo chown -R $(whoami) /usr/local/include /usr/local/lib /usr/local/lib/pkgconfig
+	chmod u+w /usr/local/include /usr/local/lib /usr/local/lib/pkgconfig
 
 	# Check for Homebrew and install it if missing
 	if test ! $(which brew)
@@ -23,6 +24,7 @@ if [ "$(uname)" == "Darwin" ]; then
 		dockutil
 		figlet
 		git
+		go
 		graphviz
 		heroku
 		imagemagick
@@ -106,20 +108,20 @@ if [ "$(uname)" == "Darwin" ]; then
 	# restore $IFS
 	IFS=$OLDIFS
 
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-	# Ask for the administrator password upfront
-	sudo -v
-
+elif [ "$(uname)" == "Linux" ]; then
 	# Make sure we’re using the latest repositories
 	apt update
+	# Upgrade any already-installed packages
+	apt upgrade
 
 	apps=(
 		awscli
 		figlet
 		git
+		golang-go
 		graphviz
 		mysql-server
-		nodejs
+		nodejs npm
 		postgresql postgresql-contrib
 		screen
 		screenfetch
@@ -130,6 +132,9 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 	)
 	apt install "${apps[@]}"
 	curl https://cli-assets.heroku.com/install.sh | sh
+
+	# Remove no longer required packages
+	sudo apt autoremove
 fi
 
 # Go to the base directory
