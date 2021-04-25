@@ -12,8 +12,9 @@ export ADOTDIR=$HOME/.zsh/bundle
 
 export WINDOWS_HOME=/mnt/c/Users/shake
 
-#DEPRECATED export JAVA_HOME=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home
 export JAVA_HOME=$(/usr/libexec/java_home)
+
+export JAVA_HOME=/usr/lib/jvm/java-16-oracle
 
 export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/mysql/lib
 
@@ -26,6 +27,8 @@ export JENV_ROOT=$HOME/.jenv
 export PYTHONPATH='.'
 
 #PATH
+
+export PATH=$PATH:$JAVA_HOME/bin
 
 export PATH=$PATH:$PYENV_ROOT/bin
 

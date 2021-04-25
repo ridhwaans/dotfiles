@@ -11,7 +11,8 @@ macOS
 
 windowsOS
 - **GET** Windows Subsystem for Linux `https://docs.microsoft.com/en-us/windows/wsl/install-win10#update-to-wsl-2`
-- **GET** `Ubuntu 20.04 LTS (Focal Fossa)` from the Microsoft Store or upgrade to the interim release
+- **GET** `Ubuntu 20.04 LTS (Focal Fossa)` from the Microsoft Store
+    - upgrade to the interim release
 
 [Managing multiple Linux Distributions](https://docs.microsoft.com/en-us/windows/wsl/wsl-config#managing-multiple-linux-distributions)   
 [Adding a new SSH key to your GitHub account](https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account)   

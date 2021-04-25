@@ -14,6 +14,7 @@ if [ "$(uname)" == "Darwin" ]; then
 
 	# Make sure we’re using the latest Homebrew
 	brew update
+
 	# Upgrade any already-installed formulae
 	brew tap homebrew/versions
 	brew tap heroku/brew
@@ -28,6 +29,7 @@ if [ "$(uname)" == "Darwin" ]; then
 		graphviz
 		heroku
 		imagemagick
+		java
 		jenkins
 		jmeter
 		mysql
@@ -109,8 +111,12 @@ if [ "$(uname)" == "Darwin" ]; then
 	IFS=$OLDIFS
 
 elif [ "$(uname)" == "Linux" ]; then
+	# JDK
+	sudo add-apt-repository ppa:linuxuprising/java
+
 	# Make sure we’re using the latest repositories
 	apt update
+
 	# Upgrade any already-installed packages
 	apt upgrade
 
@@ -122,6 +128,7 @@ elif [ "$(uname)" == "Linux" ]; then
 		graphviz
 		mysql-server
 		nodejs npm
+		oracle-java16-installer
 		postgresql postgresql-contrib
 		screen
 		screenfetch
@@ -165,7 +172,7 @@ if ! [[ "$file" =~ ^(.git|media|README.md|setup.sh|remote-setup.sh|setup-corp-ad
 fi
 done
 
-# In Ubuntu, `sudo apt-get install zsh` to install zsh
+# Run `chsh -s $(which zsh)` to set ZSH as the default shell
 # In Mac, add `zsh` to Full Disk Access in Security & Privacy (cmd+shift+G in Finder)
 # Run `:PluginInstall` in Vim
 # Install language versions & package managers separately under version managers
