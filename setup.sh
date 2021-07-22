@@ -33,7 +33,6 @@ if [ "$(uname)" == "Darwin" ]; then
 		jenkins
 		jmeter
 		mysql
-		node
 		postgresql
 		screen
 		screenfetch
@@ -127,7 +126,6 @@ elif [ "$(uname)" == "Linux" ]; then
 		golang-go
 		graphviz
 		mysql-server
-		nodejs npm
 		oracle-java16-installer
 		postgresql postgresql-contrib
 		screen
@@ -152,6 +150,8 @@ git remote add origin git@github.com:ridhwaans/dotfiles.git
 # Install submodules
 git submodule add -f git@github.com:VundleVim/Vundle.vim.git .vim/bundle/Vundle.vim
 git submodule add -f git@github.com:zsh-users/antigen.git .zsh/bundle
+git submodule add -f git@github.com:nvm-sh/nvm.git .nvm
+git submodule add -f git@github.com:jenv/jenv.git .jenv
 git submodule add -f git@github.com:pyenv/pyenv.git .pyenv
 cd .pyenv
 git submodule add -f git@github.com:pyenv/pyenv-virtualenv.git plugins/pyenv-virtualenv
@@ -161,7 +161,6 @@ cd .rbenv
 git submodule add -f git@github.com:rbenv/ruby-build.git plugins/ruby-build
 git submodule add -f git@github.com:jf/rbenv-gemset.git plugins/rbenv-gemset
 cd ..
-git submodule add -f git@github.com:jenv/jenv.git .jenv
 
 # Symlink dotfiles
 git pull origin master;
@@ -175,4 +174,4 @@ done
 # Run `chsh -s $(which zsh)` to set ZSH as the default shell
 # In Mac, add `zsh` to Full Disk Access in Security & Privacy (cmd+shift+G in Finder)
 # Run `:PluginInstall` in Vim
-# Install language versions & package managers separately under version managers
+# Install language versions, language package managers separately under version managers
