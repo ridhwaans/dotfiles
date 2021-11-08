@@ -6,7 +6,7 @@
 
 ## prerequisites
 macOS
-- **GET** Big Sur Update `https://www.apple.com/macos/how-to-upgrade/`
+- **GET** Monterey Update `https://www.apple.com/macos/how-to-upgrade/`
 - **GET** Xcode Command Line Tools `xcode-select --install`
 
 windowsOS
@@ -45,5 +45,6 @@ not a Windows directory,
 - pin `\\wsl$\Ubuntu\home\<USERNAME>\Source` to Quick Access  
 - pin `~/dotfiles`, `~/Source` to Favorites  
 
-## todo
-
+## links
+https://github.com/powerline/fonts/blob/master/RobotoMono/Roboto%20Mono%20for%20Powerline.ttf  
+https://github.com/whatyouhide/gotham-contrib  

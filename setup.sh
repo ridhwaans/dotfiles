@@ -16,13 +16,14 @@ if [ "$(uname)" == "Darwin" ]; then
 	brew update
 
 	# Upgrade any already-installed formulae
-	brew tap homebrew/versions
+	brew tap homebrew/core
 	brew tap heroku/brew
-	brew upgrade --all
+	brew upgrade
 
 	apps=(
 		awscli
 		dockutil
+		exercism
 		figlet
 		git
 		go
@@ -45,8 +46,8 @@ if [ "$(uname)" == "Darwin" ]; then
 	sudo easy_install pip
 
 	# Install Caskroom
-	brew tap caskroom/cask
-	brew tap caskroom/versions
+	brew tap homebrew/cask
+	brew tap homebrew/cask-versions
 
 	apps=(
 		beekeeper-studio
@@ -61,7 +62,7 @@ if [ "$(uname)" == "Darwin" ]; then
 		iterm2-nightly
 		mounty
 		postman
-		skype
+		zoom
 		slack
 		spotify
 		steam
@@ -92,7 +93,7 @@ if [ "$(uname)" == "Darwin" ]; then
 		Postman
 		Spotify
 		Slack
-		Skype
+		Zoom
 		Cyberduck
 		'System Preferences'
 		DataGrip
