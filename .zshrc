@@ -10,25 +10,24 @@ export EDITOR=/usr/bin/vim
 
 export ADOTDIR=$HOME/.zsh/bundle
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 export WINDOWS_HOME=/mnt/c/Users/shake
 
 export JAVA_HOME=$(/usr/libexec/java_home)
 
-export JAVA_HOME=/usr/lib/jvm/java-16-oracle
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/mysql/lib
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
 
 export PYENV_ROOT=$HOME/.pyenv
 
 export RBENV_ROOT=$HOME/.rbenv
 
-export JENV_ROOT=$HOME/.jenv
-
 export PYTHONPATH='.'
+
+export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/mysql/lib
 
 #PATH
 
@@ -37,8 +36,6 @@ export PATH=$PATH:$JAVA_HOME/bin
 export PATH=$PATH:$PYENV_ROOT/bin
 
 export PATH=$PATH:$RBENV_ROOT/bin
-
-export PATH=$PATH:$JENV_ROOT/bin
 
 export PATH=$PATH:$HOME/bin
 
@@ -57,7 +54,6 @@ export PATH=$PATH:/mnt/c/Program\ Files/Docker/Docker/resources/bin
 eval "$(rbenv init -)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-eval "$(jenv init -)"
 
 source $HOME/.zsh/bundle/bin/antigen.zsh
 

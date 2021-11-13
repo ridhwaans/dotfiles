@@ -18,6 +18,7 @@ windowsOS
 [Adding a new SSH key to your GitHub account](https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account)   
 
 ## installation
+**Warning: Please back up your terminal files before running installation**
 git
 ```sh
 cd ~
@@ -46,5 +47,5 @@ not a Windows directory,
 - pin `~/dotfiles`, `~/Source` to Favorites  
 
 ## links
-https://github.com/powerline/fonts/blob/master/RobotoMono/Roboto%20Mono%20for%20Powerline.ttf  
-https://github.com/whatyouhide/gotham-contrib  
+[Roboto Mono for Powerline.ttf](https://github.com/powerline/fonts/blob/master/RobotoMono/Roboto%20Mono%20for%20Powerline.ttf)  
+[gotham-contrib](https://github.com/whatyouhide/gotham-contrib)  

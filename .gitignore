@@ -1,12 +1,9 @@
-# Aws
-.aws/credentials
-
-# Ssh
 .ssh/
+.aws/credentials
+.sdkman/
 
 # Submodules
 .gitmodules
-.jenv/
 .pyenv/
 .rbenv/
 .vim/

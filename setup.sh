@@ -18,19 +18,18 @@ if [ "$(uname)" == "Darwin" ]; then
 	# Upgrade any already-installed formulae
 	brew tap homebrew/core
 	brew tap heroku/brew
+	brew tap aws/tap
 	brew upgrade
 
 	apps=(
 		awscli
+		aws-sam-cli
 		dockutil
 		exercism
-		figlet
 		git
 		go
-		graphviz
 		heroku
 		imagemagick
-		java
 		jenkins
 		jmeter
 		mysql
@@ -61,6 +60,7 @@ if [ "$(uname)" == "Darwin" ]; then
 		google-chrome
 		iterm2-nightly
 		mounty
+		notion
 		postman
 		zoom
 		slack
@@ -111,9 +111,6 @@ if [ "$(uname)" == "Darwin" ]; then
 	IFS=$OLDIFS
 
 elif [ "$(uname)" == "Linux" ]; then
-	# JDK
-	sudo add-apt-repository ppa:linuxuprising/java
-
 	# Make sure we’re using the latest repositories
 	apt update
 
@@ -122,12 +119,9 @@ elif [ "$(uname)" == "Linux" ]; then
 
 	apps=(
 		awscli
-		figlet
 		git
 		golang-go
-		graphviz
 		mysql-server
-		oracle-java16-installer
 		postgresql postgresql-contrib
 		screen
 		screenfetch
@@ -148,11 +142,13 @@ cd "$(dirname "${BASH_SOURCE}")";
 git init
 git remote add origin git@github.com:ridhwaans/dotfiles.git
 
+export SDKMAN_DIR=$PWD/.sdkman  && curl https://get.sdkman.io | sh
+source $SDKMAN_DIR/bin/sdkman-init.sh
+
 # Install submodules
 git submodule add -f git@github.com:VundleVim/Vundle.vim.git .vim/bundle/Vundle.vim
 git submodule add -f git@github.com:zsh-users/antigen.git .zsh/bundle
 git submodule add -f git@github.com:nvm-sh/nvm.git .nvm
-git submodule add -f git@github.com:jenv/jenv.git .jenv
 git submodule add -f git@github.com:pyenv/pyenv.git .pyenv
 cd .pyenv
 git submodule add -f git@github.com:pyenv/pyenv-virtualenv.git plugins/pyenv-virtualenv
