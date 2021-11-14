@@ -128,10 +128,16 @@ elif [ "$(uname)" == "Linux" ]; then
 		tig
 		tree
 		wget
+		zip
 		zsh
 	)
 	apt install "${apps[@]}"
+
 	curl https://cli-assets.heroku.com/install.sh | sh
+	curl -L https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip -o aws-sam-cli-linux-x86_64.zip
+	unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
+	sudo ./sam-installation/install
+	rm -rf sam-installation
 
 	# Remove no longer required packages
 	sudo apt autoremove
@@ -139,11 +145,9 @@ fi
 
 # Go to the base directory
 cd "$(dirname "${BASH_SOURCE}")";
+
 git init
 git remote add origin git@github.com:ridhwaans/dotfiles.git
-
-export SDKMAN_DIR=$PWD/.sdkman  && curl https://get.sdkman.io | sh
-source $SDKMAN_DIR/bin/sdkman-init.sh
 
 # Install submodules
 git submodule add -f git@github.com:VundleVim/Vundle.vim.git .vim/bundle/Vundle.vim
@@ -158,6 +162,9 @@ cd .rbenv
 git submodule add -f git@github.com:rbenv/ruby-build.git plugins/ruby-build
 git submodule add -f git@github.com:jf/rbenv-gemset.git plugins/rbenv-gemset
 cd ..
+
+export SDKMAN_DIR=$PWD/.sdkman  && curl https://get.sdkman.io | sh
+source $SDKMAN_DIR/bin/sdkman-init.sh
 
 # Symlink dotfiles
 git pull origin master;
