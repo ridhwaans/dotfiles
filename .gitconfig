@@ -1,5 +1,5 @@
 [user]
-    name = Ridhwaan Shakeel
+    name = Rid Shakeel
     email = shakeel.ridhwaan@gmail.com
 [push]
     default = simple
@@ -15,6 +15,6 @@
     undo2 = reset --soft HEAD^
     find = log --color --source -S
     amend = commit -a --amend --reuse-message=HEAD
-    contributors = shortlog --summary --numbered
-    show-ls = diff-tree --no-commit-id --name-only -r # provide commit hash
+    contrib = shortlog --summary --numbered
+    show-ls = !git rev-parse HEAD | xargs git diff-tree --no-commit-id --name-only -r
     rm-ignored = rm -r --cached . && git add . && git commit -am "Remove ignored files"
