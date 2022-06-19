@@ -4,6 +4,7 @@
 
 # Submodules
 .gitmodules
+.nvm/
 .pyenv/
 .rbenv/
 .vim/

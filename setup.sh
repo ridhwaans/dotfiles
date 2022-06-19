@@ -5,11 +5,11 @@ if [ "$(uname)" == "Darwin" ]; then
 	sudo chown -R $(whoami) /usr/local/include /usr/local/lib /usr/local/lib/pkgconfig
 	chmod u+w /usr/local/include /usr/local/lib /usr/local/lib/pkgconfig
 
-	# Check for Homebrew and install it if missing
+	# Install Homebrew if missing
 	if test ! $(which brew)
 	then
 		echo "Installing Homebrew..."
-		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	fi
 
 	# Make sure we’re using the latest Homebrew
@@ -29,20 +29,13 @@ if [ "$(uname)" == "Darwin" ]; then
 		git
 		go
 		heroku
-		imagemagick
-		jenkins
-		jmeter
 		mysql
 		postgresql
-		screen
 		screenfetch
 		tig
 		tree
-		v8-315
-		wget
 	)
 	brew install "${apps[@]}"
-	sudo easy_install pip
 
 	# Install Caskroom
 	brew tap homebrew/cask
@@ -50,37 +43,24 @@ if [ "$(uname)" == "Darwin" ]; then
 
 	apps=(
 		beekeeper-studio
-		cyberduck
-		datagrip
 		docker
 		discord
 		dropbox
 		figma
-		flux
 		google-chrome
 		iterm2-nightly
 		mounty
 		notion
 		postman
-		zoom
 		slack
-		spotify
 		steam
 		visual-studio-code
+		zoom
 	)
 	brew install --cask "${apps[@]}"
 
 	# Remove outdated versions from the cellar
 	brew cleanup
-
-	# Set defaults
-	defaults write com.apple.screencapture location -string "$HOME/Pictures/Screenshots"
-	defaults write com.apple.systemuiserver menuExtras -array 
-	"/System/Library/CoreServices/Menu Extras/Bluetooth.menu"
-	"/System/Library/CoreServices/Menu Extras/Clock.menu" 
-	"/System/Library/CoreServices/Menu Extras/Displays.menu"
-	"/System/Library/CoreServices/Menu Extras/Volume.menu"
-	killall SystemUIServer
 
 	# Set Dock items
 	OLDIFS=$IFS
@@ -91,12 +71,11 @@ if [ "$(uname)" == "Darwin" ]; then
 		'Visual Studio Code'
 		iTerm
 		Postman
-		Spotify
+		Notion
 		Slack
-		Zoom
-		Cyberduck
+		Figma
+		zoom.us
 		'System Preferences'
-		DataGrip
 	)
 
 	dockutil --no-restart --remove all $HOME
@@ -123,21 +102,19 @@ elif [ "$(uname)" == "Linux" ]; then
 		golang-go
 		mysql-server
 		postgresql postgresql-contrib
-		screen
 		screenfetch
 		tig
 		tree
-		wget
 		zip
 		zsh
 	)
 	apt install "${apps[@]}"
 
-	curl https://cli-assets.heroku.com/install.sh | sh
 	curl -L https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip -o aws-sam-cli-linux-x86_64.zip
 	unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
 	sudo ./sam-installation/install
 	rm -rf sam-installation
+	curl https://cli-assets.heroku.com/install.sh | sh
 
 	# Remove no longer required packages
 	sudo apt autoremove
@@ -170,12 +147,12 @@ source $SDKMAN_DIR/bin/sdkman-init.sh
 git pull origin master;
 
 for file in $(ls -A); do
-if ! [[ "$file" =~ ^(.git|media|README.md|setup.sh|remote-setup.sh|setup-corp-ad-ctc.sh|setup-wishabi.sh)$ ]]; then 
+if ! [[ "$file" =~ ^(.git|media|README.md|setup.sh|remote-setup.sh|setup-atlas.sh|setup-wishabi.sh)$ ]]; then 
 	ln -sf $PWD/$file $HOME/
 fi
 done
 
-# Run `chsh -s $(which zsh)` to set ZSH as the default shell
+# Run `chsh -s $(which zsh)` to set ZSH as default, run `echo $SHELL` to verify
 # In Mac, add `zsh` to Full Disk Access in Security & Privacy (cmd+shift+G in Finder)
 # Run `:PluginInstall` in Vim
 # Install language versions, language package managers separately under version managers

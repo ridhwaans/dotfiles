@@ -31,6 +31,8 @@ export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/mysql/lib
 
 #PATH
 
+export PATH=$PATH:/opt/homebrew/bin
+
 export PATH=$PATH:$JAVA_HOME/bin
 
 export PATH=$PATH:$PYENV_ROOT/bin
