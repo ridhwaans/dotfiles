@@ -91,12 +91,13 @@ if [ "$(uname)" == "Darwin" ]; then
 
 elif [ "$(uname)" == "Linux" ]; then
 	echo "Fetching the latest versions of the package list..."
-	apt update -y
+	sudo apt update -y
 
 	echo "Installing updates for each outdated package and dependency..."
-	apt upgrade -y
+	sudo apt upgrade -y
 
 	echo "Configuring timezone..."
+	export DEBIAN_FRONTEND=noninteractive
 	export TZ=Etc/UTC
 	ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 	
@@ -116,7 +117,7 @@ elif [ "$(uname)" == "Linux" ]; then
 		zsh
 	)
 	echo "Installing packages..."
-	apt install -y "${packages[@]}"
+	sudo apt install -y "${packages[@]}"
 	
 	curl -L https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip -o aws-sam-cli-linux-x86_64.zip
 	unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
