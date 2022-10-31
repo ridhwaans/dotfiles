@@ -6,16 +6,16 @@
 
 ## prerequisites
 macOS
-- **GET** Monterey Update `https://www.apple.com/macos/how-to-upgrade/`
+- **GET** Ventura Update `https://support.apple.com/macos/upgrade`
 - **GET** Xcode Command Line Tools `xcode-select --install`
 
 windowsOS
-- **GET** Windows Subsystem for Linux (WSL2) `https://docs.microsoft.com/en-us/windows/wsl/install#update-to-wsl-2`
+- **GET** Windows Subsystem for Linux (WSL2) `https://learn.microsoft.com/en-us/windows/wsl/install#update-to-wsl-2`
 - **GET** `Ubuntu 22.04 LTS (Jammy Jellyfish)` from the Microsoft Store
     - optional: upgrade to the interim release
 
-[Managing multiple Linux Distributions](https://docs.microsoft.com/en-us/windows/wsl/wsl-config#managing-multiple-linux-distributions)   
-[Adding a new SSH key to your GitHub account](https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account)   
+[Managing multiple Linux Distributions](https://learn.microsoft.com/en-us/windows/wsl/wsl-config#managing-multiple-linux-distributions)   
+[Adding a new SSH key to your GitHub account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)   
 
 ## installation
 **Warning: Please back up your terminal files before running installation**  

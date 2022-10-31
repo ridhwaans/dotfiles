@@ -90,69 +90,76 @@ if [ "$(uname)" == "Darwin" ]; then
 	IFS=$OLDIFS
 
 elif [ "$(uname)" == "Linux" ]; then
-	# Make sure we’re using the latest repositories
-	apt update
+	echo "Fetching the latest versions of the package list..."
+	apt update -y
 
-	# Upgrade any already-installed packages
-	apt upgrade
+	echo "Installing updates for each outdated package and dependency..."
+	apt upgrade -y
 
-	apps=(
+	echo "Configuring timezone..."
+	export TZ=Etc/UTC
+	ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+	
+	packages=(
 		awscli
 		git
 		golang-go
+		language-pack-en
 		mysql-server
 		postgresql postgresql-contrib
 		screenfetch
 		tig
 		tree
+		tzdata
+		vim
 		zip
 		zsh
 	)
-	apt install "${apps[@]}"
-
+	echo "Installing packages..."
+	apt install -y "${packages[@]}"
+	
 	curl -L https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip -o aws-sam-cli-linux-x86_64.zip
 	unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
 	sudo ./sam-installation/install
 	rm -rf sam-installation
 	curl https://cli-assets.heroku.com/install.sh | sh
 
-	# Remove no longer required packages
+	echo "Fixing ZSH theme..."
+	update-locale
+	echo "Removing packages that are no longer required..."
 	sudo apt autoremove
 fi
 
-# Go to the base directory
+echo "Intializing local..."
 cd "$(dirname "${BASH_SOURCE}")";
-
 git init
-git remote add origin git@github.com:ridhwaans/dotfiles.git
+git remote add origin https://github.com/ridhwaans/dotfiles.git
 
-# Install submodules
-git submodule add -f git@github.com:VundleVim/Vundle.vim.git .vim/bundle/Vundle.vim
-git submodule add -f git@github.com:zsh-users/antigen.git .zsh/bundle
-git submodule add -f git@github.com:nvm-sh/nvm.git .nvm
-git submodule add -f git@github.com:pyenv/pyenv.git .pyenv
+echo "Installing submodules..."
+git submodule add -f https://github.com/VundleVim/Vundle.vim.git .vim/bundle/Vundle.vim
+git submodule add -f https://github.com/zsh-users/antigen.git .zsh/bundle
+git submodule add -f https://github.com/nvm-sh/nvm.git .nvm
+git submodule add -f https://github.com/pyenv/pyenv.git .pyenv
 cd .pyenv
-git submodule add -f git@github.com:pyenv/pyenv-virtualenv.git plugins/pyenv-virtualenv
+git submodule add -f https://github.com/pyenv/pyenv-virtualenv.git plugins/pyenv-virtualenv
 cd ..
-git submodule add -f git@github.com:rbenv/rbenv.git .rbenv
+git submodule add -f https://github.com/rbenv/rbenv.git .rbenv
 cd .rbenv
-git submodule add -f git@github.com:rbenv/ruby-build.git plugins/ruby-build
-git submodule add -f git@github.com:jf/rbenv-gemset.git plugins/rbenv-gemset
+git submodule add -f https://github.com/rbenv/ruby-build.git plugins/ruby-build
+git submodule add -f https://github.com/jf/rbenv-gemset.git plugins/rbenv-gemset
 cd ..
 
-export SDKMAN_DIR=$PWD/.sdkman  && curl https://get.sdkman.io | sh
-source $SDKMAN_DIR/bin/sdkman-init.sh
+export SDKMAN_DIR=$PWD/.sdkman && curl https://get.sdkman.io | bash
 
-# Symlink dotfiles
-git pull origin master;
+echo "Symlinking dotfiles..."
+for filename in $(ls -A $HOME/dotfiles/)
+do
+  if ! [[ "$filename" =~ ^(.git|.gitmodules|.gitignore|media|README.md|setup.sh|remote-setup.sh|setup-atlas.sh|setup-wishabi.sh)$ ]]; then 
+  	echo "ln -sf $PWD/$filename $HOME/"
+	ln -sf $PWD/$filename $HOME/
+  fi
+done;
 
-for file in $(ls -A); do
-if ! [[ "$file" =~ ^(.git|media|README.md|setup.sh|remote-setup.sh|setup-atlas.sh|setup-wishabi.sh)$ ]]; then 
-	ln -sf $PWD/$file $HOME/
-fi
-done
-
-# Run `chsh -s $(which zsh)` to set ZSH as default, run `echo $SHELL` to verify
-# In Mac, add `zsh` to Full Disk Access in Security & Privacy (cmd+shift+G in Finder)
-# Run `:PluginInstall` in Vim
-# Install language versions, language package managers separately under version managers
+echo "Fetching updates..."
+git fetch
+git reset --hard origin/master
