@@ -97,15 +97,16 @@ elif [ "$(uname)" == "Linux" ]; then
 	sudo apt upgrade -y
 
 	echo "Configuring timezone..."
-	export DEBIAN_FRONTEND=noninteractive
-	export TZ=Etc/UTC
+	DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC sudo -E apt-get -y install tzdata
 	ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 	
+	echo "Fixing ZSH theme..."
+	sudo apt-get -y install language-pack-en && update-locale
+
 	packages=(
 		awscli
 		git
 		golang-go
-		language-pack-en
 		mysql-server
 		postgresql postgresql-contrib
 		screenfetch
@@ -125,8 +126,6 @@ elif [ "$(uname)" == "Linux" ]; then
 	rm -rf sam-installation
 	curl https://cli-assets.heroku.com/install.sh | sh
 
-	echo "Fixing ZSH theme..."
-	update-locale
 	echo "Removing packages that are no longer required..."
 	sudo apt autoremove
 fi
