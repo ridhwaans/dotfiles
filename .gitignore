@@ -1,13 +1,19 @@
-.ssh/
 .aws/credentials
-.sdkman/
 
-# Submodules
+# Submodules (modiifed content)
+.gitmodules
+
 .nvm/
 .pyenv/
 .rbenv/
+.sdkman/
 .vim/
 .zsh/
+.sdkman/
+
+.pyenv/plugins/pyenv-virtualenv/
+.rbenv/plugins/ruby-build/
+.rbenv/plugins/rbenv-gemset/
 
 # Compiled Python files
 *.pyc

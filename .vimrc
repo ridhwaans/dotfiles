@@ -25,7 +25,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Raimondi/delimitMate'
-"colorschemes
+" colorschemes
 Plugin 'sjl/badwolf'
 Plugin 'morhetz/gruvbox'
 Plugin 'whatyouhide/vim-gotham'
@@ -34,7 +34,7 @@ Plugin 'tyrannicaltoucan/vim-deep-space'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'cocopon/iceberg.vim'
 call vundle#end()    
-filetype plugin indent on "load filetype-specific files
+filetype plugin indent on " load filetype-specific files
 
 map <F1> :set nonumber!<CR>
 map <F2> :AirlineToggle<CR>
@@ -46,7 +46,7 @@ augroup configgroup
                 \:call <SID>StripTrailingWhitespaces()
 augroup END 
 
-"strips trailing whitespace at the end of files. this
+" strips trailing whitespace at the end of files. this
 " is called on buffer write in the autogroup above.
 function! <SID>StripTrailingWhitespaces()
     " save last search & cursor position
@@ -58,5 +58,11 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfunction
 
-colorscheme gotham
+try
+  colorscheme gotham
+catch /^Vim\%((\a\+)\)\=:E185/
+  colorscheme default
+  set background=dark
+endtry
+
 let g:airline_theme='gotham'

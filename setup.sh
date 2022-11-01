@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ "$(uname)" == "Darwin" ]; then
+if [ $(uname) == "Darwin" ]; then
 	# Write permissions for Homebrew 
 	sudo chown -R $(whoami) /usr/local/include /usr/local/lib /usr/local/lib/pkgconfig
 	chmod u+w /usr/local/include /usr/local/lib /usr/local/lib/pkgconfig
@@ -17,25 +17,23 @@ if [ "$(uname)" == "Darwin" ]; then
 
 	# Upgrade any already-installed formulae
 	brew tap homebrew/core
-	brew tap heroku/brew
 	brew tap aws/tap
 	brew upgrade
 
-	apps=(
+	packages=(
 		awscli
 		aws-sam-cli
 		dockutil
 		exercism
 		git
 		go
-		heroku
 		mysql
 		postgresql
 		screenfetch
 		tig
 		tree
 	)
-	brew install "${apps[@]}"
+	brew install "${packages[@]}"
 
 	# Install Caskroom
 	brew tap homebrew/cask
@@ -89,7 +87,7 @@ if [ "$(uname)" == "Darwin" ]; then
 	# restore $IFS
 	IFS=$OLDIFS
 
-elif [ "$(uname)" == "Linux" ]; then
+elif [ $(uname) == "Linux" ]; then	
 	echo "Fetching the latest versions of the package list..."
 	sudo apt update -y
 
@@ -97,11 +95,8 @@ elif [ "$(uname)" == "Linux" ]; then
 	sudo apt upgrade -y
 
 	echo "Configuring timezone..."
-	DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC sudo -E apt-get -y install tzdata
-	ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-	
-	echo "Fixing ZSH theme..."
-	sudo apt-get -y install language-pack-en && update-locale
+	DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC sudo -E apt install -y tzdata
+	sudo ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 	packages=(
 		awscli
@@ -112,7 +107,6 @@ elif [ "$(uname)" == "Linux" ]; then
 		screenfetch
 		tig
 		tree
-		tzdata
 		vim
 		zip
 		zsh
@@ -120,22 +114,20 @@ elif [ "$(uname)" == "Linux" ]; then
 	echo "Installing packages..."
 	sudo apt install -y "${packages[@]}"
 	
-	curl -L https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip -o aws-sam-cli-linux-x86_64.zip
+	curl -L https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip --create-dirs -o $HOME/aws-sam-cli-linux-x86_64.zip && cd $(dirname $_)
 	unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
 	sudo ./sam-installation/install
 	rm -rf sam-installation
-	curl https://cli-assets.heroku.com/install.sh | sh
+	rm -rf aws-sam-cli-linux-x86_64.zip
 
 	echo "Removing packages that are no longer required..."
 	sudo apt autoremove
 fi
 
-echo "Intializing local..."
-cd "$(dirname "${BASH_SOURCE}")";
-git init
-git remote add origin https://github.com/ridhwaans/dotfiles.git
+echo "Setting up dotfiles..."
+git clone https://github.com/ridhwaans/dotfiles.git $HOME/dotfiles && cd $_
 
-echo "Installing submodules..."
+echo "Setting up submodules..."
 git submodule add -f https://github.com/VundleVim/Vundle.vim.git .vim/bundle/Vundle.vim
 git submodule add -f https://github.com/zsh-users/antigen.git .zsh/bundle
 git submodule add -f https://github.com/nvm-sh/nvm.git .nvm
@@ -151,15 +143,48 @@ cd ..
 
 export SDKMAN_DIR=$PWD/.sdkman && curl https://get.sdkman.io | bash
 
+echo "Clearing any automatically staged files..."
+git reset .
+
 echo "Symlinking dotfiles..."
-for filename in $(ls -A $HOME/dotfiles/)
+files=(
+	.nvm
+	.pyenv
+	.rbenv
+	.sdkman
+	.vim
+	.zsh
+	.gitconfig
+	.vimrc
+	.zshrc
+)
+
+for file in "${files[@]}"
 do
-  if ! [[ "$filename" =~ ^(.git|.gitmodules|.gitignore|media|README.md|setup.sh|remote-setup.sh|setup-atlas.sh|setup-wishabi.sh)$ ]]; then 
-  	echo "ln -sf $PWD/$filename $HOME/"
-	ln -sf $PWD/$filename $HOME/
-  fi
+	echo "ln -sf $PWD/$file $HOME/"
+	ln -sf $PWD/$file $HOME/
 done;
 
-echo "Fetching updates..."
-git fetch
-git reset --hard origin/master
+ln -sf $PWD/.ssh/autokey-github.sh $HOME/.ssh
+
+if [[ -n "$WSL_DISTRO_NAME" ]]; then
+    echo "Symlinking dotfiles to Windows user home..."
+	ln -sf $PWD $(wslpath $(powershell.exe '$env:UserProfile') | sed -e 's/\r//g')/dotfiles
+fi
+
+echo "Setting user shell..."
+sudo usermod -s $(which zsh) $(whoami)
+$(which zsh)
+grep $(whoami) /etc/passwd
+
+echo "Fixing oh-my-zsh theme..."
+sudo apt install -y language-pack-en 
+sudo update-locale
+
+echo "Fixing oh-my-zsh powerline font..."
+curl -L https://github.com/powerline/fonts/raw/master/RobotoMono/Roboto%20Mono%20for%20Powerline.ttf --create-dirs -o $HOME/.local/share/fonts/"Roboto Mono for Powerline.ttf"
+fc-cache -f -v 
+fc-list | grep Powerline
+
+echo "Installing vim plugins..."
+vim +silent! +PluginInstall +qall
