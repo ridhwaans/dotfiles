@@ -36,6 +36,8 @@ if [[ -n "$WSL_DISTRO_NAME" ]]; then
     export PATH=$PATH:/mnt/c/Program\ Files/Docker/Docker/resources/bin
 fi
 
+export EDITOR=/usr/bin/vim
+
 export ADOTDIR=$HOME/.zsh/bundle
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
