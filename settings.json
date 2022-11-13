@@ -1,0 +1,117 @@
+// devcontainer.json
+
+{
+	"workspaceFolder": "/home/ridhwaans",
+	"settings": {},
+	"extensions": [
+		"Prisma.prisma",
+		"ms-vscode-remote.remote-containers",
+		"alireza94.theme-gotham",
+		"PKief.material-icon-theme",
+		"dunstontc.viml",
+		"eamodio.gitlens",
+		"ms-vscode-remote.remote-wsl"
+	]
+}
+
+// .vscode/settings.json
+{
+    "editor.fontFamily": "'Roboto Mono for Powerline', Menlo, Monaco, 'Courier New', monospace",
+    "workbench.colorTheme": "Gotham",
+    "workbench.iconTheme": "material-icon-theme",
+    "terminal.integrated.profiles.osx": {
+        "zsh (login)": {
+            "path": "$(which zsh)"
+            }
+    },
+    "terminal.integrated.fontFamily": "'Roboto Mono for Powerline'",
+    "terminal.external.osxExec": "iTerm.app",
+}
+
+
+// iTerm2/Default.json
+// curl -O https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/iterm2/Gotham.itermcolors
+// ~/Library/Application Support/iTerm2/DynamicProfiles
+// ~/Library/Saved Application State/iTerm2/com.googlecode.iterm2.savedState/windows.plist
+
+
+// Windows Terminal settings.json
+// ln -s ./settings.json ${WINDOWS_HOME}/AppData/Local/Packages/Microsoft.WindowsTerminal*/LocalState/settings.json
+{
+    "$help": "https://aka.ms/terminal-documentation",
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "actions": 
+    [
+        {
+            "command": "find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "command": "paste",
+            "keys": "ctrl+v"
+        },
+        {
+            "command": 
+            {
+                "action": "copy",
+                "singleLine": false
+            },
+            "keys": "ctrl+c"
+        },
+        {
+            "command": 
+            {
+                "action": "splitPane",
+                "split": "auto",
+                "splitMode": "duplicate"
+            },
+            "keys": "alt+shift+d"
+        }
+    ],
+    "copyFormatting": "none",
+    "copyOnSelect": false,
+    "defaultProfile": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+    "profiles": {
+        "defaults": {},
+        "list": [
+            {
+                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+                "name": "Ubuntu",
+                "commandline": "C:\\WINDOWS\\system32\\wsl.exe -d Ubuntu",
+                "startingDirectory": "//wsl$/Ubuntu/home/ridhwaans",
+                "source": "Windows.Terminal.Wsl",
+                "hidden": false,
+                "font": {
+                    "face": "Roboto Mono for Powerline",
+                    "size": 10
+                },
+                "colorScheme": "Gotham"
+            }
+        ]
+    },
+    "schemes": [
+        {
+            "name": "Gotham",
+            "background": "#0a0f14",
+            "foreground": "#98d1ce",
+            "cursorColor": "#98d1ce",
+            "black": "#505050",
+            "blue": "#13789c",
+            "brightBlack": "#62807f",
+            "brightBlue": "#72b3ca",
+            "brightCyan": "#599caa",
+            "brightGreen": "#abe4bb",
+            "brightPurple": "#b8bcdf",
+            "brightRed": "#d26939",
+            "brightWhite": "#d3ebe9",
+            "brightYellow": "#f6d8a1",
+            "cyan": "#33859d",
+            "green": "#26a98b",
+            "purple": "#888ba5",
+            "red": "#dc362c",
+            "white": "#98d1ce",
+            "yellow": "#edb54b",
+            "selectionBackground": "#0c3040"
+        }
+    ]
+}
