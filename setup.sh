@@ -120,11 +120,11 @@ elif [ $(uname) == "Linux" ]; then
 	rm -rf sam-installation
 	rm -rf aws-sam-cli-linux-x86_64.zip
 
-	curl -L https://github.com/exercism/cli/releases/download/v3.1.0/exercism-3.1.0-darwin-x86_64.tar.gz -o exercism-3.1.0-darwin-x86_64.tar.gz
-	tar -xf exercism-3.1.0-darwin-x86_64.tar.gz
+	curl -L https://github.com/exercism/cli/releases/download/v3.1.0/exercism-3.1.0-linux-x86_64.tar.gz -o exercism-3.1.0-linux-x86_64.tar.gz
+	tar -xf exercism-3.1.0-linux-x86_64.tar.gz
 	mkdir -p $HOME/bin && mv exercism $_
 	~/bin/exercism
-	rm -rf exercism-3.1.0-darwin-x86_64.tar.gz
+	rm -rf exercism-3.1.0-linux-x86_64.tar.gz
 
 	echo "Removing packages that are no longer required..."
 	sudo apt autoremove
@@ -171,7 +171,7 @@ do
 	ln -sf $PWD/$file $HOME/
 done;
 
-ln -sf $PWD/.ssh/autokey-github.sh $HOME/.ssh
+mkdir -p $HOME/.ssh && ln -sf $PWD/.ssh/autokey-github.sh $_/autokey-github.sh
 
 if [[ -n "$WSL_DISTRO_NAME" ]]; then
     echo "Symlinking dotfiles to Windows user home..."
