@@ -4,28 +4,30 @@
 	"workspaceFolder": "/home/ridhwaans",
 	"settings": {},
 	"extensions": [
-		"Prisma.prisma",
-		"ms-vscode-remote.remote-containers",
 		"alireza94.theme-gotham",
-		"PKief.material-icon-theme",
 		"dunstontc.viml",
 		"eamodio.gitlens",
+		"ms-vscode-remote.remote-containers",
 		"ms-vscode-remote.remote-wsl"
+		"PKief.material-icon-theme",
+		"Prisma.prisma",
 	]
 }
 
 // .vscode/settings.json
 {
+    
     "editor.fontFamily": "'Roboto Mono for Powerline', Menlo, Monaco, 'Courier New', monospace",
     "workbench.colorTheme": "Gotham",
     "workbench.iconTheme": "material-icon-theme",
+    "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.fontFamily": "'Roboto Mono for Powerline'",
     "terminal.integrated.profiles.osx": {
         "zsh (login)": {
             "path": "$(which zsh)"
             }
     },
-    "terminal.integrated.fontFamily": "'Roboto Mono for Powerline'",
-    "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\wsl.exe"
 }
 
 
