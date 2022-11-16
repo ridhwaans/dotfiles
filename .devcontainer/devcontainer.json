@@ -12,5 +12,6 @@
 		"ms-vscode-remote.remote-wsl",
 		"PKief.material-icon-theme",
 		"Prisma.prisma"
-	]
+	],
+	"postCreateCommand": "curl -fsSL https://raw.githubusercontent.com/ridhwaans/dotfiles/master/setup.sh | bash"
 }

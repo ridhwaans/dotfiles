@@ -123,7 +123,7 @@ elif [ $(uname) == "Linux" ]; then
 	curl -L https://github.com/exercism/cli/releases/download/v3.1.0/exercism-3.1.0-linux-x86_64.tar.gz -o exercism-3.1.0-linux-x86_64.tar.gz
 	tar -xf exercism-3.1.0-linux-x86_64.tar.gz
 	mkdir -p $HOME/bin && mv exercism $_
-	~/bin/exercism
+	$HOME/bin/exercism
 	rm -rf exercism-3.1.0-linux-x86_64.tar.gz
 
 	echo "Removing packages that are no longer required..."
@@ -131,7 +131,7 @@ elif [ $(uname) == "Linux" ]; then
 fi
 
 echo "Setting up dotfiles..."
-git clone https://github.com/ridhwaans/dotfiles.git $HOME/dotfiles && cd $_
+rm -rf $HOME/dotfiles && git clone https://github.com/ridhwaans/dotfiles.git $HOME/dotfiles && cd $_
 
 echo "Setting up submodules..."
 git submodule add -f https://github.com/VundleVim/Vundle.vim.git .vim/bundle/Vundle.vim
@@ -183,7 +183,7 @@ sudo usermod -s $(which zsh) $(whoami)
 $(which zsh)
 grep $(whoami) /etc/passwd
 
-echo "Fixing oh-my-zsh theme..."
+echo "Fixing oh-my-zsh powerline theme..."
 sudo apt install -y language-pack-en 
 sudo update-locale
 

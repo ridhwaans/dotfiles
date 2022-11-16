@@ -32,16 +32,14 @@ bash -c "`wget -O - --no-check-certificate https://raw.githubusercontent.com/rid
 
 ## as a docker workspace
 - **GET** Docker Desktop `https://www.docker.com/products/docker-desktop/`  
+- **GET** VS Code Dev Containers extension `https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers`  
 
-### building an image
-go to the `Dockerfile` directory  
+in VS Code, select `Reopen in Container`, or  
+
+#### build a container
 ```sh
+cd ~/dotfiles
 docker build -t <IMAGE_NAME> . --progress=plain --no-cache
+docker run -it <IMAGE_NAME>
 ```
-login
-```sh
-docker run -it <IMAGE_NAME> /bin/zsh
-```
-### usage
-- **GET** VS Code Dev Containers extension `https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers`
-start & attach to container  
+in VS Code, select `Attach to Running Container...`   

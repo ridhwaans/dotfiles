@@ -28,7 +28,7 @@ USER $USERNAME
 ENV HOME /home/$USERNAME
 
 # Dotfiles install script
-RUN curl -fsSL https://raw.githubusercontent.com/$USERNAME/dotfiles/master/setup.sh | bash
+RUN curl -fsSL https://raw.githubusercontent.com/ridhwaans/dotfiles/master/setup.sh | bash
 
 # Starting directory
 WORKDIR $HOME

@@ -48,3 +48,14 @@ echo "Added SSH key to the ssh-agent"
 # Test the SSH connection
 
 ssh -T git@github.com
+
+# Switch remote URLs from HTTPS to SSH
+
+if ssh -T git@github.com | grep -q 'successfully authenticated'; then
+  cd $HOME/dotfiles
+  USER=`echo $(git config --get remote.origin.url) | sed -Ene's#https://github.com/([^/]*)/(.*).git#\1#p'`
+  REPO=$(basename `git rev-parse --show-toplevel`)
+  git remote set-url origin git@github.com:$USER/$REPO.git
+  cd -
+  echo "Switched remote URLs from HTTPS to SSH"
+fi
