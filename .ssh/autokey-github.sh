@@ -1,20 +1,10 @@
 #!/bin/bash
 
+# Personal access token (classic) required
+# OAuth token required scope -- repo, admin:public_key
 # Usage
 #   chmod +x autokey-github.sh
 #   ./autokey-github.sh <KEY-TITLE> <YOUR-GITHUB-ACCESS-TOKEN>
-
-# Credit
-# https://gist.github.com/petersellars/c6fff3657d53d053a15e57862fc6f567
-
-# References
-# https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
-# Personal access tokens (classic)
-# OAuth token required scope -- repo, admin:public_key
-# https://docs.github.com/en/rest/overview/permissions-required-for-fine-grained-personal-access-tokens
-
-# https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
-# https://docs.github.com/en/rest/users/keys#create-a-public-ssh-key-for-the-authenticated-user
 
 #set -e
 
@@ -49,13 +39,38 @@ echo "Added SSH key to the ssh-agent"
 
 ssh -T git@github.com
 
+function github-authenticated() {
+  # Attempt to ssh to GitHub
+  ssh -T git@github.com &>/dev/null
+  RET=$?
+  if [ $RET == 1 ]; then
+    # user is authenticated, but fails to open a shell with GitHub 
+    return 0
+  elif [ $RET == 255 ]; then
+    # user is not authenticated
+    return 1
+  else
+    echo "unknown exit code in attempt to ssh into git@github.com"
+  fi
+  return 2
+}
+
 # Switch remote URLs from HTTPS to SSH
 
-if ssh -T git@github.com | grep -q 'successfully authenticated'; then
+if github-authenticated; then
   cd $HOME/dotfiles
-  USER=`echo $(git config --get remote.origin.url) | sed -Ene's#https://github.com/([^/]*)/(.*).git#\1#p'`
-  REPO=$(basename `git rev-parse --show-toplevel`)
-  git remote set-url origin git@github.com:$USER/$REPO.git
+  GIT_USER=`echo $(git config --get remote.origin.url) | sed -Ene's#https://github.com/([^/]*)/(.*).git#\1#p'`
+  GIT_REPO=$(basename `git rev-parse --show-toplevel`)
+  git remote set-url origin git@github.com:$GIT_USER/$GIT_REPO.git
   cd -
   echo "Switched remote URLs from HTTPS to SSH"
 fi
+
+# Credits
+# https://gist.github.com/petersellars/c6fff3657d53d053a15e57862fc6f567
+# https://stackoverflow.com/a/53454540/3577482
+
+# References
+# https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
+# https://docs.github.com/en/rest/users/keys#create-a-public-ssh-key-for-the-authenticated-user
+# https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent

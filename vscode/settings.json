@@ -9,3 +9,9 @@
     "terminal.external.osxExec": "iTerm.app",
     "terminal.external.windowsExec": "C:\\Users\\shake\\AppData\\Local\\Microsoft\\WindowsApps\\wt.exe"
 }
+
+/*
+TODO terminal.external.windowsExec
+C:\\WINDOWS\\system32\\wsl.exe -d Ubuntu
+C:\\Users\\shake\\AppData\\Local\\Microsoft\\WindowsApps\\wt.exe
+*/

@@ -1,4 +1,3 @@
-
 # Ubuntu 22.04.1 LTS http://releases.ubuntu.com/jammy/ubuntu-22.04.1-desktop-amd64.manifest
 FROM ubuntu
 

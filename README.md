@@ -1,8 +1,8 @@
 # dotfiles
  https://github.com/ridhwaans/dotfiles
 
-![screenfetch_mac](media/screenfetch-mac.png)
-![screenfetch_windows](media/screenfetch-windows.png)
+![screenfetch_mac](images/screenfetch-mac.png)
+![screenfetch_windows](images/screenfetch-windows.png)
 
 ## quick start
 clone this repository

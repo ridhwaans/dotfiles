@@ -181,32 +181,36 @@ sudo usermod -s $(which zsh) $(whoami)
 $(which zsh)
 grep $(whoami) /etc/passwd
 
-echo "Fixing shell powerline theme..."
+# https://github.com/ohmyzsh/ohmyzsh/issues/4786
+echo "Fixing character not in range..."
 sudo apt install -y language-pack-en 
 sudo update-locale
 
-echo "Fixing shell powerline font..."
+echo "Installing powerline font..."
 curl -L https://github.com/powerline/fonts/raw/master/RobotoMono/Roboto%20Mono%20for%20Powerline.ttf --create-dirs -o $HOME/.local/share/fonts/"Roboto Mono for Powerline.ttf"
 fc-cache -f -v 
-fc-list | grep Powerline
+fc-list | grep "Roboto Mono for Powerline.ttf"
 
+echo "Adding terminal emulator & text editor settings..."
 if [ $(uname) == "Darwin" ]; then
 	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/iterm2/Gotham.itermcolors --create-dirs -o $HOME/.local/share/themes/"Gotham.itermcolors"
 	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/terminal.app/Gotham.terminal --create-dirs -o $HOME/.local/share/themes/"Gotham.terminal"
 
-	# Import iTerm2 Default.json
+	# TODO Import terminal default profile (iterm2/Default.json)
 	mkdir -p $HOME/Library/Application\ Support/Code/User && ln -sf $PWD/vscode/settings.json $_/settings.json
 	
 elif [ $(uname) == "Linux" ]; then	
 	if [[ -n "$WSL_DISTRO_NAME" ]]; then
-    	echo "Symlinking dotfiles to Windows user home..."
+		echo "Symlinking dotfiles to Windows user home..."
 		ln -sf $PWD $(wslpath $(powershell.exe '$env:UserProfile') | sed -e 's/\r//g')/dotfiles
 		
-		# ln -sf $PWD/windowsterminal/settings.json ${WINDOWS_HOME}/AppData/Local/Packages/Microsoft.WindowsTerminal*/LocalState/settings.json
-		# ln -sf $PWD/vscode/settings.json ${WINDOWS_HOME}/AppData/Code/User/settings.json
+		# TODO Import terminal default profile (ln -sf $PWD/windowsterminal/settings.json ${WINDOWS_HOME}/AppData/Local/Packages/Microsoft.WindowsTerminal*/LocalState/settings.json)
+		ln -sf $PWD/vscode/settings.json $(wslpath $(powershell.exe '$env:UserProfile') | sed -e 's/\r//g')/AppData/Roaming/Code/User/settings.json
+		# https://github.com/microsoft/vscode/issues/1022
+
 	elif [[ "$CODESPACES" == true ]]; then
 	else
-		# Import GNOME terminal default profile
+		# TODO Import terminal default profile
 		mkdir -p $HOME/.config/Code/User && ln -sf $PWD/vscode/settings.json $_/settings.json
 	fi
 fi

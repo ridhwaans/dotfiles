@@ -1,9 +1,3 @@
-alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
-
-alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
-
-alias cds='cd $HOME/Source'
-
 # Build docker image by 'name:tag' format, show and logs and also save them to file
 function dci {
     docker build -t $1 --no-cache --progress=plain . 2>&1 | tee build.log
@@ -22,7 +16,9 @@ function drmc {
     docker rm $(docker stop $(docker ps -a -q --filter ancestor=$1 --format='{{.ID}}'))
 }
 
-# Rmoves all dangling images
+alias cds='cd $HOME/Source'
+
+# Removes all dangling images
 alias drmi='docker rmi $(docker images -f dangling=true -q)'
 
 if [[ -n "$WSL_DISTRO_NAME" ]]; then
@@ -34,6 +30,13 @@ if [[ -n "$WSL_DISTRO_NAME" ]]; then
     alias cdw='cd $WINDOWS_HOME'
 
     export PATH=$PATH:/mnt/c/Program\ Files/Docker/Docker/resources/bin
+fi
+
+if [ $(uname) == "Darwin" ]; then
+
+    alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+
+    alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 fi
 
 export EDITOR=/usr/bin/vim

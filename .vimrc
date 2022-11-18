@@ -26,12 +26,10 @@ Plugin 'scrooloose/syntastic'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Raimondi/delimitMate'
 " colorschemes
+Plugin 'whatyouhide/vim-gotham'
 Plugin 'sjl/badwolf'
 Plugin 'morhetz/gruvbox'
-Plugin 'whatyouhide/vim-gotham'
 Plugin 'dracula/vim'
-Plugin 'tyrannicaltoucan/vim-deep-space' 
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'cocopon/iceberg.vim'
 call vundle#end()    
 filetype plugin indent on " load filetype-specific files
