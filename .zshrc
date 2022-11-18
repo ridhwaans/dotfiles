@@ -21,7 +21,7 @@ alias cds='cd $HOME/Source'
 # Removes all dangling images
 alias drmi='docker rmi $(docker images -f dangling=true -q)'
 
-if [[ -n "$WSL_DISTRO_NAME" ]]; then
+if [ -n "$WSL_DISTRO_NAME" ]; then
 
     export WINDOWS_USER=$(powershell.exe '$env:UserName')
     # Also removes the ^M, carriage return character from DOS
@@ -32,7 +32,7 @@ if [[ -n "$WSL_DISTRO_NAME" ]]; then
     export PATH=$PATH:/mnt/c/Program\ Files/Docker/Docker/resources/bin
 fi
 
-if [ $(uname) == "Darwin" ]; then
+if [ $(uname) = Darwin ]; then
 
     alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 

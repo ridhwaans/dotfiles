@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ $(uname) == "Darwin" ]; then
+if [ $(uname) = Darwin ]; then
 	# Write permissions for Homebrew 
 	sudo chown -R $(whoami) /usr/local/include /usr/local/lib /usr/local/lib/pkgconfig
 	chmod u+w /usr/local/include /usr/local/lib /usr/local/lib/pkgconfig
@@ -87,7 +87,7 @@ if [ $(uname) == "Darwin" ]; then
 	# restore $IFS
 	IFS=$OLDIFS
 
-elif [ $(uname) == "Linux" ]; then	
+elif [ $(uname) = Linux ]; then	
 	echo "Fetching the latest versions of the package list..."
 	sudo apt update -y
 
@@ -192,24 +192,29 @@ fc-cache -f -v
 fc-list | grep "Roboto Mono for Powerline.ttf"
 
 echo "Adding terminal emulator & text editor settings..."
-if [ $(uname) == "Darwin" ]; then
+if [ $(uname) = Darwin ]; then
+	echo "(mac)"
 	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/iterm2/Gotham.itermcolors --create-dirs -o $HOME/.local/share/themes/"Gotham.itermcolors"
 	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/terminal.app/Gotham.terminal --create-dirs -o $HOME/.local/share/themes/"Gotham.terminal"
 
 	# TODO Import terminal default profile (iterm2/Default.json)
 	mkdir -p $HOME/Library/Application\ Support/Code/User && ln -sf $PWD/vscode/settings.json $_/settings.json
 	
-elif [ $(uname) == "Linux" ]; then	
-	if [[ -n "$WSL_DISTRO_NAME" ]]; then
+elif [ $(uname) = Linux ]; then	
+	if [ -n "$WSL_DISTRO_NAME" ]; then
+		echo "(wsl)"
 		echo "Symlinking dotfiles to Windows user home..."
 		ln -sf $PWD $(wslpath $(powershell.exe '$env:UserProfile') | sed -e 's/\r//g')/dotfiles
 		
 		# TODO Import terminal default profile (ln -sf $PWD/windowsterminal/settings.json ${WINDOWS_HOME}/AppData/Local/Packages/Microsoft.WindowsTerminal*/LocalState/settings.json)
 		ln -sf $PWD/vscode/settings.json $(wslpath $(powershell.exe '$env:UserProfile') | sed -e 's/\r//g')/AppData/Roaming/Code/User/settings.json
 		# https://github.com/microsoft/vscode/issues/1022
+		# https://github.com/microsoft/vscode/issues/166680
 
-	elif [[ "$CODESPACES" == true ]]; then
+	elif [ $CODESPACES = true ]; then
+		echo "(github codespace)"
 	else
+		echo "(native linux)"
 		# TODO Import terminal default profile
 		mkdir -p $HOME/.config/Code/User && ln -sf $PWD/vscode/settings.json $_/settings.json
 	fi
