@@ -4,7 +4,8 @@
     "workbench.iconTheme": "material-icon-theme",
     "terminal.integrated.fontFamily": "'Roboto Mono for Powerline'",
     "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
-    "terminal.integrated.defaultProfile.linux": "$(which zsh)",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.defaultProfile.osx": "zsh",
     "terminal.external.osxExec": "iTerm.app",
     "terminal.external.windowsExec": "C:\\Users\\shake\\AppData\\Local\\Microsoft\\WindowsApps\\wt.exe"
 }

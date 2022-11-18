@@ -173,24 +173,40 @@ done;
 
 mkdir -p $HOME/.ssh && ln -sf $PWD/.ssh/autokey-github.sh $_/autokey-github.sh
 
-if [[ -n "$WSL_DISTRO_NAME" ]]; then
-    echo "Symlinking dotfiles to Windows user home..."
-	ln -sf $PWD $(wslpath $(powershell.exe '$env:UserProfile') | sed -e 's/\r//g')/dotfiles
-fi
+echo "Installing vim plugins..."
+vim +silent! +PluginInstall +qall
 
 echo "Setting user shell..."
 sudo usermod -s $(which zsh) $(whoami)
 $(which zsh)
 grep $(whoami) /etc/passwd
 
-echo "Fixing oh-my-zsh powerline theme..."
+echo "Fixing shell powerline theme..."
 sudo apt install -y language-pack-en 
 sudo update-locale
 
-echo "Fixing oh-my-zsh powerline font..."
+echo "Fixing shell powerline font..."
 curl -L https://github.com/powerline/fonts/raw/master/RobotoMono/Roboto%20Mono%20for%20Powerline.ttf --create-dirs -o $HOME/.local/share/fonts/"Roboto Mono for Powerline.ttf"
 fc-cache -f -v 
 fc-list | grep Powerline
 
-echo "Installing vim plugins..."
-vim +silent! +PluginInstall +qall
+if [ $(uname) == "Darwin" ]; then
+	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/iterm2/Gotham.itermcolors --create-dirs -o $HOME/.local/share/themes/"Gotham.itermcolors"
+	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/terminal.app/Gotham.terminal --create-dirs -o $HOME/.local/share/themes/"Gotham.terminal"
+
+	# Import iTerm2 Default.json
+	mkdir -p $HOME/Library/Application\ Support/Code/User && ln -sf $PWD/vscode/settings.json $_/settings.json
+	
+elif [ $(uname) == "Linux" ]; then	
+	if [[ -n "$WSL_DISTRO_NAME" ]]; then
+    	echo "Symlinking dotfiles to Windows user home..."
+		ln -sf $PWD $(wslpath $(powershell.exe '$env:UserProfile') | sed -e 's/\r//g')/dotfiles
+		
+		# ln -sf $PWD/windowsterminal/settings.json ${WINDOWS_HOME}/AppData/Local/Packages/Microsoft.WindowsTerminal*/LocalState/settings.json
+		# ln -sf $PWD/vscode/settings.json ${WINDOWS_HOME}/AppData/Code/User/settings.json
+	elif [[ "$CODESPACES" == true ]]; then
+	else
+		# Import GNOME terminal default profile
+		mkdir -p $HOME/.config/Code/User && ln -sf $PWD/vscode/settings.json $_/settings.json
+	fi
+fi
