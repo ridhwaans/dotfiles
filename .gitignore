@@ -1,4 +1,4 @@
-.aws/credentials
+# See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # Submodules (modiifed content)
 .gitmodules
