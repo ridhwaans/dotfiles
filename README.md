@@ -34,7 +34,8 @@ bash -c "`wget -O - --no-check-certificate https://raw.githubusercontent.com/rid
 - **GET** Docker Desktop `https://www.docker.com/products/docker-desktop/`  
 - **GET** VS Code Dev Containers extension `https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers`  
 
-in VS Code, select `Reopen in Container`, or  
+in VS Code, select `Remote-Containers: Reopen in Container`, or  
+`Remote-Containers: Rebuild Without Cache and Reopen in Container`, or  
 
 #### build a container
 ```sh
@@ -42,4 +43,7 @@ cd ~/dotfiles
 docker build -t <IMAGE_NAME> . --progress=plain --no-cache
 docker run -it <IMAGE_NAME>
 ```
-in VS Code, select `Attach to Running Container...`   
+in VS Code, select `Remote-Containers: Attach to Running Container...`   
+
+
+

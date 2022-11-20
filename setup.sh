@@ -173,49 +173,57 @@ done;
 
 mkdir -p $HOME/.ssh && ln -sf $PWD/.ssh/autokey-github.sh $_/autokey-github.sh
 
-echo "Installing vim plugins..."
-vim +silent! +PluginInstall +qall
+# https://github.com/ohmyzsh/ohmyzsh/issues/4786
+echo "Install fix for character not in range error before shell change..."
+sudo apt install -y language-pack-en 
+sudo update-locale
 
 echo "Setting user shell..."
 sudo usermod -s $(which zsh) $(whoami)
 $(which zsh)
 grep $(whoami) /etc/passwd
 
-# https://github.com/ohmyzsh/ohmyzsh/issues/4786
-echo "Fixing character not in range..."
-sudo apt install -y language-pack-en 
-sudo update-locale
-
 echo "Installing powerline font..."
 curl -L https://github.com/powerline/fonts/raw/master/RobotoMono/Roboto%20Mono%20for%20Powerline.ttf --create-dirs -o $HOME/.local/share/fonts/"Roboto Mono for Powerline.ttf"
 fc-cache -f -v 
 fc-list | grep "Roboto Mono for Powerline.ttf"
 
-echo "Adding terminal emulator & text editor settings..."
+echo "Adding settings for terminal emulator, text editor..."
 if [ $(uname) = Darwin ]; then
 	echo "(mac)"
 	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/iterm2/Gotham.itermcolors --create-dirs -o $HOME/.local/share/themes/"Gotham.itermcolors"
 	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/terminal.app/Gotham.terminal --create-dirs -o $HOME/.local/share/themes/"Gotham.terminal"
 
 	# TODO Import terminal default profile (iterm2/Default.json)
-	mkdir -p $HOME/Library/Application\ Support/Code/User && ln -sf $PWD/vscode/settings.json $_/settings.json
+	SETTINGS_DIR=$HOME/Library/Application\ Support/Code/User
+	echo "mkdir -p $SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $SETTINGS_DIR/settings.json"
+	mkdir -p $SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $SETTINGS_DIR/settings.json
 	
 elif [ $(uname) = Linux ]; then	
 	if [ -n "$WSL_DISTRO_NAME" ]; then
 		echo "(wsl)"
-		echo "Symlinking dotfiles to Windows user home..."
-		ln -sf $PWD $(wslpath $(powershell.exe '$env:UserProfile') | sed -e 's/\r//g')/dotfiles
+		WINDOWS_HOME=$(wslpath $(powershell.exe '$env:UserProfile') | sed -e 's/\r//g')
+		echo "ln -sf $PWD $WINDOWS_HOME/dotfiles"
+		ln -sf $PWD $WINDOWS_HOME/dotfiles
 		
 		# TODO Import terminal default profile (ln -sf $PWD/windowsterminal/settings.json ${WINDOWS_HOME}/AppData/Local/Packages/Microsoft.WindowsTerminal*/LocalState/settings.json)
-		ln -sf $PWD/vscode/settings.json $(wslpath $(powershell.exe '$env:UserProfile') | sed -e 's/\r//g')/AppData/Roaming/Code/User/settings.json
+		SETTINGS_DIR=$WINDOWS_HOME/AppData/Roaming/Code/User
+		echo "cp $PWD/vscode/settings.json $SETTINGS_DIR/settings.json"
+		cp $PWD/vscode/settings.json $SETTINGS_DIR/settings.json
 		# https://github.com/microsoft/vscode/issues/1022
 		# https://github.com/microsoft/vscode/issues/166680
 
-	elif [ $CODESPACES = true ]; then
+	elif [ -n "$CODESPACES" ]; then
 		echo "(github codespace)"
 	else
 		echo "(native linux)"
 		# TODO Import terminal default profile
-		mkdir -p $HOME/.config/Code/User && ln -sf $PWD/vscode/settings.json $_/settings.json
+		SETTINGS_DIR=$HOME/.config/Code/User
+		echo "mkdir -p $SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $SETTINGS_DIR/settings.json"
+		mkdir -p $SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $SETTINGS_DIR/settings.json
 	fi
 fi
+
+# Moving to end because it is voids trailing code
+echo "Installing vim plugins..."
+vim +silent! +PluginInstall +qall

@@ -6,8 +6,6 @@
 [alias]
     ec = config --global -e
     up = !git pull --rebase --prune $@ && git submodule update --init --recursive
-    co = checkout
-    cob = checkout -b
     cm = !git add -A && git commit -m
     save = !git add -A && git commit -m "SAVEPOINT"
     wip = commit -am "WIP" 
@@ -17,4 +15,5 @@
     amend = commit -a --amend --reuse-message=HEAD
     contrib = shortlog --summary --numbered
     show-ls = !git rev-parse HEAD | xargs git diff-tree --no-commit-id --name-only -r
-    rm-ignored = rm -r --cached . && git add . && git commit -am "Remove ignored files"
+    refresh-ignore = rm -r --cached . && git add . && git commit -am "Refresh .gitignore"
+    pr = "!f() { git fetch $1 pull/$2/head:pull_$2; git co pull_$2; }; f"
