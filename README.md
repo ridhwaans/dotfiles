@@ -6,7 +6,7 @@
 
 ## quick start
 clone this repository
-```sh
+```
 git clone https://github.com/ridhwaans/dotfiles.git ~/dotfiles
 ```
 
@@ -22,11 +22,11 @@ windows
     - optional: upgrade to the interim release
     - [managing multiple linux distributions](https://learn.microsoft.com/en-us/windows/wsl/wsl-config#managing-multiple-linux-distributions)   
 curl
-```sh
+```
 bash -c "`curl -fsSL https://raw.github.com/ridhwaans/dotfiles/master/setup.sh`"
 ```
 or, wget
-```sh
+```
 bash -c "`wget -O - --no-check-certificate https://raw.githubusercontent.com/ridhwaans/dotfiles/master/setup.sh`"
 ```
 
@@ -37,11 +37,10 @@ bash -c "`wget -O - --no-check-certificate https://raw.githubusercontent.com/rid
 in VS Code, select `Remote-Containers: Reopen in Container`, or  
 `Remote-Containers: Rebuild Without Cache and Reopen in Container`, or  
 
-#### build a container
-```sh
-cd ~/dotfiles
-docker build -t <IMAGE_NAME> . --progress=plain --no-cache
-docker run -it <IMAGE_NAME>
+#### manual build
+```
+docker build . -t name:tag --progress=plain --no-cache
+docker run -d -i -t name:tag
 ```
 in VS Code, select `Remote-Containers: Attach to Running Container...`   
 

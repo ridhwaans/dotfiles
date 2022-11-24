@@ -57,10 +57,10 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 
 try
-  colorscheme gotham
+  colorscheme gotham256
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme default
   set background=dark
 endtry
 
-let g:airline_theme='gotham'
+let g:airline_theme='gotham256'

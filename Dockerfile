@@ -10,9 +10,8 @@ RUN apt install -y \
   sudo \
 ;
 
-ARG USERNAME=ridhwaans
-
 # Create and configure user
+ARG USERNAME=ridhwaans
 RUN useradd -ms /bin/bash $USERNAME
 # User with empty password
 RUN echo "$USERNAME:$USERNAME" | chpasswd

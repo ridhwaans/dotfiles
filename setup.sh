@@ -9,7 +9,7 @@ if [ $(uname) = Darwin ]; then
 	if test ! $(which brew)
 	then
 		echo "Installing Homebrew..."
-		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+		bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	fi
 
 	# Make sure we’re using the latest Homebrew
@@ -174,7 +174,7 @@ done;
 mkdir -p $HOME/.ssh && ln -sf $PWD/.ssh/autokey-github.sh $_/autokey-github.sh
 
 # https://github.com/ohmyzsh/ohmyzsh/issues/4786
-echo "Install fix for character not in range error before shell change..."
+echo "Installing fix for character not in range error before shell change..."
 sudo apt install -y language-pack-en 
 sudo update-locale
 
