@@ -208,8 +208,8 @@ elif [ $(uname) = Linux ]; then
 		
 		# TODO Import terminal default profile (ln -sf $PWD/windowsterminal/settings.json ${WINDOWS_HOME}/AppData/Local/Packages/Microsoft.WindowsTerminal*/LocalState/settings.json)
 		SETTINGS_DIR=$WINDOWS_HOME/AppData/Roaming/Code/User
-		echo "cp $PWD/vscode/settings.json $SETTINGS_DIR/settings.json"
-		cp $PWD/vscode/settings.json $SETTINGS_DIR/settings.json
+		echo "mkdir -p $SETTINGS_DIR && cp --remove-destination $PWD/vscode/settings.json $SETTINGS_DIR/settings.json"
+		mkdir -p $SETTINGS_DIR && cp --remove-destination $PWD/vscode/settings.json $SETTINGS_DIR/settings.json
 		# https://github.com/microsoft/vscode/issues/1022
 		# https://github.com/microsoft/vscode/issues/166680
 
@@ -224,6 +224,6 @@ elif [ $(uname) = Linux ]; then
 	fi
 fi
 
-# Moving to end because it is voids trailing code
+# Moving to end because it lapses trailing code
 echo "Installing vim plugins..."
 vim +silent! +PluginInstall +qall

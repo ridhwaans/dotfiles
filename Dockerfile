@@ -10,13 +10,12 @@ RUN apt install -y \
   sudo \
 ;
 
-# SSH user
-ENV USERNAME ridhwaans
-ENV USERPASSWORD ridhwaans
+ARG USERNAME=ridhwaans
+
 # Create and configure user
 RUN useradd -ms /bin/bash $USERNAME
 # User with empty password
-RUN echo "$USERNAME:$USERPASSWORD" | chpasswd
+RUN echo "$USERNAME:$USERNAME" | chpasswd
 # Enable passwordless sudo for user
 RUN mkdir -p /etc/sudoers.d && \
              echo "$USERNAME ALL= NOPASSWD: ALL" > /etc/sudoers.d/$USERNAME && \
