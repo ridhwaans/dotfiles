@@ -63,7 +63,7 @@ if github-authenticated; then
   GIT_REPO=$(basename `git rev-parse --show-toplevel`)
   git remote set-url origin git@github.com:$GIT_USER/$GIT_REPO.git
   cd -
-  echo "Switched remote URLs from HTTPS to SSH"
+  echo "Switched dotfiles remote URL from HTTPS to SSH"
 fi
 
 # Credits

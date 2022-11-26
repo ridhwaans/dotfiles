@@ -2,18 +2,18 @@
     "build": {
 		"dockerfile": "../Dockerfile"
     },
-	//"workspaceMount": "",
-	//"workspaceFolder": "",
 	"settings": {
+		"dev.containers.copyGitConfig": false,
+		"dev.containers.gitCredentialHelperConfigLocation": "none",
 		"editor.fontFamily": "'Roboto Mono for Powerline', Menlo, Monaco, 'Courier New', monospace",
-		"workbench.colorTheme": "Gotham",
-		"workbench.iconTheme": "material-icon-theme",
-		"terminal.integrated.fontFamily": "'Roboto Mono for Powerline'",
-		"terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
+		"terminal.external.osxExec": "iTerm.app",
+		"terminal.external.windowsExec": "C:\\Users\\shake\\AppData\\Local\\Microsoft\\WindowsApps\\wt.exe",
 		"terminal.integrated.defaultProfile.linux": "zsh",
 		"terminal.integrated.defaultProfile.osx": "zsh",
-		"terminal.external.osxExec": "iTerm.app",
-		"terminal.external.windowsExec": "C:\\Users\\shake\\AppData\\Local\\Microsoft\\WindowsApps\\wt.exe"
+		"terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
+		"terminal.integrated.fontFamily": "'Roboto Mono for Powerline'",
+		"workbench.colorTheme": "Gotham",
+		"workbench.iconTheme": "material-icon-theme"
 	},
 	"extensions": [
 		"alireza94.theme-gotham",

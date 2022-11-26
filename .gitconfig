@@ -16,4 +16,4 @@
     contrib = shortlog --summary --numbered
     show-ls = !git rev-parse HEAD | xargs git diff-tree --no-commit-id --name-only -r
     refresh-ignore = rm -r --cached . && git add . && git commit -am "Refresh .gitignore"
-    pr = "!f() { git fetch $1 pull/$2/head:pull_$2; git co pull_$2; }; f"
+    pr = "!f() { git fetch $1 pull/$2/head:pull_$2; git checkout pull_$2; }; f"
