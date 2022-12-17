@@ -21,6 +21,7 @@ windows
 - **GET** `Ubuntu 22.04 LTS (Jammy Jellyfish)` from the Microsoft Store
     - optional: upgrade to the interim release
     - [managing multiple linux distributions](https://learn.microsoft.com/en-us/windows/wsl/wsl-config#managing-multiple-linux-distributions)   
+
 curl
 ```
 bash -c "`curl -fsSL https://raw.github.com/ridhwaans/dotfiles/master/setup.sh`"

@@ -27,6 +27,7 @@ if [ $(uname) = Darwin ]; then
 		exercism
 		git
 		go
+		jq
 		mysql
 		postgresql
 		screenfetch
@@ -102,6 +103,7 @@ elif [ $(uname) = Linux ]; then
 		awscli
 		git
 		golang-go
+		jq
 		mysql-server
 		postgresql postgresql-contrib
 		screenfetch
