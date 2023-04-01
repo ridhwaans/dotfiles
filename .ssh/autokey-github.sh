@@ -8,6 +8,13 @@
 
 #set -e
 
+# Correct file permissions
+
+if [ -d ~/.ssh ]; then
+  sudo chown -R ${SUDO_USER:-$USER} ~/.ssh
+  chmod 700 ~/.ssh
+fi
+
 # Generate SSH Key and Deploy to Github
 
 TOKEN=$2
@@ -38,33 +45,6 @@ echo "Added SSH key to the ssh-agent"
 # Test the SSH connection
 
 ssh -T git@github.com
-
-function github-authenticated() {
-  # Attempt to ssh to GitHub
-  ssh -T git@github.com &>/dev/null
-  RET=$?
-  if [ $RET == 1 ]; then
-    # user is authenticated, but fails to open a shell with GitHub 
-    return 0
-  elif [ $RET == 255 ]; then
-    # user is not authenticated
-    return 1
-  else
-    echo "unknown exit code in attempt to ssh into git@github.com"
-  fi
-  return 2
-}
-
-# Switch remote URLs from HTTPS to SSH
-
-if github-authenticated; then
-  cd $HOME/dotfiles
-  GIT_USER=`echo $(git config --get remote.origin.url) | sed -Ene's#https://github.com/([^/]*)/(.*).git#\1#p'`
-  GIT_REPO=$(basename `git rev-parse --show-toplevel`)
-  git remote set-url origin git@github.com:$GIT_USER/$GIT_REPO.git
-  cd -
-  echo "Switched dotfiles remote URL from HTTPS to SSH"
-fi
 
 # Credits
 # https://gist.github.com/petersellars/c6fff3657d53d053a15e57862fc6f567

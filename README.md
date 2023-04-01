@@ -4,12 +4,6 @@
 ![screenfetch_mac](images/screenfetch-mac.png)
 ![screenfetch_windows](images/screenfetch-windows.png)
 
-## quick start
-clone this repository
-```
-git clone https://github.com/ridhwaans/dotfiles.git ~/dotfiles
-```
-
 ## manual installation
 **Warning: Please back up your files before running setup**  
 macOS
