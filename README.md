@@ -29,13 +29,13 @@ bash -c "`wget -O - --no-check-certificate https://raw.githubusercontent.com/rid
 - **GET** [Docker Desktop](https://www.docker.com/products/docker-desktop/)  
 - **GET** [VS Code Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)  
 
-in VS Code, select `Remote-Containers: Reopen in Container`, or  
-`Remote-Containers: Rebuild Without Cache and Reopen in Container`, or  
+in VS Code, select `Dev Containers: Reopen in Container`, or  
+`Dev Containers: Rebuild Without Cache and Reopen in Container`, or  
 
 #### manual build
 build and run a detached instance
 ```
-docker build . -t name:tag --progress=plain --no-cache
+docker build github.com/ridhwaans/dotfiles -t name:tag --progress=plain --no-cache
 docker run -d -i -t name:tag
 ```
-in VS Code, select `Remote-Containers: Attach to Running Container...`  
+in VS Code, select `Dev Containers: Attach to Running Container...`  

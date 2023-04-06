@@ -25,6 +25,7 @@ if [ $(uname) = Darwin ]; then
 		aws-sam-cli
 		dockutil
 		exercism
+		fontconfig
 		git
 		go
 		jq

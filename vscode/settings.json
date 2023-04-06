@@ -1,7 +1,7 @@
 {
     "editor.fontFamily": "'Roboto Mono for Powerline', Menlo, Monaco, 'Courier New', monospace",
-    "workbench.colorTheme": "Gotham",
     "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "Gotham",
     "terminal.integrated.fontFamily": "'Roboto Mono for Powerline'",
     "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
     "terminal.integrated.defaultProfile.linux": "zsh",
