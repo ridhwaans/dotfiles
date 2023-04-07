@@ -181,7 +181,7 @@ echo "Installing fix for character not in range error before shell change..."
 sudo apt install -y language-pack-en 
 sudo update-locale
 
-echo "Setting user shell..."
+echo "Setting up user shell..."
 sudo usermod -s $(which zsh) $(whoami)
 $(which zsh)
 grep $(whoami) /etc/passwd
@@ -191,7 +191,26 @@ curl -L https://github.com/powerline/fonts/raw/master/RobotoMono/Roboto%20Mono%2
 fc-cache -f -v 
 fc-list | grep "Roboto Mono for Powerline.ttf"
 
-echo "Adding settings for terminal emulator, text editor..."
+echo "Setting up terminal emulator, text editor..."
+
+extensions=(
+	alireza94.theme-gotham
+	PKief.material-icon-theme
+	dunstontc.viml
+	Prisma.prisma
+	eamodio.gitlens
+	ms-azuretools.vscode-docker
+	ms-vscode-remote.remote-wsl
+	ms-vscode-remote.remote-containers
+	ms-vscode-remote.remote-ssh
+	ms-vsliveshare.vsliveshare
+	GitHub.copilot
+)
+for extension in "${extensions[@]}"
+do
+	code --install-extension $extension
+done
+
 if [ $(uname) = Darwin ]; then
 	echo "(mac)"
 	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/iterm2/Gotham.itermcolors --create-dirs -o $HOME/.local/share/themes/"Gotham.itermcolors"

@@ -1,13 +1,18 @@
 {
-    "editor.fontFamily": "'Roboto Mono for Powerline', Menlo, Monaco, 'Courier New', monospace",
-    "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "Gotham",
-    "terminal.integrated.fontFamily": "'Roboto Mono for Powerline'",
-    "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
-    "terminal.integrated.defaultProfile.linux": "zsh",
-    "terminal.integrated.defaultProfile.osx": "zsh",
-    "terminal.external.osxExec": "iTerm.app",
-    "terminal.external.windowsExec": "wt.exe"
+	"editor.fontFamily": "'Roboto Mono for Powerline', Menlo, Monaco, 'Courier New', monospace",
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": false,
+	"editor.tabSize": 4,
+	"workbench.iconTheme": "material-icon-theme",
+	"workbench.colorTheme": "Gotham",
+	"terminal.integrated.fontFamily": "'Roboto Mono for Powerline'",
+	"terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
+	"terminal.integrated.defaultProfile.linux": "zsh",
+	"terminal.integrated.defaultProfile.osx": "zsh",
+	"terminal.external.osxExec": "iTerm.app",
+	"terminal.external.windowsExec": "wt.exe",
+	"dev.containers.copyGitConfig": false,
+	"dev.containers.gitCredentialHelperConfigLocation": "none"
 }
 
 /*

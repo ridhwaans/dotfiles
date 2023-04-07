@@ -2,7 +2,7 @@
 
 # Personal access token (classic) required
 # OAuth token required scope -- repo, admin:public_key
-# Usage
+# Usage:
 #   chmod +x autokey-github.sh
 #   ./autokey-github.sh <KEY-TITLE> <YOUR-GITHUB-ACCESS-TOKEN>
 

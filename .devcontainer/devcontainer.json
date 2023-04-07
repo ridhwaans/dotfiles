@@ -1,27 +1,30 @@
 {
-    "build": {
+	"build": {
 		"dockerfile": "../Dockerfile"
-    },
+	},
 	"settings": {
-		"dev.containers.copyGitConfig": false,
-		"dev.containers.gitCredentialHelperConfigLocation": "none",
 		"editor.fontFamily": "'Roboto Mono for Powerline', Menlo, Monaco, 'Courier New', monospace",
-		"terminal.external.osxExec": "iTerm.app",
-		"terminal.external.windowsExec": "C:\\Users\\shake\\AppData\\Local\\Microsoft\\WindowsApps\\wt.exe",
+		"editor.detectIndentation": false,
+		"editor.insertSpaces": false,
+		"editor.tabSize": 4,
+		"workbench.iconTheme": "material-icon-theme",
+		"workbench.colorTheme": "Gotham",
+		"terminal.integrated.fontFamily": "'Roboto Mono for Powerline'",
+		"terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
 		"terminal.integrated.defaultProfile.linux": "zsh",
 		"terminal.integrated.defaultProfile.osx": "zsh",
-		"terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
-		"terminal.integrated.fontFamily": "'Roboto Mono for Powerline'",
-		"workbench.colorTheme": "Gotham",
-		"workbench.iconTheme": "material-icon-theme"
+		"terminal.external.osxExec": "iTerm.app",
+		"terminal.external.windowsExec": "wt.exe",
+		"dev.containers.copyGitConfig": false,
+		"dev.containers.gitCredentialHelperConfigLocation": "none"
 	},
 	"extensions": [
 		"alireza94.theme-gotham",
-		"dunstontc.viml",
-		"eamodio.gitlens",
-		"ms-vscode-remote.remote-containers",
-		"ms-vscode-remote.remote-wsl",
 		"PKief.material-icon-theme",
-		"Prisma.prisma"
+		"dunstontc.viml",
+		"Prisma.prisma",
+		"eamodio.gitlens",
+		"ms-vsliveshare.vsliveshare",
+		"GitHub.copilot"
 	]
 }
