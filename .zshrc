@@ -3,7 +3,7 @@ function is-ssh-authenticated() {
 	ssh -T git@github.com &>/dev/null
 	RET=$?
 	if [ $RET == 1 ]; then
-		# user is authenticated, but fails to open a shell with GitHub 
+		# user is authenticated, but fails to open a shell with GitHub
 		return 0
 	elif [ $RET == 255 ]; then
 		# user is not authenticated
@@ -54,22 +54,26 @@ alias cds='cd $HOME/Source'
 # Removes all dangling images
 alias drmi='docker rmi $(docker images -f dangling=true -q)'
 
-if [ -n "$WSL_DISTRO_NAME" ]; then
-
-    export WINDOWS_USER=$(powershell.exe '$env:UserName')
-    # Also removes the ^M, carriage return character from DOS
-    export WINDOWS_HOME=$(wslpath $(powershell.exe '$env:UserProfile') | sed -e 's/\r//g')
-
-    alias cdw='cd $WINDOWS_HOME'
-
-    export PATH=$PATH:/mnt/c/Program\ Files/Docker/Docker/resources/bin
-fi
-
 if [ $(uname) = Darwin ]; then
-
     alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 
     alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+
+elif [ $(uname) = Linux ]; then
+    if [ -n "$WSL_DISTRO_NAME" ]; then
+        export WINDOWS_USER=$(powershell.exe '$env:UserName')
+        # Also removes the ^M, carriage return character from DOS
+        export WINDOWS_HOME=$(wslpath $(powershell.exe '$env:UserProfile') | sed -e 's/\r//g')
+
+        alias cdw='cd $WINDOWS_HOME'
+
+        export VSCODE_SETTINGS=$WINDOWS_HOME/AppData/Roaming/Code/User/settings.json
+
+        export PATH=$PATH:/mnt/c/Program\ Files/Docker/Docker/resources/bin
+
+    elif [ -n "$CODESPACES" ]; then
+    else
+    fi
 fi
 
 export EDITOR=/usr/bin/vim

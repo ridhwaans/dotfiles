@@ -1,26 +1,14 @@
 {
-	"editor.fontFamily": "'Roboto Mono for Powerline', Menlo, Monaco, 'Courier New', monospace",
-	"editor.detectIndentation": false,
-	"editor.insertSpaces": false,
-	"editor.tabSize": 4,
+	// Appearance
 	"workbench.iconTheme": "material-icon-theme",
 	"workbench.colorTheme": "Gotham",
+	"editor.fontFamily": "'Roboto Mono for Powerline', Menlo, Monaco, 'Courier New', monospace",
 	"terminal.integrated.fontFamily": "'Roboto Mono for Powerline'",
+
+	// Core
 	"terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
 	"terminal.integrated.defaultProfile.linux": "zsh",
 	"terminal.integrated.defaultProfile.osx": "zsh",
 	"terminal.external.osxExec": "iTerm.app",
-	"terminal.external.windowsExec": "wt.exe",
-	"dev.containers.copyGitConfig": false,
-	"dev.containers.gitCredentialHelperConfigLocation": "none"
+	"terminal.external.windowsExec": "wt.exe"
 }
-
-/*
-TODO terminal.external.windowsExec
-C:\\WINDOWS\\system32\\wsl.exe -d Ubuntu
-C:\\Users\\shake\\AppData\\Local\\Microsoft\\WindowsApps\\wt.exe
-C:\\WINDOWS\\System32\\bash.exe
-C:\\WINDOWS\\System32\\wsl.exe
-C:\\WINDOWS\\System32\\bash.exe -c /bin/zsh
-C:\\WINDOWS\\System32\\wsl.exe -d Ubuntu --cd ~
-*/

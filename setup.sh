@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ $(uname) = Darwin ]; then
-	# Write permissions for Homebrew 
+	# Write permissions for Homebrew
 	sudo chown -R $(whoami) /usr/local/include /usr/local/lib /usr/local/lib/pkgconfig
 	chmod u+w /usr/local/include /usr/local/lib /usr/local/lib/pkgconfig
 
@@ -89,7 +89,7 @@ if [ $(uname) = Darwin ]; then
 	# restore $IFS
 	IFS=$OLDIFS
 
-elif [ $(uname) = Linux ]; then	
+elif [ $(uname) = Linux ]; then
 	echo "Fetching the latest versions of the package list..."
 	sudo apt update -y
 
@@ -116,7 +116,7 @@ elif [ $(uname) = Linux ]; then
 	)
 	echo "Installing packages..."
 	sudo apt install -y "${packages[@]}"
-	
+
 	curl -L https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip --create-dirs -o $HOME/aws-sam-cli-linux-x86_64.zip && cd $(dirname $_)
 	unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
 	sudo ./sam-installation/install
@@ -178,7 +178,7 @@ mkdir -p $HOME/.ssh && ln -sf $PWD/.ssh/autokey-github.sh $_/autokey-github.sh
 
 # https://github.com/ohmyzsh/ohmyzsh/issues/4786
 echo "Installing fix for character not in range error before shell change..."
-sudo apt install -y language-pack-en 
+sudo apt install -y language-pack-en
 sudo update-locale
 
 echo "Setting up user shell..."
@@ -188,7 +188,7 @@ grep $(whoami) /etc/passwd
 
 echo "Installing powerline font..."
 curl -L https://github.com/powerline/fonts/raw/master/RobotoMono/Roboto%20Mono%20for%20Powerline.ttf --create-dirs -o $HOME/.local/share/fonts/"Roboto Mono for Powerline.ttf"
-fc-cache -f -v 
+fc-cache -f -v
 fc-list | grep "Roboto Mono for Powerline.ttf"
 
 echo "Setting up terminal emulator, text editor..."
@@ -196,6 +196,7 @@ echo "Setting up terminal emulator, text editor..."
 extensions=(
 	alireza94.theme-gotham
 	PKief.material-icon-theme
+    EditorConfig.EditorConfig
 	dunstontc.viml
 	Prisma.prisma
 	eamodio.gitlens
@@ -217,21 +218,21 @@ if [ $(uname) = Darwin ]; then
 	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/terminal.app/Gotham.terminal --create-dirs -o $HOME/.local/share/themes/"Gotham.terminal"
 
 	# TODO Import terminal default profile (iterm2/Default.json)
-	SETTINGS_DIR=$HOME/Library/Application\ Support/Code/User
-	echo "mkdir -p $SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $SETTINGS_DIR/settings.json"
-	mkdir -p $SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $SETTINGS_DIR/settings.json
-	
-elif [ $(uname) = Linux ]; then	
+	VSCODE_SETTINGS_DIR=$HOME/Library/Application\ Support/Code/User
+	echo "mkdir -p $VSCODE_SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json"
+	mkdir -p $VSCODE_SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json
+
+elif [ $(uname) = Linux ]; then
 	if [ -n "$WSL_DISTRO_NAME" ]; then
 		echo "(wsl)"
 		WINDOWS_HOME=$(wslpath $(powershell.exe '$env:UserProfile') | sed -e 's/\r//g')
 		echo "ln -sf $PWD $WINDOWS_HOME/dotfiles"
 		ln -sf $PWD $WINDOWS_HOME/dotfiles
-		
+
 		# TODO Import terminal default profile (ln -sf $PWD/windowsterminal/settings.json ${WINDOWS_HOME}/AppData/Local/Packages/Microsoft.WindowsTerminal*/LocalState/settings.json)
-		SETTINGS_DIR=$WINDOWS_HOME/AppData/Roaming/Code/User
-		echo "mkdir -p $SETTINGS_DIR && cp --remove-destination $PWD/vscode/settings.json $SETTINGS_DIR/settings.json"
-		mkdir -p $SETTINGS_DIR && cp --remove-destination $PWD/vscode/settings.json $SETTINGS_DIR/settings.json
+		VSCODE_SETTINGS_DIR=$WINDOWS_HOME/AppData/Roaming/Code/User
+		echo "mkdir -p $VSCODE_SETTINGS_DIR && cp --remove-destination $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json"
+		mkdir -p $VSCODE_SETTINGS_DIR && cp --remove-destination $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json
 		# https://github.com/microsoft/vscode/issues/1022
 		# https://github.com/microsoft/vscode/issues/166680
 
@@ -240,9 +241,9 @@ elif [ $(uname) = Linux ]; then
 	else
 		echo "(native linux)"
 		# TODO Import terminal default profile
-		SETTINGS_DIR=$HOME/.config/Code/User
-		echo "mkdir -p $SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $SETTINGS_DIR/settings.json"
-		mkdir -p $SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $SETTINGS_DIR/settings.json
+		VSCODE_SETTINGS_DIR=$HOME/.config/Code/User
+		echo "mkdir -p $VSCODE_SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json"
+		mkdir -p $VSCODE_SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json
 	fi
 fi
 
