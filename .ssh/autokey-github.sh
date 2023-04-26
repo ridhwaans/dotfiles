@@ -16,13 +16,12 @@ if [ -d ~/.ssh ]; then
 fi
 
 # Generate SSH Key and Deploy to Github
-
+TITLE=$1
 TOKEN=$2
 
-ssh-keygen -t ed25519 -C $1 -f ~/.ssh/id_ed25519
+ssh-keygen -t ed25519 -C $1 -f ~/.ssh/$TITLE
 
-PUBKEY=`cat ~/.ssh/id_ed25519.pub`
-TITLE=$1
+PUBKEY=`cat ~/.ssh/$TITLE.pub`
 
 RESPONSE=`curl -s -H "Authorization: token ${TOKEN}" \
   -X POST --data-binary "{\"title\":\"${TITLE}\",\"key\":\"${PUBKEY}\"}" \
@@ -38,7 +37,7 @@ echo "Public key deployed to remote service"
 # Add SSH Key to the local ssh-agent"
 
 eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
+ssh-add ~/.ssh/$TITLE
 
 echo "Added SSH key to the ssh-agent"
 

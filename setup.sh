@@ -23,7 +23,6 @@ if [ $(uname) = Darwin ]; then
 	packages=(
 		awscli
 		aws-sam-cli
-		dockutil
 		exercism
 		fontconfig
 		git
@@ -48,6 +47,7 @@ if [ $(uname) = Darwin ]; then
 		dropbox
 		figma
 		google-chrome
+        hpedrorodrigues/tools/dockutil
 		iterm2-nightly
 		mounty
 		notion
@@ -70,12 +70,14 @@ if [ $(uname) = Darwin ]; then
 		'Google Chrome'
 		'Visual Studio Code'
 		iTerm
+        'Beekeeper Studio'
 		Postman
 		Notion
 		Slack
 		Figma
 		zoom.us
-		'System Preferences'
+        Docker
+		'System Settings'
 	)
 
 	dockutil --no-restart --remove all $HOME
@@ -88,6 +90,12 @@ if [ $(uname) = Darwin ]; then
 
 	# restore $IFS
 	IFS=$OLDIFS
+
+    defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Bluetooth -int 18
+    defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Sound -int 18
+    defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Display -int 18
+    # Stop `Music.app` from opening
+    launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist
 
 elif [ $(uname) = Linux ]; then
 	echo "Fetching the latest versions of the package list..."
@@ -134,6 +142,9 @@ elif [ $(uname) = Linux ]; then
 fi
 
 echo "Setting up dotfiles..."
+git config --global --list
+git config --system --list
+git config --local --list
 rm -rf $HOME/dotfiles && git clone https://github.com/ridhwaans/dotfiles.git $HOME/dotfiles && cd $_
 
 echo "Setting up submodules..."
@@ -217,7 +228,9 @@ if [ $(uname) = Darwin ]; then
 	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/iterm2/Gotham.itermcolors --create-dirs -o $HOME/.local/share/themes/"Gotham.itermcolors"
 	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/terminal.app/Gotham.terminal --create-dirs -o $HOME/.local/share/themes/"Gotham.terminal"
 
-	# TODO Import terminal default profile (iterm2/Default.json)
+    defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+    # TODO Import terminal default profile (iterm2/Default.json)
+
 	VSCODE_SETTINGS_DIR=$HOME/Library/Application\ Support/Code/User
 	echo "mkdir -p $VSCODE_SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json"
 	mkdir -p $VSCODE_SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json
@@ -225,12 +238,14 @@ if [ $(uname) = Darwin ]; then
 elif [ $(uname) = Linux ]; then
 	if [ -n "$WSL_DISTRO_NAME" ]; then
 		echo "(wsl)"
+        # Make a dotfiles shortcut in the Windows home directory
 		WINDOWS_HOME=$(wslpath $(powershell.exe '$env:UserProfile') | sed -e 's/\r//g')
 		echo "ln -sf $PWD $WINDOWS_HOME/dotfiles"
 		ln -sf $PWD $WINDOWS_HOME/dotfiles
 
 		# TODO Import terminal default profile (ln -sf $PWD/windowsterminal/settings.json ${WINDOWS_HOME}/AppData/Local/Packages/Microsoft.WindowsTerminal*/LocalState/settings.json)
-		VSCODE_SETTINGS_DIR=$WINDOWS_HOME/AppData/Roaming/Code/User
+
+        VSCODE_SETTINGS_DIR=$WINDOWS_HOME/AppData/Roaming/Code/User
 		echo "mkdir -p $VSCODE_SETTINGS_DIR && cp --remove-destination $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json"
 		mkdir -p $VSCODE_SETTINGS_DIR && cp --remove-destination $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json
 		# https://github.com/microsoft/vscode/issues/1022
@@ -240,8 +255,10 @@ elif [ $(uname) = Linux ]; then
 		echo "(github codespace)"
 	else
 		echo "(native linux)"
+
 		# TODO Import terminal default profile
-		VSCODE_SETTINGS_DIR=$HOME/.config/Code/User
+
+        VSCODE_SETTINGS_DIR=$HOME/.config/Code/User
 		echo "mkdir -p $VSCODE_SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json"
 		mkdir -p $VSCODE_SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json
 	fi

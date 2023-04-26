@@ -9,7 +9,7 @@
     up = !git pull --rebase --prune $@ && git submodule update --init --recursive
     cm = !git add -A && git commit -m
     save = !git add -A && git commit -m "SAVEPOINT"
-    wip = commit -am "WIP" 
+    wip = commit -am "WIP"
     undo = reset HEAD~1 --mixed
     undo2 = reset --soft HEAD^
     find = log --color --source -S
@@ -19,4 +19,4 @@
     refresh-ignore = rm -r --cached . && git add . && git commit -am "Refresh .gitignore"
     pr = "!f() { git fetch $1 pull/$2/head:pull_$2; git checkout pull_$2; }; f"
 [url "git@github.com:"]
-    insteadOf = https://github.com/
+    pushInsteadOf = https://github.com/

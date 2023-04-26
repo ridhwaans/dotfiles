@@ -333,7 +333,7 @@
       "Alpha Component" : 1,
       "Green Component" : 0.76959484815597534
     },
-    "Window Type" : 0,
+    "Window Type" : 1,
     "BM Growl" : true,
     "Prompt Before Closing 2" : false,
     "Command" : "",
@@ -641,7 +641,7 @@
     "Shortcut" : "",
     "Mouse Reporting" : true,
     "Tags" : [
-  
+
     ],
     "Ansi 6 Color (Light)" : {
       "Red Component" : 0.16241391003131866,
