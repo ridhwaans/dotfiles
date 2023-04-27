@@ -142,29 +142,17 @@ elif [ $(uname) = Linux ]; then
 fi
 
 echo "Setting up dotfiles..."
-git config --global --list
-git config --system --list
-git config --local --list
 rm -rf $HOME/dotfiles && git clone https://github.com/ridhwaans/dotfiles.git $HOME/dotfiles && cd $_
 
 echo "Setting up submodules..."
-git submodule add -f https://github.com/VundleVim/Vundle.vim.git .vim/bundle/Vundle.vim
-git submodule add -f https://github.com/zsh-users/antigen.git .zsh/bundle
-git submodule add -f https://github.com/nvm-sh/nvm.git .nvm
-git submodule add -f https://github.com/pyenv/pyenv.git .pyenv
-cd .pyenv
-git submodule add -f https://github.com/pyenv/pyenv-virtualenv.git plugins/pyenv-virtualenv
-cd ..
-git submodule add -f https://github.com/rbenv/rbenv.git .rbenv
-cd .rbenv
-git submodule add -f https://github.com/rbenv/ruby-build.git plugins/ruby-build
-git submodule add -f https://github.com/jf/rbenv-gemset.git plugins/rbenv-gemset
-cd ..
+git submodule update --init --recursive --remote
+
+echo "Setting up submodule plugins..."
+git clone https://github.com/pyenv/pyenv-virtualenv.git .pyenv/plugins/pyenv-virtualenv
+git clone https://github.com/rbenv/ruby-build.git .rbenv/plugins/ruby-build
+git clone https://github.com/jf/rbenv-gemset.git .rbenv/plugins/rbenv-gemset
 
 export SDKMAN_DIR=$PWD/.sdkman && curl https://get.sdkman.io | bash
-
-echo "Clearing any automatically staged files..."
-git reset .
 
 echo "Symlinking dotfiles..."
 files=(
@@ -185,7 +173,9 @@ do
 	ln -sf $PWD/$file $HOME/
 done;
 
+echo "Setting up .ssh folder permissions..."
 mkdir -p $HOME/.ssh && ln -sf $PWD/.ssh/autokey-github.sh $_/autokey-github.sh
+find $HOME/.ssh/ -type f -exec chmod 600 {} \;; find $HOME/.ssh/ -type d -exec chmod 700 {} \;; find $HOME/.ssh/ -type f -name "*.pub" -exec chmod 644 {} \;
 
 # https://github.com/ohmyzsh/ohmyzsh/issues/4786
 echo "Installing fix for character not in range error before shell change..."
@@ -218,10 +208,13 @@ extensions=(
 	ms-vsliveshare.vsliveshare
 	GitHub.copilot
 )
-for extension in "${extensions[@]}"
-do
-	code --install-extension $extension
-done
+if type -p code >/dev/null
+then
+    for extension in "${extensions[@]}"
+    do
+        code --install-extension $extension
+    done
+fi
 
 if [ $(uname) = Darwin ]; then
 	echo "(mac)"

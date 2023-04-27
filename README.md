@@ -4,7 +4,7 @@
 ![screenfetch_mac](images/screenfetch-mac.png)
 ![screenfetch_windows](images/screenfetch-windows.png)
 
-## manual installation
+## fresh installation
 **Warning: Please back up your files before running setup**  
 macOS
 - **GET** [Ventura Update](https://support.apple.com/macos/upgrade)  

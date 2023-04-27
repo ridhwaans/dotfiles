@@ -26,8 +26,22 @@ function set-url-ssh() {
 	# https://stackoverflow.com/a/53454540/3577482
 }
 
+function rm-submodule() {
+	# Requires path/to/submodule
+    # Remove the submodule entry from .git/config
+    git submodule deinit -f $1
+    # Remove the submodule directory from the superproject's .git/modules directory
+    rm -rf .git/modules/$1
+    # Remove the entry in .gitmodules and remove the submodule directory located at path/to/submodule
+    git rm -f $1
+}
+
 function update-dotfiles() {
-	cd ~/dotfiles && git submodule update --remote
+	cd ~/dotfiles
+	git submodule update --init --recursive --remote
+	git -C .pyenv/plugins/pyenv-virtualenv pull
+	git -C .rbenv/plugins/ruby-build pull
+	git -C .rbenv/plugins/rbenv-gemset pull
 	sdk update
 }
 
@@ -49,10 +63,9 @@ function drmc {
     docker rm $(docker stop $(docker ps -a -q --filter ancestor=$1 --format='{{.ID}}'))
 }
 
-alias cds='cd $HOME/Source'
-
-# Removes all dangling images
-alias drmi='docker rmi $(docker images -f dangling=true -q)'
+alias ed='code $HOME/dotfiles'
+alias cdd='cd $HOME/dotfiles'
+alias cds='[ -d $HOME/Source ] && cd $HOME/Source'
 
 if [ $(uname) = Darwin ]; then
     alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'

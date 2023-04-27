@@ -1,19 +1,11 @@
 # See https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files for more
 
-# Submodules (modified content)
-.gitmodules
-
-.nvm/
-.pyenv/
-.rbenv/
-.sdkman/
-.vim/
-.zsh/
+# non-submodules
 .sdkman/
 
-.pyenv/plugins/pyenv-virtualenv/
-.rbenv/plugins/ruby-build/
-.rbenv/plugins/rbenv-gemset/
+# everything except
+.vim/bundle/
+!.vim/bundle/Vundle.vim
 
 # Compiled Python files
 *.pyc

@@ -8,13 +8,6 @@
 
 #set -e
 
-# Correct file permissions
-
-if [ -d ~/.ssh ]; then
-  sudo chown -R ${SUDO_USER:-$USER} ~/.ssh
-  chmod 700 ~/.ssh
-fi
-
 # Generate SSH Key and Deploy to Github
 TITLE=$1
 TOKEN=$2
