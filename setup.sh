@@ -46,17 +46,27 @@ if [ $(uname) = Darwin ]; then
 		discord
 		dropbox
 		figma
-		google-chrome
         hpedrorodrigues/tools/dockutil
 		iterm2-nightly
 		mounty
 		notion
 		postman
-		slack
 		steam
 		visual-studio-code
-		zoom
 	)
+
+    if [ ! -d "/Applications/Google Chrome.app" ]; then 
+        apps+=(google-chrome); 
+    fi
+    
+    if [ ! -d "/Applications/Slack.app" ]; then 
+        apps+=(slack); 
+    fi
+    
+    if [ ! -d "/Applications/zoom.us.app" ]; then 
+        apps+=(zoom); 
+    fi
+    
 	brew install --cask "${apps[@]}"
 
 	# Remove outdated versions from the cellar
