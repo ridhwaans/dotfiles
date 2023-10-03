@@ -1,29 +1,52 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src
 {
 	"build": {
 		"dockerfile": "../Dockerfile"
 	},
-	"settings": {
-		// Appearance
-        "workbench.iconTheme": "material-icon-theme",
-        "workbench.colorTheme": "Gotham",
-        "editor.fontFamily": "'Roboto Mono for Powerline', Menlo, Monaco, 'Courier New', monospace",
-        "terminal.integrated.fontFamily": "'Roboto Mono for Powerline'",
+	
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
 
-        // Core
-        "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
-        "terminal.integrated.defaultProfile.linux": "zsh",
-        "terminal.integrated.defaultProfile.osx": "zsh",
-        "terminal.external.osxExec": "iTerm.app",
-        "terminal.external.windowsExec": "wt.exe"
-	},
-	"extensions": [
-		"alireza94.theme-gotham",
-		"PKief.material-icon-theme",
-        "EditorConfig.EditorConfig",
-		"dunstontc.viml",
-		"Prisma.prisma",
-		"eamodio.gitlens",
-		"ms-vsliveshare.vsliveshare",
-		"GitHub.copilot"
-	]
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			"settings": {
+				// Appearance
+				"workbench.iconTheme": "material-icon-theme",
+				"workbench.colorTheme": "Gotham",
+				"editor.fontFamily": "'Roboto Mono for Powerline', Menlo, Monaco, 'Courier New', monospace",
+				"terminal.integrated.fontFamily": "'Roboto Mono for Powerline'",
+				// Core
+				"terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"terminal.integrated.defaultProfile.osx": "zsh",
+				"terminal.external.osxExec": "iTerm.app",
+				"terminal.external.windowsExec": "wt.exe",
+				// Search
+				"files.exclude": {
+					"**/node_modules": true,
+					"build/": true,
+					"dist/": true
+				}
+			},
+			"extensions": [
+				"alireza94.theme-gotham",
+				"PKief.material-icon-theme",
+				"EditorConfig.EditorConfig",
+				"dunstontc.viml",
+				"Prisma.prisma",
+				"eamodio.gitlens",
+				"ms-vsliveshare.vsliveshare",
+				"GitHub.copilot"
+			]
+		}
+	}
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "date",
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
 }

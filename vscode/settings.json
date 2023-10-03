@@ -4,11 +4,16 @@
 	"workbench.colorTheme": "Gotham",
 	"editor.fontFamily": "'Roboto Mono for Powerline', Menlo, Monaco, 'Courier New', monospace",
 	"terminal.integrated.fontFamily": "'Roboto Mono for Powerline'",
-
 	// Core
 	"terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
 	"terminal.integrated.defaultProfile.linux": "zsh",
 	"terminal.integrated.defaultProfile.osx": "zsh",
 	"terminal.external.osxExec": "iTerm.app",
-	"terminal.external.windowsExec": "wt.exe"
+	"terminal.external.windowsExec": "wt.exe",
+	// Search
+	"files.exclude": {
+		"**/node_modules": true,
+		"build/": true,
+		"dist/": true
+	}
 }

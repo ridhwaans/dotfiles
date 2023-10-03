@@ -187,36 +187,39 @@ echo "Setting up .ssh folder permissions..."
 mkdir -p $HOME/.ssh && ln -sf $PWD/.ssh/autokey-github.sh $_/autokey-github.sh
 find $HOME/.ssh/ -type f -exec chmod 600 {} \;; find $HOME/.ssh/ -type d -exec chmod 700 {} \;; find $HOME/.ssh/ -type f -name "*.pub" -exec chmod 644 {} \;
 
-# https://github.com/ohmyzsh/ohmyzsh/issues/4786
-echo "Installing fix for character not in range error before shell change..."
-sudo apt install -y language-pack-en
-sudo update-locale
+if [ $(uname) = Darwin ]; then
+	# https://github.com/ohmyzsh/ohmyzsh/issues/4786
+	echo "Installing fix for character not in range error before shell change..."
+	sudo apt install -y language-pack-en
+	sudo update-locale
 
-echo "Setting up user shell..."
-sudo usermod -s $(which zsh) $(whoami)
-$(which zsh)
-grep $(whoami) /etc/passwd
+	echo "Setting up user shell..."
+	sudo usermod -s $(which zsh) $(whoami)
+	$(which zsh)
+	grep $(whoami) /etc/passwd
 
-echo "Installing powerline font..."
-curl -L https://github.com/powerline/fonts/raw/master/RobotoMono/Roboto%20Mono%20for%20Powerline.ttf --create-dirs -o $HOME/.local/share/fonts/"Roboto Mono for Powerline.ttf"
-fc-cache -f -v
-fc-list | grep "Roboto Mono for Powerline.ttf"
+	echo "Installing powerline font..."
+	curl -L https://github.com/powerline/fonts/raw/master/RobotoMono/Roboto%20Mono%20for%20Powerline.ttf --create-dirs -o $HOME/.local/share/fonts/"Roboto Mono for Powerline.ttf"
+	fc-cache -f -v
+	fc-list | grep "Roboto Mono for Powerline.ttf"
+fi
 
 echo "Setting up terminal emulator, text editor..."
 
 extensions=(
 	alireza94.theme-gotham
-	PKief.material-icon-theme
-    EditorConfig.EditorConfig
 	dunstontc.viml
-	Prisma.prisma
 	eamodio.gitlens
+	GitHub.codespaces	
+	GitHub.copilot
 	ms-azuretools.vscode-docker
-	ms-vscode-remote.remote-wsl
 	ms-vscode-remote.remote-containers
 	ms-vscode-remote.remote-ssh
+	ms-vscode-remote.remote-wsl
 	ms-vsliveshare.vsliveshare
-	GitHub.copilot
+	PKief.material-icon-theme
+	Prisma.prisma
+    EditorConfig.EditorConfig
 )
 if type -p code >/dev/null
 then

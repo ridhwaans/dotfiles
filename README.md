@@ -32,10 +32,17 @@ bash -c "`wget -O - --no-check-certificate https://raw.githubusercontent.com/rid
 in VS Code, select `Dev Containers: Reopen in Container`, or  
 `Dev Containers: Rebuild Without Cache and Reopen in Container`, or  
 
-#### manual build
-build and run a detached instance
+### manual build
+build and run a container instance in background and interactive mode
 ```
 docker build github.com/ridhwaans/dotfiles -t name:tag --progress=plain --no-cache
-docker run -d -i -t name:tag
+docker run -d -i -t <name:tag>
+<or>
+docker run --detach --interactive --tty <name:tag>
 ```
 in VS Code, select `Dev Containers: Attach to Running Container...`  
+
+## as a github codespace
+see [Personalizing GitHub Codespaces for your account](https://docs.github.com/en/codespaces/customizing-your-codespace/personalizing-github-codespaces-for-your-account)
+
+sf there are issues, see https://docs.github.com/en/codespaces/troubleshooting/troubleshooting-personalization-for-codespaces

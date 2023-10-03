@@ -56,7 +56,7 @@ function dcc {
 }
 
 # Start and attach to last exited container
-alias dscl='docker start `docker ps -q -l`; docker attach `docker ps -q -l`'
+alias dsal='docker start `docker ps -q -l`; docker attach `docker ps -q -l`'
 
 # Stops then removes all running containers by 'name:tag' format
 function drmc {
