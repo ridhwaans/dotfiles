@@ -187,13 +187,13 @@ echo "Setting up .ssh folder permissions..."
 mkdir -p $HOME/.ssh && ln -sf $PWD/.ssh/autokey-github.sh $_/autokey-github.sh
 find $HOME/.ssh/ -type f -exec chmod 600 {} \;; find $HOME/.ssh/ -type d -exec chmod 700 {} \;; find $HOME/.ssh/ -type f -name "*.pub" -exec chmod 644 {} \;
 
-if [ $(uname) = Darwin ]; then
-	# https://github.com/ohmyzsh/ohmyzsh/issues/4786
+if [ $(uname) = Linux ]; then
+	echo "Setting up user shell..."
 	echo "Installing fix for character not in range error before shell change..."
+	# https://github.com/ohmyzsh/ohmyzsh/issues/4786
 	sudo apt install -y language-pack-en
 	sudo update-locale
 
-	echo "Setting up user shell..."
 	sudo usermod -s $(which zsh) $(whoami)
 	$(which zsh)
 	grep $(whoami) /etc/passwd
@@ -204,8 +204,7 @@ if [ $(uname) = Darwin ]; then
 	fc-list | grep "Roboto Mono for Powerline.ttf"
 fi
 
-echo "Setting up terminal emulator, text editor..."
-
+echo "Setting up text editor..."
 extensions=(
 	alireza94.theme-gotham
 	dunstontc.viml
@@ -229,13 +228,18 @@ then
     done
 fi
 
+echo "Setting up terminal emulator..."
 if [ $(uname) = Darwin ]; then
 	echo "(mac)"
+
+	defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/iterm2/Gotham.itermcolors --create-dirs -o $HOME/.local/share/themes/"Gotham.itermcolors"
 	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/terminal.app/Gotham.terminal --create-dirs -o $HOME/.local/share/themes/"Gotham.terminal"
-
-    defaults write com.googlecode.iterm2 PromptOnQuit -bool false
-    # TODO Import terminal default profile (iterm2/Default.json)
+	curl -L https://github.com/powerline/fonts/raw/master/RobotoMono/Roboto%20Mono%20for%20Powerline.ttf --create-dirs -o $HOME/.local/share/fonts/"Roboto Mono for Powerline.ttf"
+ 
+	open $HOME/.local/share/themes/"Gotham.itermcolors";ok
+	cp $HOME/.local/share/fonts/"Roboto Mono for Powerline.ttf" ~/Library/Fonts
+    # TODO Import terminal default profile (~/iterm2/Default.json)
 
 	VSCODE_SETTINGS_DIR=$HOME/Library/Application\ Support/Code/User
 	echo "mkdir -p $VSCODE_SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json"
@@ -258,7 +262,7 @@ elif [ $(uname) = Linux ]; then
 		# https://github.com/microsoft/vscode/issues/166680
 
 	elif [ -n "$CODESPACES" ]; then
-		echo "(github codespace)"
+		echo "(github codespaces)"
 	else
 		echo "(native linux)"
 

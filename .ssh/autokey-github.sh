@@ -43,7 +43,7 @@ ssh -T git@github.com
 
 defaults=("id_dsa" "id_ecdsa" "id_ed25519" "id_rsa")
 if [[ ! " ${defaults[*]} " =~ " ${KEY_NAME} " ]]; then
-    echo "Key loaded in ssh-agent does not have a default filename. IdentityFile must be configured in ~/.ssh/config"
+    echo "SSH key pair doesn't use a default name. IdentityFile must be configured in ~/.ssh/config"
 fi
 
 # Credits

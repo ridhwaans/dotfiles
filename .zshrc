@@ -1,33 +1,33 @@
 function is-ssh-authenticated() {
-	# Attempt to ssh to GitHub
-	ssh -T git@github.com &>/dev/null
-	RET=$?
-	if [ $RET == 1 ]; then
-		# user is authenticated, but fails to open a shell with GitHub
-		return 0
-	elif [ $RET == 255 ]; then
-		# user is not authenticated
-		return 1
-	else
-		echo "unknown exit code in attempt to ssh into git@github.com"
-	fi
-	return 2
+    # Attempt to ssh to GitHub
+    ssh -T git@github.com &>/dev/null
+    RET=$?
+    if [ $RET == 1 ]; then
+        # user is authenticated, but fails to open a shell with GitHub
+        return 0
+    elif [ $RET == 255 ]; then
+        # user is not authenticated
+        return 1
+    else
+        echo "unknown exit code in attempt to ssh into git@github.com"
+    fi
+    return 2
 }
 
 # Switch remote URL from HTTPS to SSH
 function set-url-ssh() {
-	if is-ssh-authenticated; then
-		GIT_USER=`echo $(git config --get remote.origin.url) | sed -Ene's#https://github.com/([^/]*)/(.*).git#\1#p'`
-		GIT_REPO=$(basename `git rev-parse --show-toplevel`)
-		git remote set-url origin git@github.com:$GIT_USER/$GIT_REPO.git
-		echo "Set $GIT_REPO remote URL to SSH"
-	fi
-	# Credits
-	# https://stackoverflow.com/a/53454540/3577482
+    if is-ssh-authenticated; then
+        GIT_USER=`echo $(git config --get remote.origin.url) | sed -Ene's#https://github.com/([^/]*)/(.*).git#\1#p'`
+        GIT_REPO=$(basename `git rev-parse --show-toplevel`)
+        git remote set-url origin git@github.com:$GIT_USER/$GIT_REPO.git
+        echo "Set $GIT_REPO remote URL to SSH"
+    fi
+    # Credits
+    # https://stackoverflow.com/a/53454540/3577482
 }
 
 function rm-submodule() {
-	# Requires path/to/submodule
+    # Requires path/to/submodule
     # Remove the submodule entry from .git/config
     git submodule deinit -f $1
     # Remove the submodule directory from the superproject's .git/modules directory
@@ -37,12 +37,12 @@ function rm-submodule() {
 }
 
 function update-dotfiles() {
-	cd ~/dotfiles
-	git submodule update --init --recursive --remote
-	git -C .pyenv/plugins/pyenv-virtualenv pull
-	git -C .rbenv/plugins/ruby-build pull
-	git -C .rbenv/plugins/rbenv-gemset pull
-	sdk update
+    cd ~/dotfiles
+    git submodule update --init --recursive --remote
+    git -C .pyenv/plugins/pyenv-virtualenv pull
+    git -C .rbenv/plugins/ruby-build pull
+    git -C .rbenv/plugins/rbenv-gemset pull
+    sdk update
 }
 
 # Build docker image by 'name:tag' format, show and logs and also save them to file
@@ -68,9 +68,14 @@ alias cdd='cd $HOME/dotfiles'
 alias cds='[ -d $HOME/Source ] && cd $HOME/Source'
 
 if [ $(uname) = Darwin ]; then
+    # Command + Shift + . (the period key) shows hidden files in Finder
     alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 
     alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+
+    alias sleepoff='sudo pmset -a disablesleep 1'
+
+    alias sleepon='sudo pmset -a disablesleep 0'
 
 elif [ $(uname) = Linux ]; then
     if [ -n "$WSL_DISTRO_NAME" ]; then

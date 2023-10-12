@@ -7,7 +7,7 @@
 ## fresh installation
 **Warning: Please back up your files before running setup**  
 macOS
-- **GET** [Ventura Update](https://support.apple.com/macos/upgrade)  
+- **GET** [Sonoma Update](https://support.apple.com/macos/upgrade)  
 - **GET** Xcode Command Line Tools `xcode-select --install`
 
 windows
@@ -43,6 +43,6 @@ docker run --detach --interactive --tty <name:tag>
 in VS Code, select `Dev Containers: Attach to Running Container...`  
 
 ## as a github codespace
-see [Personalizing GitHub Codespaces for your account](https://docs.github.com/en/codespaces/customizing-your-codespace/personalizing-github-codespaces-for-your-account)
+[Personalizing GitHub Codespaces for your account](https://docs.github.com/en/codespaces/customizing-your-codespace/personalizing-github-codespaces-for-your-account)
 
-sf there are issues, see https://docs.github.com/en/codespaces/troubleshooting/troubleshooting-personalization-for-codespaces
+[Troubleshooting personalization options for GitHub Codespaces](https://docs.github.com/en/codespaces/troubleshooting/troubleshooting-personalization-for-codespaces)
