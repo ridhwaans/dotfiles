@@ -36,13 +36,14 @@ function rm-submodule() {
     git rm -f $1
 }
 
-function update-dotfiles() {
+function update-submodules-and-plugins() {
     cd ~/dotfiles
     git submodule update --init --recursive --remote
     git -C .pyenv/plugins/pyenv-virtualenv pull
     git -C .rbenv/plugins/ruby-build pull
     git -C .rbenv/plugins/rbenv-gemset pull
     sdk update
+    cd -
 }
 
 # Build docker image by 'name:tag' format, show and logs and also save them to file

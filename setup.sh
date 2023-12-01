@@ -55,18 +55,18 @@ if [ $(uname) = Darwin ]; then
 		visual-studio-code
 	)
 
-    if [ ! -d "/Applications/Google Chrome.app" ]; then 
-        apps+=(google-chrome); 
+    if [ ! -d "/Applications/Google Chrome.app" ]; then
+        apps+=(google-chrome);
     fi
-    
-    if [ ! -d "/Applications/Slack.app" ]; then 
-        apps+=(slack); 
+
+    if [ ! -d "/Applications/Slack.app" ]; then
+        apps+=(slack);
     fi
-    
-    if [ ! -d "/Applications/zoom.us.app" ]; then 
-        apps+=(zoom); 
+
+    if [ ! -d "/Applications/zoom.us.app" ]; then
+        apps+=(zoom);
     fi
-    
+
 	brew install --cask "${apps[@]}"
 
 	# Remove outdated versions from the cellar
@@ -204,21 +204,27 @@ if [ $(uname) = Linux ]; then
 	fc-list | grep "Roboto Mono for Powerline.ttf"
 fi
 
-echo "Setting up text editor..."
+echo "Setting up IDE..."
+echo "Installing VSCode extensions..."
 extensions=(
 	alireza94.theme-gotham
+  PKief.material-icon-theme
 	dunstontc.viml
 	eamodio.gitlens
-	GitHub.codespaces	
+	GitHub.codespaces
 	GitHub.copilot
 	ms-azuretools.vscode-docker
 	ms-vscode-remote.remote-containers
 	ms-vscode-remote.remote-ssh
 	ms-vscode-remote.remote-wsl
 	ms-vsliveshare.vsliveshare
-	PKief.material-icon-theme
-	Prisma.prisma
-    EditorConfig.EditorConfig
+  EditorConfig.EditorConfig
+  dbaeumer.vscode-eslint
+  GraphQL.vscode-graphql
+  GraphQL.vscode-graphql-syntax
+  Prisma.prisma
+  rubocop.vscode-rubocop
+  sorbet.sorbet-vscode-extension
 )
 if type -p code >/dev/null
 then
@@ -226,6 +232,32 @@ then
     do
         code --install-extension $extension
     done
+fi
+if [ $(uname) = Darwin ]; then
+	echo "(mac)"
+
+	VSCODE_SETTINGS_DIR=$HOME/Library/Application\ Support/Code/User
+	echo "mkdir -p $VSCODE_SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json"
+	mkdir -p $VSCODE_SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json
+
+elif [ $(uname) = Linux ]; then
+	if [ -n "$WSL_DISTRO_NAME" ]; then
+		echo "(wsl)"
+
+		VSCODE_SETTINGS_DIR=$WINDOWS_HOME/AppData/Roaming/Code/User
+		echo "mkdir -p $VSCODE_SETTINGS_DIR && cp --remove-destination $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json"
+		mkdir -p $VSCODE_SETTINGS_DIR && cp --remove-destination $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json
+		# https://github.com/microsoft/vscode/issues/1022
+		# https://github.com/microsoft/vscode/issues/166680
+	elif [ -n "$CODESPACES" ]; then
+		echo "(github codespaces)"
+	else
+		echo "(native linux)"
+
+		VSCODE_SETTINGS_DIR=$HOME/.config/Code/User
+		echo "mkdir -p $VSCODE_SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json"
+		mkdir -p $VSCODE_SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json
+	fi
 fi
 
 echo "Setting up terminal emulator..."
@@ -236,15 +268,10 @@ if [ $(uname) = Darwin ]; then
 	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/iterm2/Gotham.itermcolors --create-dirs -o $HOME/.local/share/themes/"Gotham.itermcolors"
 	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/terminal.app/Gotham.terminal --create-dirs -o $HOME/.local/share/themes/"Gotham.terminal"
 	curl -L https://github.com/powerline/fonts/raw/master/RobotoMono/Roboto%20Mono%20for%20Powerline.ttf --create-dirs -o $HOME/.local/share/fonts/"Roboto Mono for Powerline.ttf"
- 
+
 	open $HOME/.local/share/themes/"Gotham.itermcolors";ok
 	cp $HOME/.local/share/fonts/"Roboto Mono for Powerline.ttf" ~/Library/Fonts
     # TODO Import terminal default profile (~/iterm2/Default.json)
-
-	VSCODE_SETTINGS_DIR=$HOME/Library/Application\ Support/Code/User
-	echo "mkdir -p $VSCODE_SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json"
-	mkdir -p $VSCODE_SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json
-
 elif [ $(uname) = Linux ]; then
 	if [ -n "$WSL_DISTRO_NAME" ]; then
 		echo "(wsl)"
@@ -252,25 +279,12 @@ elif [ $(uname) = Linux ]; then
 		WINDOWS_HOME=$(wslpath $(powershell.exe '$env:UserProfile') | sed -e 's/\r//g')
 		echo "ln -sf $PWD $WINDOWS_HOME/dotfiles"
 		ln -sf $PWD $WINDOWS_HOME/dotfiles
-
 		# TODO Import terminal default profile (ln -sf $PWD/windowsterminal/settings.json ${WINDOWS_HOME}/AppData/Local/Packages/Microsoft.WindowsTerminal*/LocalState/settings.json)
-
-        VSCODE_SETTINGS_DIR=$WINDOWS_HOME/AppData/Roaming/Code/User
-		echo "mkdir -p $VSCODE_SETTINGS_DIR && cp --remove-destination $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json"
-		mkdir -p $VSCODE_SETTINGS_DIR && cp --remove-destination $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json
-		# https://github.com/microsoft/vscode/issues/1022
-		# https://github.com/microsoft/vscode/issues/166680
-
 	elif [ -n "$CODESPACES" ]; then
 		echo "(github codespaces)"
 	else
 		echo "(native linux)"
-
 		# TODO Import terminal default profile
-
-        VSCODE_SETTINGS_DIR=$HOME/.config/Code/User
-		echo "mkdir -p $VSCODE_SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json"
-		mkdir -p $VSCODE_SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json
 	fi
 fi
 

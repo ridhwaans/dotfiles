@@ -4,7 +4,7 @@
 	"build": {
 		"dockerfile": "../Dockerfile"
 	},
-	
+
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 
@@ -27,19 +27,30 @@
 				// Search
 				"files.exclude": {
 					"**/node_modules": true,
+          "**/.git": true,
 					"build/": true,
 					"dist/": true
 				}
 			},
 			"extensions": [
 				"alireza94.theme-gotham",
-				"PKief.material-icon-theme",
-				"EditorConfig.EditorConfig",
-				"dunstontc.viml",
-				"Prisma.prisma",
-				"eamodio.gitlens",
-				"ms-vsliveshare.vsliveshare",
-				"GitHub.copilot"
+        "PKief.material-icon-theme",
+        "dunstontc.viml",
+        "eamodio.gitlens",
+        "GitHub.codespaces",
+        "GitHub.copilot",
+        "ms-azuretools.vscode-docker",
+        "ms-vscode-remote.remote-containers",
+        "ms-vscode-remote.remote-ssh",
+        "ms-vscode-remote.remote-wsl",
+        "ms-vsliveshare.vsliveshare",
+        "EditorConfig.EditorConfig",
+        "dbaeumer.vscode-eslint",
+        "GraphQL.vscode-graphql",
+        "GraphQL.vscode-graphql-syntax",
+        "Prisma.prisma",
+        "rubocop.vscode-rubocop",
+        "sorbet.sorbet-vscode-extension"
 			]
 		}
 	}
