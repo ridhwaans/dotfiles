@@ -164,6 +164,8 @@ then
 		do
 				code --install-extension $extension
 		done
+
+    code --install-extension alireza94.theme-gotham
 fi
 if [ $(uname) = Darwin ]; then
 	echo "(mac)"
@@ -197,7 +199,7 @@ if [ $(uname) = Darwin ]; then
 	echo "(mac)"
 
   curl -L https://github.com/powerline/fonts/raw/master/RobotoMono/Roboto%20Mono%20for%20Powerline.ttf --create-dirs -o $HOME/.local/share/fonts/"Roboto Mono for Powerline.ttf"
-	cp $HOME/.local/share/fonts/"Roboto Mono for Powerline.ttf" ~/Library/Fonts
+  cp $HOME/.local/share/fonts/"Roboto Mono for Powerline.ttf" ~/Library/Fonts
 
 	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/terminal.app/Gotham.terminal --create-dirs -o $HOME/.local/share/themes/"Gotham.terminal"
 	open $HOME/.local/share/themes/"Gotham.itermcolors";ok
@@ -207,6 +209,7 @@ if [ $(uname) = Darwin ]; then
 elif [ $(uname) = Linux ]; then
 	if [ -n "$WSL_DISTRO_NAME" ]; then
 		echo "(wsl)"
+
     # Make a dotfiles shortcut in the Windows home directory
 		WINDOWS_HOME=$(wslpath $(powershell.exe '$env:UserProfile') | sed -e 's/\r//g')
 		echo "ln -sf $PWD $WINDOWS_HOME/dotfiles"
@@ -221,5 +224,7 @@ elif [ $(uname) = Linux ]; then
 fi
 
 # Moving to end because it lapses trailing code
-echo "Installing vim plugins..."
+echo "Setting up vim plugins..."
 vim +silent! +PluginInstall +qall
+
+echo "Done"

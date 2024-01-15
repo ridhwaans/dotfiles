@@ -1,0 +1,55 @@
+name: "Release"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Git actor from last commit
+        run: git config user.name "$(git log -n 1 --pretty=format:%an)" && git config user.email "$(git log -n 1 --pretty=format:%ae)"
+
+      - name: Determine current year
+        id: get_year
+        run: echo "::set-output name=year::$(date +'%Y')"
+
+      - name: Get latest tag in current year
+        id: get_latest_tag
+        run: echo "::set-output name=latest_tag::$(git describe --abbrev=0 --tags --match "$((date +'%Y')).*" || echo '0')"
+
+      - name: Extract version number
+        id: extract_version
+        run: echo "::set-output name=version::$(echo "${{ steps.get_latest_tag.outputs.latest_tag }}" | awk -F'.' '{print $2+1}')"
+
+      - name: Set version
+        run: echo "VERSION=${{ steps.get_year.outputs.year }}.${{ steps.extract_version.outputs.version }}" >> $GITHUB_ENV
+
+      - name: Commit and tag with new version
+        run: |
+          git commit -am "Bump version to $VERSION"
+          git tag -a "$VERSION" -m "Version $VERSION"
+
+      - name: Push changes
+        run: git push origin main --follow-tags
+
+  rollback:
+    needs: build
+    if: env.DO_ROLLBACK == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Determine current version
+        id: get_current_version
+        run: echo "::set-output name=current_version::$(git describe --abbrev=0 --tags)"
+
+      - name: Delete last created tag
+        run: git tag -d ${{ steps.get_current_version.outputs.current_version }} && git push origin --delete ${{ steps.get_current_version.outputs.current_version }}

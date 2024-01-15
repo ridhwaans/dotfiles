@@ -14,11 +14,11 @@ windows
 
 curl
 ```
-bash -c "`curl -fsSL https://raw.github.com/ridhwaans/dotfiles/master/setup.sh`"
+bash -c "`curl -fsSL https://raw.github.com/ridhwaans/dotfiles/master/install.sh`"
 ```
 or, wget
 ```
-bash -c "`wget -O - --no-check-certificate https://raw.githubusercontent.com/ridhwaans/dotfiles/master/setup.sh`"
+bash -c "`wget -O - --no-check-certificate https://raw.githubusercontent.com/ridhwaans/dotfiles/master/install.sh`"
 ```
 
 ## as a docker workspace
@@ -26,7 +26,7 @@ bash -c "`wget -O - --no-check-certificate https://raw.githubusercontent.com/rid
 - **GET** [VS Code Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)  
 
 in VS Code, select `Dev Containers: Reopen in Container`, or  
-`Dev Containers: Rebuild Without Cache and Reopen in Container`, or   
+`Dev Containers: Rebuild Without Cache and Reopen in Container`  
 
 ## as a github codespace
 [Personalizing GitHub Codespaces for your account](https://docs.github.com/en/codespaces/customizing-your-codespace/personalizing-github-codespaces-for-your-account)
