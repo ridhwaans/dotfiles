@@ -1,11 +1,7 @@
 # dotfiles
  https://github.com/ridhwaans/dotfiles
 
-![screenfetch_mac](images/screenfetch-mac.png)
-![screenfetch_windows](images/screenfetch-windows.png)
-
-## fresh installation
-**Warning: Please back up your files before running setup**  
+## install
 macOS
 - **GET** [Sonoma Update](https://support.apple.com/macos/upgrade)  
 - **GET** Xcode Command Line Tools `xcode-select --install`
@@ -30,19 +26,12 @@ bash -c "`wget -O - --no-check-certificate https://raw.githubusercontent.com/rid
 - **GET** [VS Code Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)  
 
 in VS Code, select `Dev Containers: Reopen in Container`, or  
-`Dev Containers: Rebuild Without Cache and Reopen in Container`, or  
-
-### manual build
-build and run a container instance in background and interactive mode
-```
-docker build github.com/ridhwaans/dotfiles -t name:tag --progress=plain --no-cache
-docker run -d -i -t <name:tag>
-<or>
-docker run --detach --interactive --tty <name:tag>
-```
-in VS Code, select `Dev Containers: Attach to Running Container...`  
+`Dev Containers: Rebuild Without Cache and Reopen in Container`, or   
 
 ## as a github codespace
 [Personalizing GitHub Codespaces for your account](https://docs.github.com/en/codespaces/customizing-your-codespace/personalizing-github-codespaces-for-your-account)
 
 [Troubleshooting personalization options for GitHub Codespaces](https://docs.github.com/en/codespaces/troubleshooting/troubleshooting-personalization-for-codespaces)
+
+## see also
+https://github.com/ridhwaans/devcontainer-features

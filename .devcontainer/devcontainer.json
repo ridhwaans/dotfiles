@@ -1,38 +1,18 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src
 {
-	"build": {
-		"dockerfile": "../Dockerfile"
-	},
-
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-
-	// Configure tool-specific properties.
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-18",
+  "features": {
+      "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "postCreateCommand": "npm install -g @devcontainers/cli",
+  "hostRequirements": {
+    "cpus": 4
+  },
 	"customizations": {
-		// Configure properties specific to VS Code.
 		"vscode": {
-			"settings": {
-				// Appearance
-				"workbench.iconTheme": "material-icon-theme",
-				"workbench.colorTheme": "Gotham",
-				"editor.fontFamily": "'Roboto Mono for Powerline', Menlo, Monaco, 'Courier New', monospace",
-				"terminal.integrated.fontFamily": "'Roboto Mono for Powerline'",
-				// Core
-				"terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
-				"terminal.integrated.defaultProfile.linux": "zsh",
-				"terminal.integrated.defaultProfile.osx": "zsh",
-				"terminal.external.osxExec": "iTerm.app",
-				"terminal.external.windowsExec": "wt.exe",
-				// Search
-				"files.exclude": {
-					"**/node_modules": true,
-          "**/.git": true,
-					"build/": true,
-					"dist/": true
-				}
-			},
-			"extensions": [
+      "extensions": [
+        "mads-hartmann.bash-ide-vscode",
 				"alireza94.theme-gotham",
         "PKief.material-icon-theme",
         "dunstontc.viml",
@@ -51,13 +31,27 @@
         "Prisma.prisma",
         "rubocop.vscode-rubocop",
         "sorbet.sorbet-vscode-extension"
-			]
+			],
+			"settings": {
+				// Appearance
+				"workbench.iconTheme": "material-icon-theme",
+				"workbench.colorTheme": "Gotham",
+				"editor.fontFamily": "'Roboto Mono for Powerline', Menlo, Monaco, 'Courier New', monospace",
+				"terminal.integrated.fontFamily": "'Roboto Mono for Powerline'",
+				// Core
+				"terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"terminal.integrated.defaultProfile.osx": "zsh",
+				"terminal.external.osxExec": "iTerm.app",
+				"terminal.external.windowsExec": "wt.exe",
+				// Search
+				"search.exclude": {
+					"**/node_modules": true,
+          "**/.git": true,
+					"build/": true,
+					"dist/": true
+				}
+			}
 		}
 	}
-
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "date",
-
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
 }

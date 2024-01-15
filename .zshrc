@@ -27,7 +27,10 @@ function set-url-ssh() {
 }
 
 function rm-submodule() {
-    # Requires path/to/submodule
+    if [ -z "$1" ]; then
+      echo "Cannot find path to submodule. Exiting."
+      exit 1
+    fi
     # Remove the submodule entry from .git/config
     git submodule deinit -f $1
     # Remove the submodule directory from the superproject's .git/modules directory
@@ -36,32 +39,59 @@ function rm-submodule() {
     git rm -f $1
 }
 
-function update-submodules-and-plugins() {
-    cd ~/dotfiles
+function update-submodules() {
     git submodule update --init --recursive --remote
-    git -C .pyenv/plugins/pyenv-virtualenv pull
-    git -C .rbenv/plugins/ruby-build pull
-    git -C .rbenv/plugins/rbenv-gemset pull
-    sdk update
-    cd -
 }
 
-# Build docker image by 'name:tag' format, show and logs and also save them to file
-function dci {
-    docker build -t $1 --no-cache --progress=plain . 2>&1 | tee build.log
+function reopen_in_container() {
+    local IMAGE_NAME="${1:-"base"}"
+    local CONTAINER_NAME="${2:-"instance"}"
+
+    # Check if the container is already running
+    if [ "$(docker inspect -f '{{.State.Running}}' $CONTAINER_NAME 2>/dev/null)" = "true" ]; then
+        echo "Container $CONTAINER_NAME is already running."
+    else
+        # Check if the container exists but is stopped
+        if [ "$(docker inspect -f '{{.State.Status}}' $CONTAINER_NAME 2>/dev/null)" = "exited" ]; then
+            # Start the existing stopped container
+            docker start -i $CONTAINER_NAME
+        else
+            echo "Building Docker image..."
+            # Check if Dockerfile exists in the current directory
+            if [ -f Dockerfile ]; then
+                # Use the local Dockerfile
+                docker build --no-cache -t "$IMAGE_NAME" . > build_log.txt 2>&1
+            else
+                echo "Dockerfile not found. Exiting."
+                exit 1
+            fi
+
+            # Create and start a new container
+            docker run -it --name $CONTAINER_NAME $IMAGE_NAME
+        fi
+    fi
+
+    echo "Connecting to Docker container..."
+    docker exec -it "$CONTAINER_NAME" /bin/bash
 }
 
-# Create a new container from an image
-function dcc {
-    docker run -it $1
-}
+function cleanup_container() {
+    local IMAGE_NAME="${1:-"base"}"
+    local CONTAINER_NAME="${2:-"instance"}"
 
-# Start and attach to last exited container
-alias dsal='docker start `docker ps -q -l`; docker attach `docker ps -q -l`'
+    if docker ps -a --format '{{.Names}}' | grep -q "$CONTAINER_NAME"; then
+        echo "Stopping and removing container: $CONTAINER_NAME"
+        docker stop "$CONTAINER_NAME" && docker rm "$CONTAINER_NAME"
+    else
+        echo "Container $CONTAINER_NAME not found."
+    fi
 
-# Stops then removes all running containers by 'name:tag' format
-function drmc {
-    docker rm $(docker stop $(docker ps -a -q --filter ancestor=$1 --format='{{.ID}}'))
+    if docker images --format '{{.Repository}}:{{.Tag}}' | grep -q "$IMAGE_NAME"; then
+        echo "Removing image: $IMAGE_NAME"
+        docker rmi "$IMAGE_NAME"
+    else
+        echo "Image $IMAGE_NAME not found."
+    fi
 }
 
 alias ed='code $HOME/dotfiles'

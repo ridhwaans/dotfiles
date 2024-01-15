@@ -1,7 +1,9 @@
+// See https://learn.microsoft.com/en-us/windows/terminal/customize-settings/startup for more
+
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
+    "actions":
     [
         {
             "command": "find",
@@ -12,7 +14,7 @@
             "keys": "ctrl+v"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "copy",
                 "singleLine": false
@@ -20,7 +22,7 @@
             "keys": "ctrl+c"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "splitPane",
                 "split": "auto",

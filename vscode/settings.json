@@ -1,3 +1,5 @@
+// See https://code.visualstudio.com/docs/getstarted/settings#_default-settings for more
+
 {
 	// Appearance
 	"workbench.iconTheme": "material-icon-theme",

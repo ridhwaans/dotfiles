@@ -23,6 +23,7 @@ if [ $(uname) = Darwin ]; then
 	packages=(
 		awscli
 		aws-sam-cli
+    cfn-lint
 		exercism
 		fontconfig
 		git
@@ -46,7 +47,7 @@ if [ $(uname) = Darwin ]; then
 		discord
 		dropbox
 		figma
-        hpedrorodrigues/tools/dockutil
+    hpedrorodrigues/tools/dockutil
 		iterm2-nightly
 		mounty
 		notion
@@ -80,13 +81,13 @@ if [ $(uname) = Darwin ]; then
 		'Google Chrome'
 		'Visual Studio Code'
 		iTerm
-        'Beekeeper Studio'
+    'Beekeeper Studio'
 		Postman
 		Notion
 		Slack
 		Figma
 		zoom.us
-        Docker
+    Docker
 		'System Settings'
 	)
 
@@ -106,59 +107,19 @@ if [ $(uname) = Darwin ]; then
     defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Display -int 18
     # Stop `Music.app` from opening
     launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist
-
-elif [ $(uname) = Linux ]; then
-	echo "Fetching the latest versions of the package list..."
-	sudo apt update -y
-
-	echo "Installing updates for each outdated package and dependency..."
-	sudo apt upgrade -y
-
-	echo "Configuring timezone..."
-	DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC sudo -E apt install -y tzdata
-	sudo ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-	packages=(
-		awscli
-		git
-		golang-go
-		jq
-		mysql-server
-		postgresql postgresql-contrib
-		screenfetch
-		tig
-		tree
-		vim
-		zip
-		zsh
-	)
-	echo "Installing packages..."
-	sudo apt install -y "${packages[@]}"
-
-	curl -L https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip --create-dirs -o $HOME/aws-sam-cli-linux-x86_64.zip && cd $(dirname $_)
-	unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
-	sudo ./sam-installation/install
-	rm -rf sam-installation
-	rm -rf aws-sam-cli-linux-x86_64.zip
-
-	curl -L https://github.com/exercism/cli/releases/download/v3.1.0/exercism-3.1.0-linux-x86_64.tar.gz -o exercism-3.1.0-linux-x86_64.tar.gz
-	tar -xf exercism-3.1.0-linux-x86_64.tar.gz
-	mkdir -p $HOME/bin && mv exercism $_
-	$HOME/bin/exercism
-	rm -rf exercism-3.1.0-linux-x86_64.tar.gz
-
-	echo "Removing packages that are no longer required..."
-	sudo apt autoremove
 fi
 
 echo "Setting up dotfiles..."
 rm -rf $HOME/dotfiles && git clone https://github.com/ridhwaans/dotfiles.git $HOME/dotfiles && cd $_
 
-echo "Setting up submodules..."
-git submodule update --init --recursive --remote
+echo "Setting up language managers..."
+git clone https://github.com/zsh-users/antigen.git .zsh/bundle
+git clone https://github.com/VundleVim/Vundle.vim .vim/bundle/Vundle.vim
 
-echo "Setting up submodule plugins..."
+git clone https://github.com/nvm-sh/nvm.git .nvm
+git clone https://github.com/pyenv/pyenv .pyenv
 git clone https://github.com/pyenv/pyenv-virtualenv.git .pyenv/plugins/pyenv-virtualenv
+git clone https://github.com/rbenv/rbenv .rbenv
 git clone https://github.com/rbenv/ruby-build.git .rbenv/plugins/ruby-build
 git clone https://github.com/jf/rbenv-gemset.git .rbenv/plugins/rbenv-gemset
 
@@ -166,12 +127,12 @@ export SDKMAN_DIR=$PWD/.sdkman && curl https://get.sdkman.io | bash
 
 echo "Symlinking dotfiles..."
 files=(
+  .zsh
+  .vim
 	.nvm
 	.pyenv
 	.rbenv
 	.sdkman
-	.vim
-	.zsh
 	.gitconfig
 	.vimrc
 	.zshrc
@@ -187,22 +148,6 @@ echo "Setting up .ssh folder permissions..."
 mkdir -p $HOME/.ssh && ln -sf $PWD/.ssh/autokey-github.sh $_/autokey-github.sh
 find $HOME/.ssh/ -type f -exec chmod 600 {} \;; find $HOME/.ssh/ -type d -exec chmod 700 {} \;; find $HOME/.ssh/ -type f -name "*.pub" -exec chmod 644 {} \;
 
-if [ $(uname) = Linux ]; then
-	echo "Setting up user shell..."
-	echo "Installing fix for character not in range error before shell change..."
-	# https://github.com/ohmyzsh/ohmyzsh/issues/4786
-	sudo apt install -y language-pack-en
-	sudo update-locale
-
-	sudo usermod -s $(which zsh) $(whoami)
-	$(which zsh)
-	grep $(whoami) /etc/passwd
-
-	echo "Installing powerline font..."
-	curl -L https://github.com/powerline/fonts/raw/master/RobotoMono/Roboto%20Mono%20for%20Powerline.ttf --create-dirs -o $HOME/.local/share/fonts/"Roboto Mono for Powerline.ttf"
-	fc-cache -f -v
-	fc-list | grep "Roboto Mono for Powerline.ttf"
-fi
 
 echo "Setting up IDE..."
 echo "Installing VSCode extensions..."
