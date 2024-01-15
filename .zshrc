@@ -94,8 +94,8 @@ function cleanup_container() {
     fi
 }
 
-alias ed='code $HOME/dotfiles'
-alias cdd='cd $HOME/dotfiles'
+alias ed='[ -d $HOME/dotfiles ] && code $HOME/dotfiles'
+alias cdd='[ -d $HOME/dotfiles ] && cd $HOME/dotfiles'
 alias cds='[ -d $HOME/Source ] && cd $HOME/Source'
 
 if [ $(uname) = Darwin ]; then
@@ -107,6 +107,13 @@ if [ $(uname) = Darwin ]; then
     alias sleepoff='sudo pmset -a disablesleep 1'
 
     alias sleepon='sudo pmset -a disablesleep 0'
+
+    defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Bluetooth -int 18
+    defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Sound -int 18
+    defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Display -int 18
+    defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+    # Stop `Music.app` from opening
+    launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist
 
 elif [ $(uname) = Linux ]; then
     if [ -n "$WSL_DISTRO_NAME" ]; then

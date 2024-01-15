@@ -23,7 +23,7 @@ if [ $(uname) = Darwin ]; then
 	packages=(
 		awscli
 		aws-sam-cli
-    cfn-lint
+		cfn-lint
 		exercism
 		fontconfig
 		git
@@ -47,7 +47,7 @@ if [ $(uname) = Darwin ]; then
 		discord
 		dropbox
 		figma
-    hpedrorodrigues/tools/dockutil
+		hpedrorodrigues/tools/dockutil
 		iterm2-nightly
 		mounty
 		notion
@@ -56,17 +56,17 @@ if [ $(uname) = Darwin ]; then
 		visual-studio-code
 	)
 
-    if [ ! -d "/Applications/Google Chrome.app" ]; then
-        apps+=(google-chrome);
-    fi
+		if [ ! -d "/Applications/Google Chrome.app" ]; then
+				apps+=(google-chrome);
+		fi
 
-    if [ ! -d "/Applications/Slack.app" ]; then
-        apps+=(slack);
-    fi
+		if [ ! -d "/Applications/Slack.app" ]; then
+				apps+=(slack);
+		fi
 
-    if [ ! -d "/Applications/zoom.us.app" ]; then
-        apps+=(zoom);
-    fi
+		if [ ! -d "/Applications/zoom.us.app" ]; then
+				apps+=(zoom);
+		fi
 
 	brew install --cask "${apps[@]}"
 
@@ -81,13 +81,13 @@ if [ $(uname) = Darwin ]; then
 		'Google Chrome'
 		'Visual Studio Code'
 		iTerm
-    'Beekeeper Studio'
+		'Beekeeper Studio'
 		Postman
 		Notion
 		Slack
 		Figma
 		zoom.us
-    Docker
+		Docker
 		'System Settings'
 	)
 
@@ -101,21 +101,16 @@ if [ $(uname) = Darwin ]; then
 
 	# restore $IFS
 	IFS=$OLDIFS
-
-    defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Bluetooth -int 18
-    defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Sound -int 18
-    defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Display -int 18
-    # Stop `Music.app` from opening
-    launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist
 fi
 
 echo "Setting up dotfiles..."
 rm -rf $HOME/dotfiles && git clone https://github.com/ridhwaans/dotfiles.git $HOME/dotfiles && cd $_
 
-echo "Setting up language managers..."
+echo "Setting up plugin managers..."
 git clone https://github.com/zsh-users/antigen.git .zsh/bundle
 git clone https://github.com/VundleVim/Vundle.vim .vim/bundle/Vundle.vim
 
+echo "Setting up language managers..."
 git clone https://github.com/nvm-sh/nvm.git .nvm
 git clone https://github.com/pyenv/pyenv .pyenv
 git clone https://github.com/pyenv/pyenv-virtualenv.git .pyenv/plugins/pyenv-virtualenv
@@ -127,8 +122,8 @@ export SDKMAN_DIR=$PWD/.sdkman && curl https://get.sdkman.io | bash
 
 echo "Symlinking dotfiles..."
 files=(
-  .zsh
-  .vim
+	.zsh
+	.vim
 	.nvm
 	.pyenv
 	.rbenv
@@ -150,33 +145,25 @@ find $HOME/.ssh/ -type f -exec chmod 600 {} \;; find $HOME/.ssh/ -type d -exec c
 
 
 echo "Setting up IDE..."
-echo "Installing VSCode extensions..."
 extensions=(
-	alireza94.theme-gotham
-  PKief.material-icon-theme
 	dunstontc.viml
 	eamodio.gitlens
-	GitHub.codespaces
-	GitHub.copilot
+	EditorConfig.EditorConfig
+	PKief.material-icon-theme
 	ms-azuretools.vscode-docker
 	ms-vscode-remote.remote-containers
 	ms-vscode-remote.remote-ssh
 	ms-vscode-remote.remote-wsl
 	ms-vsliveshare.vsliveshare
-  EditorConfig.EditorConfig
-  dbaeumer.vscode-eslint
-  GraphQL.vscode-graphql
-  GraphQL.vscode-graphql-syntax
-  Prisma.prisma
-  rubocop.vscode-rubocop
-  sorbet.sorbet-vscode-extension
+	GraphQL.vscode-graphql
+	GraphQL.vscode-graphql-syntax
 )
 if type -p code >/dev/null
 then
-    for extension in "${extensions[@]}"
-    do
-        code --install-extension $extension
-    done
+		for extension in "${extensions[@]}"
+		do
+				code --install-extension $extension
+		done
 fi
 if [ $(uname) = Darwin ]; then
 	echo "(mac)"
@@ -209,18 +196,18 @@ echo "Setting up terminal emulator..."
 if [ $(uname) = Darwin ]; then
 	echo "(mac)"
 
-	defaults write com.googlecode.iterm2 PromptOnQuit -bool false
-	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/iterm2/Gotham.itermcolors --create-dirs -o $HOME/.local/share/themes/"Gotham.itermcolors"
-	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/terminal.app/Gotham.terminal --create-dirs -o $HOME/.local/share/themes/"Gotham.terminal"
-	curl -L https://github.com/powerline/fonts/raw/master/RobotoMono/Roboto%20Mono%20for%20Powerline.ttf --create-dirs -o $HOME/.local/share/fonts/"Roboto Mono for Powerline.ttf"
-
-	open $HOME/.local/share/themes/"Gotham.itermcolors";ok
+  curl -L https://github.com/powerline/fonts/raw/master/RobotoMono/Roboto%20Mono%20for%20Powerline.ttf --create-dirs -o $HOME/.local/share/fonts/"Roboto Mono for Powerline.ttf"
 	cp $HOME/.local/share/fonts/"Roboto Mono for Powerline.ttf" ~/Library/Fonts
-    # TODO Import terminal default profile (~/iterm2/Default.json)
+
+	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/terminal.app/Gotham.terminal --create-dirs -o $HOME/.local/share/themes/"Gotham.terminal"
+	open $HOME/.local/share/themes/"Gotham.itermcolors";ok
+
+  curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/iterm2/Gotham.itermcolors --create-dirs -o $HOME/.local/share/themes/"Gotham.itermcolors"
+  # TODO Import terminal default profile (~/iterm2/Default.json)
 elif [ $(uname) = Linux ]; then
 	if [ -n "$WSL_DISTRO_NAME" ]; then
 		echo "(wsl)"
-        # Make a dotfiles shortcut in the Windows home directory
+    # Make a dotfiles shortcut in the Windows home directory
 		WINDOWS_HOME=$(wslpath $(powershell.exe '$env:UserProfile') | sed -e 's/\r//g')
 		echo "ln -sf $PWD $WINDOWS_HOME/dotfiles"
 		ln -sf $PWD $WINDOWS_HOME/dotfiles

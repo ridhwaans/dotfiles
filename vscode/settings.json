@@ -7,7 +7,7 @@
 	"editor.fontFamily": "'Roboto Mono for Powerline', Menlo, Monaco, 'Courier New', monospace",
 	"editor.detectIndentation": true,
 	"editor.tabSize": 2,
-  "editor.insertSpaces": true,
+	"editor.insertSpaces": true,
 	"terminal.integrated.fontFamily": "'Roboto Mono for Powerline'",
 	// Core
 	"terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
@@ -16,10 +16,10 @@
 	"terminal.external.osxExec": "iTerm.app",
 	"terminal.external.windowsExec": "wt.exe",
 	// Search
-	"files.exclude": {
+	"search.exclude": {
 		"**/node_modules": true,
-    "**/.git": true,
-    "build/": true,
-    "dist/": true
+		"**/.git": true,
+		"build/": true,
+		"dist/": true
 	}
 }
