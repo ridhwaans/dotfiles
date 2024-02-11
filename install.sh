@@ -1,133 +1,10 @@
 #!/usr/bin/env bash
 
-if [ $(uname) = Darwin ]; then
-	# Write permissions for Homebrew
-	sudo chown -R $(whoami) /usr/local/include /usr/local/lib /usr/local/lib/pkgconfig
-	chmod u+w /usr/local/include /usr/local/lib /usr/local/lib/pkgconfig
-
-	# Install Homebrew if missing
-	if test ! $(which brew)
-	then
-		echo "Installing Homebrew..."
-		bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-	fi
-
-	# Make sure we’re using the latest Homebrew
-	brew update
-
-	# Upgrade any already-installed formulae
-	brew tap homebrew/core
-	brew tap aws/tap
-	brew upgrade
-
-	packages=(
-		awscli
-		aws-sam-cli
-		cfn-lint
-		exercism
-		fontconfig
-		git
-		go
-		jq
-		mysql
-		postgresql
-		screenfetch
-		tig
-		tree
-	)
-	brew install "${packages[@]}"
-
-	# Install Caskroom
-	brew tap homebrew/cask
-	brew tap homebrew/cask-versions
-
-	apps=(
-		beekeeper-studio
-		docker
-		discord
-		dropbox
-		figma
-		hpedrorodrigues/tools/dockutil
-		iterm2-nightly
-		mounty
-		notion
-		postman
-		steam
-		visual-studio-code
-	)
-
-		if [ ! -d "/Applications/Google Chrome.app" ]; then
-				apps+=(google-chrome);
-		fi
-
-		if [ ! -d "/Applications/Slack.app" ]; then
-				apps+=(slack);
-		fi
-
-		if [ ! -d "/Applications/zoom.us.app" ]; then
-				apps+=(zoom);
-		fi
-
-	brew install --cask "${apps[@]}"
-
-	# Remove outdated versions from the cellar
-	brew cleanup
-
-	# Set Dock items
-	OLDIFS=$IFS
-	IFS=''
-
-	apps=(
-		'Google Chrome'
-		'Visual Studio Code'
-		iTerm
-		'Beekeeper Studio'
-		Postman
-		Notion
-		Slack
-		Figma
-		zoom.us
-		Docker
-		'System Settings'
-	)
-
-	dockutil --no-restart --remove all $HOME
-	for app in "${apps[@]}"
-	do
-		echo "Keeping $app in Dock"
-		dockutil --no-restart --add /Applications/$app.app $HOME
-	done
-	killall Dock
-
-	# restore $IFS
-	IFS=$OLDIFS
-fi
-
 echo "Setting up dotfiles..."
 rm -rf $HOME/dotfiles && git clone https://github.com/ridhwaans/dotfiles.git $HOME/dotfiles && cd $_
 
-echo "Setting up plugin managers..."
-git clone https://github.com/zsh-users/antigen.git .zsh/bundle
-git clone https://github.com/VundleVim/Vundle.vim .vim/bundle/Vundle.vim
-
-echo "Setting up language managers..."
-git clone https://github.com/nvm-sh/nvm.git .nvm
-git clone https://github.com/pyenv/pyenv .pyenv
-git clone https://github.com/pyenv/pyenv-virtualenv.git .pyenv/plugins/pyenv-virtualenv
-git clone https://github.com/rbenv/rbenv .rbenv
-git clone https://github.com/rbenv/ruby-build.git .rbenv/plugins/ruby-build
-git clone https://github.com/jf/rbenv-gemset.git .rbenv/plugins/rbenv-gemset
-
-export SDKMAN_DIR=$PWD/.sdkman && curl https://get.sdkman.io | bash
-
 echo "Symlinking dotfiles..."
 files=(
-	.zsh
-	.vim
-	.nvm
-	.pyenv
-	.rbenv
-	.sdkman
 	.gitconfig
 	.vimrc
 	.zshrc
@@ -142,7 +19,6 @@ done;
 echo "Setting up .ssh folder permissions..."
 mkdir -p $HOME/.ssh && ln -sf $PWD/.ssh/autokey-github.sh $_/autokey-github.sh
 find $HOME/.ssh/ -type f -exec chmod 600 {} \;; find $HOME/.ssh/ -type d -exec chmod 700 {} \;; find $HOME/.ssh/ -type f -name "*.pub" -exec chmod 644 {} \;
-
 
 echo "Setting up IDE..."
 extensions=(

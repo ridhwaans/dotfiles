@@ -97,6 +97,7 @@ function cleanup_container() {
 alias ed='[ -d $HOME/dotfiles ] && code $HOME/dotfiles'
 alias cdd='[ -d $HOME/dotfiles ] && cd $HOME/dotfiles'
 alias cds='[ -d $HOME/Source ] && cd $HOME/Source'
+alias touchsh='touch $1; chmod +x $1'
 
 if [ $(uname) = Darwin ]; then
     # Command + Shift + . (the period key) shows hidden files in Finder

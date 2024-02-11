@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Run any additional user-specific hooks. This runs every time the container is attached.
+# See https://docs.github.com/en/codespaces/troubleshooting/troubleshooting-personalization-for-codespaces#troubleshooting-dotfiles for more
+
+# Stash changes if there are any
+if [ -n "$(git status --porcelain)" ]; then
+    git stash save "Stashed changes before switching branches"
+fi
+
+default_branch=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+
+# Switch to default branch, pull latest changes from origin, and switch back to previous branch
+git checkout "$default_branch" && git pull origin "$default_branch" && git checkout -
+
+# Pop stashed changes if any
+[ -n "$(git stash list)" ] && git stash pop
+
