@@ -112,6 +112,8 @@ if [ $(uname) = Darwin ]; then
     defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Bluetooth -int 18
     defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Sound -int 18
     defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Display -int 18
+
+    # Do not display prompt when quitting iTerm
     defaults write com.googlecode.iterm2 PromptOnQuit -bool false
     # Stop `Music.app` from opening
     launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist

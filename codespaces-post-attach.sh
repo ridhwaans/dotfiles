@@ -8,7 +8,7 @@ if [ -n "$(git status --porcelain)" ]; then
     git stash save "Stashed changes before switching branches"
 fi
 
-default_branch=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+default_branch=$(git remote show origin | grep 'HEAD branch' | cut -d ':' -f 2 | xargs)
 
 # Switch to default branch, pull latest changes from origin, and switch back to previous branch
 git checkout "$default_branch" && git pull origin "$default_branch" && git checkout -
