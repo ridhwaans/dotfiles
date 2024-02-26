@@ -1,6 +1,6 @@
 function is-ssh-authenticated() {
     # Attempt to ssh to GitHub
-    ssh -T git@github.com &>/dev/null
+    ssh -T git@github.com > /dev/null 2>&1
     RET=$?
     if [ $RET == 1 ]; then
         # user is authenticated, but fails to open a shell with GitHub

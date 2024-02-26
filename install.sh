@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -89,6 +89,12 @@ fi
 # Moving to end because it lapses trailing code
 echo "Installing vim plugins..."
 vim +silent! +PluginInstall +qall
+
+
+mkdir -p $HOME/Source
+if ! sfltool list | grep -q "file://$HOME/Source"; then
+    sfltool add-item com.apple.LSSharedFileList.FavoriteItems file://$HOME/Source
+fi
 
 echo "Done"
 
