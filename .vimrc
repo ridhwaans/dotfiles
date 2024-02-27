@@ -11,56 +11,13 @@ set showmatch       " highlight matching [{()}]
 set number          " show line numbers
 set laststatus=2    " display status line
 
-" turn off search highlight
-nnoremap <leader><space> :nohlsearch<CR>
+" vim-plug
+let g:vim_plug_home = '/usr/local/share/.vim/bundle'
 
-" Vundle
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'Raimondi/delimitMate'
-" colorschemes
-Plugin 'whatyouhide/vim-gotham'
-Plugin 'sjl/badwolf'
-Plugin 'morhetz/gruvbox'
-Plugin 'dracula/vim'
-Plugin 'cocopon/iceberg.vim'
-call vundle#end()    
-filetype plugin indent on " load filetype-specific files
+execute 'source ' . g:vim_plug_home . '/autoload/plug.vim'
 
-map <F1> :set nonumber!<CR>
-map <F2> :AirlineToggle<CR>
-map <F3> :NERDTreeToggle<CR>
+call plug#begin(g:vim_plug_home . '/plugged')
 
-augroup configgroup
-    autocmd!
-    autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md
-                \:call <SID>StripTrailingWhitespaces()
-augroup END 
+Plug 'whatyouhide/vim-gotham'
 
-" strips trailing whitespace at the end of files. this
-" is called on buffer write in the autogroup above.
-function! <SID>StripTrailingWhitespaces()
-    " save last search & cursor position
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    let @/=_s
-    call cursor(l, c)
-endfunction
-
-try
-  colorscheme gotham256
-catch /^Vim\%((\a\+)\)\=:E185/
-  colorscheme default
-  set background=dark
-endtry
-
-let g:airline_theme='gotham256'
+call plug#end()

@@ -1,3 +1,7 @@
+# **********************
+# ** Helper functions **
+# **********************
+
 function is-ssh-authenticated() {
     # Attempt to ssh to GitHub
     ssh -T git@github.com > /dev/null 2>&1
@@ -94,6 +98,10 @@ function cleanup_container() {
     fi
 }
 
+# *************************
+# ** Alises and env vars **
+# *************************
+
 alias ed='[ -d $HOME/dotfiles ] && code $HOME/dotfiles'
 alias cdd='[ -d $HOME/dotfiles ] && cd $HOME/dotfiles'
 alias cds='[ -d $HOME/Source ] && cd $HOME/Source'
@@ -128,8 +136,6 @@ elif [ $(uname) = Linux ]; then
 
         export VSCODE_SETTINGS=$WINDOWS_HOME/AppData/Roaming/Code/User/settings.json
 
-        export PATH=$PATH:/mnt/c/Program\ Files/Docker/Docker/resources/bin
-
     elif [ -n "$CODESPACES" ]; then
     else
     fi
@@ -137,23 +143,21 @@ fi
 
 export EDITOR=/usr/bin/vim
 
-export ADOTDIR=$HOME/.zsh/bundle
+export ZPLUG_HOME="/usr/local/share/.zsh/bundle"
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+export NVM_DIR="/usr/local/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-export SDKMAN_DIR="$HOME/.sdkman"
+export SDKMAN_DIR="/usr/local/sdkman"
 [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
-
-export PYENV_ROOT=$HOME/.pyenv
-
-export RBENV_ROOT=$HOME/.rbenv
-
-export PYTHONPATH='.'
 
 export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/mysql/lib
 
-# PATH
+export GOPATH="/go"
+
+# **********
+# ** PATH **
+# **********
 
 export PATH=$PATH:/opt/homebrew/bin
 
@@ -171,14 +175,32 @@ export PATH=$PATH:/usr/local/bin
 
 export PATH=$PATH:/usr/local/mysql/bin
 
-export PATH=$PATH:/usr/local/go/bin
+if [ $(uname) = Darwin ]; then
+    export PATH=$PATH/opt/homebrew/opt/go/bin
+elif [ $(uname) = Linux ]; then
+    export PATH=$PATH:/usr/local/go/bin
+    if [ -n "$WSL_DISTRO_NAME" ]; then
+        export PATH=$PATH:/mnt/c/Program\ Files/Docker/Docker/resources/bin
+    fi
+fi
 
 eval "$(rbenv init -)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-source $HOME/.zsh/bundle/bin/antigen.zsh
+# ***********
+# ** zplug **
+# ***********
 
-antigen use oh-my-zsh # Load the oh-my-zsh's library.
-antigen theme agnoster # Load the theme.
-antigen apply # Tell antigen that you're done.
+source $ZPLUG_HOME/init.zsh
+
+zplug "agnoster/3712874", from:gist, as:theme, use:agnoster.zsh-theme
+
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+zplug load --verbose

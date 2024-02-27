@@ -75,6 +75,8 @@ files=(
 	.zshrc
 )
 
+[ -n "$CODESPACES" ] && files+=(codespaces-post-attach.sh)
+
 for file in "${files[@]}"
 do
 	ln -sf $PWD/$file $HOME/
@@ -88,13 +90,9 @@ fi
 
 # Moving to end because it lapses trailing code
 echo "Installing vim plugins..."
-vim +silent! +PluginInstall +qall
-
+vim +silent! +PlugInstall +qall
 
 mkdir -p $HOME/Source
-if ! sfltool list | grep -q "file://$HOME/Source"; then
-    sfltool add-item com.apple.LSSharedFileList.FavoriteItems file://$HOME/Source
-fi
 
 echo "Done"
 
