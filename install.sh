@@ -2,24 +2,22 @@
 
 set -e
 
-DOTFILES_ROOT="${DOTFILES_ROOT:-"$HOME/dotfiles"}"
-
-echo "Cloning dotfiles..."
-rm -rf $DOTFILES_ROOT && git clone https://github.com/ridhwaans/dotfiles.git $DOTFILES_ROOT && cd $_
+cd $(dirname $0)
 
 echo "Setting up .ssh folder permissions..."
 find $HOME/.ssh/ -type f -exec chmod 600 {} \;; find $HOME/.ssh/ -type d -exec chmod 700 {} \;; find $HOME/.ssh/ -type f -name "*.pub" -exec chmod 644 {} \;
+mkdir -p $HOME/Source
 
 echo "Setting up IDE..."
 while IFS= read -r extension || [ -n "$extension" ]; do
     code --install-extension "$extension"
-done < "vscode/extensions.txt"
+done < "$PWD/vscode/extensions.txt"
 
 if [ $(uname) = Darwin ]; then
 	echo "(mac)"
 
 	VSCODE_SETTINGS_DIR=$HOME/Library/Application\ Support/Code/User
-	mkdir -p $VSCODE_SETTINGS_DIR && ln -sf $PWD/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json
+	mkdir -p "$VSCODE_SETTINGS_DIR" && ln -sf $PWD/vscode/settings.json "$VSCODE_SETTINGS_DIR"/settings.json
 
 elif [ $(uname) = Linux ]; then
 	if [ -n "$WSL_DISTRO_NAME" ]; then
@@ -48,10 +46,10 @@ if [ $(uname) = Darwin ]; then
 
   # Terminal
 	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/terminal.app/Gotham.terminal --create-dirs -o $HOME/.local/share/themes/"Gotham.terminal"
-	open $HOME/.local/share/themes/"Gotham.itermcolors";ok
 
-  # iTerm2
-  curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/iterm2/Gotham.itermcolors --create-dirs -o $HOME/.local/share/themes/"Gotham.itermcolors"
+	# iTerm2
+	curl -L https://raw.githubusercontent.com/whatyouhide/gotham-contrib/master/iterm2/Gotham.itermcolors --create-dirs -o $HOME/.local/share/themes/"Gotham.itermcolors"
+	#open $HOME/.local/share/themes/"Gotham.itermcolors";ok
 
 elif [ $(uname) = Linux ]; then
 	if [ -n "$WSL_DISTRO_NAME" ]; then
@@ -91,8 +89,6 @@ fi
 # Moving to end because it lapses trailing code
 echo "Installing vim plugins..."
 vim +silent! +PlugInstall +qall
-
-mkdir -p $HOME/Source
 
 echo "Done"
 

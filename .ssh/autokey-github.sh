@@ -7,44 +7,41 @@
 # 
 # Usage:
 #   chmod +x autokey-github.sh
-#   ./autokey-github.sh <KEY_NAME> <GH_TOKEN>
+#   ./autokey-github.sh <KEY_TITLE> <GH_TOKEN>
 
-#set -e
+set -e
 
-# Generate SSH Key and Deploy to Github
-KEY_NAME=$1
+# Generating a new SSH key
+KEY_TITLE=$1
 GH_TOKEN=$2
 
-ssh-keygen -t ed25519 -C $1 -f ~/.ssh/$KEY_NAME
+defaults=("id_dsa" "id_ecdsa" "id_ed25519" "id_rsa")
+if [[ ! " ${defaults[*]} " =~ " ${KEY_TITLE} " ]]; then
+    echo "SSH key pair doesn't use a default name. IdentityFile must be configured in ~/.ssh/config"
+fi
 
-PUBKEY=`cat ~/.ssh/$KEY_NAME.pub`
+ssh-keygen -t ed25519 -C $KEY_TITLE -f ~/.ssh/$KEY_TITLE
 
+PUBLIC_KEY=`cat ~/.ssh/$KEY_NAME.pub`
+
+# Adding your SSH key to the ssh-agent
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/$KEY_TITLE
+
+# Adding a new SSH key to your account
 RESPONSE=`curl -s -H "Authorization: token ${GH_TOKEN}" \
-  -X POST --data-binary "{\"title\":\"${KEY_NAME}\",\"key\":\"${PUBKEY}\"}" \
+  -X POST --data-binary "{\"title\":\"${KEY_TITLE}\",\"key\":\"${PUBLIC_KEY}\"}" \
   https://api.github.com/user/keys`
 
-KEYID=`echo $RESPONSE \
+KEY_ID=`echo $RESPONSE \
   | grep -o '\"id.*' \
   | grep -o "[0-9]*" \
   | grep -m 1 "[0-9]*"`
 
 echo "Public key deployed to remote service"
 
-# Add SSH Key to the local ssh-agent"
-
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/$KEY_NAME
-
-echo "Added SSH key to the ssh-agent"
-
-# Test the SSH connection
-
+# Testing your SSH connection
 ssh -T git@github.com
-
-defaults=("id_dsa" "id_ecdsa" "id_ed25519" "id_rsa")
-if [[ ! " ${defaults[*]} " =~ " ${KEY_NAME} " ]]; then
-    echo "SSH key pair doesn't use a default name. IdentityFile must be configured in ~/.ssh/config"
-fi
 
 # Credits
 # https://gist.github.com/petersellars/c6fff3657d53d053a15e57862fc6f567
