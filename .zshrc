@@ -2,32 +2,82 @@
 # ** Helper functions **
 # **********************
 
-function is-ssh-authenticated() {
-    # Attempt to ssh to GitHub
-    ssh -T git@github.com > /dev/null 2>&1
-    RET=$?
-    if [ $RET == 1 ]; then
-        # user is authenticated, but fails to open a shell with GitHub
-        return 0
-    elif [ $RET == 255 ]; then
-        # user is not authenticated
-        return 1
-    else
-        echo "unknown exit code in attempt to ssh into git@github.com"
-    fi
-    return 2
+set -e
+
+function autokey-github(){
+  # Generating a new SSH key
+  local KEY_TITLE=$1
+  local GH_TOKEN=$2
+
+  defaults=("id_dsa" "id_ecdsa" "id_ed25519" "id_rsa")
+  if [[ ! " ${defaults[*]} " =~ " ${KEY_TITLE} " ]]; then
+      echo "SSH key pair doesn't use a default name. IdentityFile must be configured in ~/.ssh/config"
+  fi
+
+  ssh-keygen -t ed25519 -C $KEY_TITLE -f ~/.ssh/$KEY_TITLE
+
+  PUBLIC_KEY=`cat ~/.ssh/$KEY_NAME.pub`
+
+  # Adding your SSH key to the ssh-agent
+  eval "$(ssh-agent -s)"
+  ssh-add ~/.ssh/$KEY_TITLE
+
+  # Adding a new SSH key to your account
+  RESPONSE=`curl -s -H "Authorization: token ${GH_TOKEN}" \
+    -X POST --data-binary "{\"title\":\"${KEY_TITLE}\",\"key\":\"${PUBLIC_KEY}\"}" \
+    https://api.github.com/user/keys`
+
+  KEY_ID=`echo $RESPONSE \
+    | grep -o '\"id.*' \
+    | grep -o "[0-9]*" \
+    | grep -m 1 "[0-9]*"`
+
+  echo "Public key deployed to remote service"
+
+  # Testing your SSH connection
+  ssh -T git@github.com
 }
 
-# Switch remote URL from HTTPS to SSH
-function set-url-ssh() {
-    if is-ssh-authenticated; then
-        GIT_USER=`echo $(git config --get remote.origin.url) | sed -Ene's#https://github.com/([^/]*)/(.*).git#\1#p'`
-        GIT_REPO=$(basename `git rev-parse --show-toplevel`)
-        git remote set-url origin git@github.com:$GIT_USER/$GIT_REPO.git
-        echo "Set $GIT_REPO remote URL to SSH"
+function switch_remote() {
+    # Get current remote URL
+    current_url=$(git config --get remote.origin.url)
+
+    # Check if current URL starts with "https://"
+    if [[ $current_url == https://* ]]; then
+        # Replace "https://" with "git@"
+        ssh_url=${current_url/https:\/\//git@}
+
+        # Replace ".git" with ".git"
+        ssh_url=${ssh_url%.git}.git
+
+        # Set the new SSH URL
+        git remote set-url origin $ssh_url
+
+        echo "Remote URL updated to SSH:"
+        echo "$ssh_url"
+    else
+        echo "Remote URL is already using SSH:"
+        echo "$current_url"
     fi
-    # Credits
-    # https://stackoverflow.com/a/53454540/3577482
+}
+
+function cherry-pick() {
+    local default_branch=$(git remote show origin | grep 'HEAD branch' | cut -d ':' -f 2 | xargs)
+    local your_branch_name="$1"
+    local your_branch_backup="${your_branch_name}-backup"
+    local exclusive_commits=$(git log ${your_branch_backup} ^master --pretty=%H)
+
+    # Backup the branch and switch to default branch (e.g. main)
+    git branch -m "$your_branch_backup" "${your_branch_backup}"
+    git switch $default_branch
+
+    # Create and switch to your branch
+    git switch -c "$your_branch_name"
+
+    # Cherry-pick commits from backup branch
+    for commit_sha in $exclusive_commits; do
+        git cherry-pick --no-commit "$commit_sha"
+    done
 }
 
 function rm-submodule() {
@@ -44,7 +94,45 @@ function rm-submodule() {
 }
 
 function update-submodules() {
-    git submodule update --init --recursive --remote
+  git submodule update --init --recursive --remote
+}
+
+function pull-recursive() {
+  _inner() {
+    local submodule_path=$1
+    pull-recursive "$submodule_path"
+  }
+
+  local repo_path=${1:-$(git rev-parse --show-toplevel)}
+  local default_branch=$(git remote show origin | grep 'HEAD branch' | cut -d ':' -f 2 | xargs)
+
+  # Stash changes if there are any
+  if [ -n "$(git -C "$repo_path" status --porcelain)" ]; then
+      git -C "$repo_path" stash save "Stashed changes before switching branches"
+  fi
+
+  # Change to repo root directory
+  cd "$repo_path" || return
+
+  # Determine and checkout default branch (e.g. main)
+  git checkout "$default_branch"
+
+  # Pull latest changes
+  git pull
+
+  # Switch back to previous branch
+  git checkout -
+
+  # Pop stashed changes if any
+  [ -n "$(git -C "$repo_path" stash list)" ] && git -C "$repo_path" stash pop
+
+  # Handle submodules recursively
+  git submodule foreach --recursive $_inner
+}
+
+function touchsh() {
+    touch "$1"
+    chmod +x "$1"
 }
 
 function reopen_in_container() {
@@ -105,7 +193,6 @@ function cleanup_container() {
 alias ed='[ -d $HOME/dotfiles ] && code $HOME/dotfiles'
 alias cdd='[ -d $HOME/dotfiles ] && cd $HOME/dotfiles'
 alias cds='[ -d $HOME/Source ] && cd $HOME/Source'
-alias touchsh='touch $1; chmod +x $1'
 
 if [ $(uname) = Darwin ]; then
     # Command + Shift + . (the period key) shows hidden files in Finder
@@ -140,6 +227,8 @@ elif [ $(uname) = Linux ]; then
     else
     fi
 fi
+
+export LANG=en_US.UTF-8
 
 export EDITOR=/usr/bin/vim
 

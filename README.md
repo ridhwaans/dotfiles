@@ -1,7 +1,6 @@
 # dotfiles
  https://github.com/ridhwaans/dotfiles
 
-## install
 macOS
 - **GET** [Sonoma Update](https://support.apple.com/macos/upgrade)  
 - **GET** Xcode Command Line Tools `xcode-select --install`
@@ -14,7 +13,7 @@ windows
 
 - **GET** [Docker Desktop](https://www.docker.com/products/docker-desktop/)  
 - **GET** [VS Code Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)  
-
+ 
 ## development
 
 | development image                                                                   | supported-features                                                                                       | 

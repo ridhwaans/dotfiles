@@ -4,14 +4,16 @@ set -e
 
 cd $(dirname $0)
 
-echo "Setting up .ssh folder permissions..."
+echo "Setting up initial folders & permissions..."
+mkdir -p $HOME/Source $HOME/.ssh
 find $HOME/.ssh/ -type f -exec chmod 600 {} \;; find $HOME/.ssh/ -type d -exec chmod 700 {} \;; find $HOME/.ssh/ -type f -name "*.pub" -exec chmod 644 {} \;
-mkdir -p $HOME/Source
 
 echo "Setting up IDE..."
-while IFS= read -r extension || [ -n "$extension" ]; do
-    code --install-extension "$extension"
-done < "$PWD/vscode/extensions.txt"
+if ! command -v code &>/dev/null; then
+  while IFS= read -r extension || [ -n "$extension" ]; do
+      code --install-extension "$extension"
+  done < "$PWD/vscode/extensions.txt"
+fi
 
 if [ $(uname) = Darwin ]; then
 	echo "(mac)"
@@ -73,14 +75,10 @@ files=(
 	.zshrc
 )
 
-[ -n "$CODESPACES" ] && files+=(codespaces-post-attach.sh)
-
 for file in "${files[@]}"
 do
 	ln -sf $PWD/$file $HOME/
 done;
-
-mkdir -p $HOME/.ssh && ln -sf $PWD/.ssh/autokey-github.sh $_/autokey-github.sh
 
 if [ -n "$WINDOWS_HOME" ]; then
   ln -sf $PWD $WINDOWS_HOME/dotfiles
