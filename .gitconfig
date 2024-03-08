@@ -17,7 +17,7 @@
     amend = commit -a --amend --reuse-message=HEAD
     contrib = shortlog --summary --numbered
     show-ls = !git rev-parse HEAD | xargs git diff-tree --no-commit-id --name-only -r
-    refresh-ignore = rm -r --cached . && git add . && git commit -am "Refresh .gitignore"
+    refresh-ignore = "!f() { git rm -r --cached . && git add . && git commit -am \"Refresh .gitignore\"; }; f"
     pr = "!f() { REMOTE=$(git remote); PR_BRANCH=$(git ls-remote --exit-code --heads $REMOTE refs/pull/$1/head | cut -f2); git fetch $REMOTE pull/$1/head:$PR_BRANCH; git checkout $PR_BRANCH; }; f"
     default-branch = "!f() { git remote show origin | grep 'HEAD branch' | cut -d ':' -f 2 | xargs; }; f"
 

@@ -18,7 +18,7 @@ windows
 
 | development image                                                                   | supported-features                                                                                       | 
 |-------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
-| [javascript-node](https://hub.docker.com/_/microsoft-devcontainers-javascript-node) | [docker-in-docker](https://github.com/devcontainers/features/pkgs/container/features%2Fdocker-in-docker) |
+| [javascript-node:20](https://hub.docker.com/_/microsoft-devcontainers-javascript-node) | [docker-in-docker](https://github.com/devcontainers/features/pkgs/container/features%2Fdocker-in-docker) |
 
 in VS Code, select `Dev Containers: Reopen in Container`, or  
 `Dev Containers: Rebuild Without Cache and Reopen in Container` 
@@ -27,4 +27,4 @@ in VS Code, select `Dev Containers: Reopen in Container`, or
  
 | runner image                                     |
 |--------------------------------------------------|
-| [alpine-latest](https://hub.docker.com/_/alpine) |
+| [ubuntu-22.04](https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2204-Readme.md) |
