@@ -8,8 +8,10 @@
 # ** Alises and env vars **
 # *************************
 
-alias ed='[ -d $HOME/Source/environment/dotfiles ] && code $HOME/Source/environment/dotfiles'
-alias cdd='[ -d $HOME/Source/environment/dotfiles ] && cd $HOME/Source/environment/dotfiles'
+alias es='[ -f $HOME/Source/scripts.sh ] && code $HOME/Source/scripts.sh'
+alias edf='[ -d $HOME/Source/environment/dotfiles ] && code $HOME/Source/environment/dotfiles'
+alias edc='[ -d $HOME/Source/environment/devcontainer-features ] && code $HOME/Source/environment/devcontainer-features'
+alias cddf='[ -d $HOME/Source/environment/dotfiles ] && cd $HOME/Source/environment/dotfiles'
 alias cds='[ -d $HOME/Source ] && cd $HOME/Source'
 
 if [ $(uname) = Darwin ]; then
@@ -22,6 +24,7 @@ if [ $(uname) = Darwin ]; then
 
     alias sleepon='sudo pmset -a disablesleep 0'
 
+    defaults write com.apple.finder ShowPathbar -bool true
     defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Bluetooth -int 18
     defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Sound -int 18
     defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Display -int 18
@@ -51,7 +54,7 @@ export LANG=en_US.UTF-8
 
 export EDITOR=/usr/bin/vim
 
-export ZPLUG_HOME="/usr/local/share/.zsh/bundle"
+export ZPLUG_HOME="/usr/local/share/zsh/bundle"
 
 export NVM_DIR="/usr/local/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"

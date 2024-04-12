@@ -12,7 +12,7 @@ set number          " show line numbers
 set laststatus=2    " display status line
 
 " vim-plug
-let g:vim_plug_home = '/usr/local/share/.vim/bundle'
+let g:vim_plug_home = '/usr/local/share/vim/bundle'
 
 execute 'source ' . g:vim_plug_home . '/autoload/plug.vim'
 
