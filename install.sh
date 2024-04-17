@@ -81,7 +81,10 @@ done;
 if [ -n "$WINDOWS_HOME" ]; then
   ln -sf $HOME $WINDOWS_HOME/$HOME
 fi
-find $HOME/.ssh/ -type f -exec chmod 600 {} \;; find $HOME/.ssh/ -type d -exec chmod 700 {} \;; find $HOME/.ssh/ -type f -name "*.pub" -exec chmod 644 {} \;
+if [ -z "$CODESPACES" ]; then
+  find $HOME/.ssh/ -type f -exec chmod 600 {} \;; find $HOME/.ssh/ -type d -exec chmod 700 {} \;; find $HOME/.ssh/ -type f -name "*.pub" -exec chmod 644 {} \;
+fi
+
 mkdir -p "$HOME/Source" && curl -sSL "https://gist.githubusercontent.com/ridhwaans/08f2fc5e9b3614a3154cef749a43a568/raw/3b0eb5ed1d9a437815b129e0739fc76ee04f425f/scripts.sh" -o "$HOME/Source/scripts.sh" && chmod +x "$HOME/Source/scripts.sh"
 
 # Moving to end because it lapses trailing code
