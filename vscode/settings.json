@@ -21,5 +21,10 @@
 		"**/.git": true,
 		"build/": true,
 		"dist/": true
-	}
+	},
+  // Windows
+  "security.allowedUNCHosts": [
+    "wsl.localhost",
+    "wsl$"
+  ]
 }

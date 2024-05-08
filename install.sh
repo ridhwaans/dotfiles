@@ -6,7 +6,7 @@ SCRIPT_HOME="$(dirname $0)"
 
 echo "For current user ${USERNAME}"
 echo "Setting up IDE..."
-if ! command -v code &>/dev/null; then
+if command -v code &>/dev/null; then
   while IFS= read -r extension || [ -n "$extension" ]; do
       code --install-extension "$extension"
   done < "$SCRIPT_HOME/vscode/extensions.txt"
