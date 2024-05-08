@@ -18,7 +18,7 @@ if [ $(uname) = Darwin ]; then
 	echo "(mac)"
 
 	VSCODE_SETTINGS_DIR=$HOME/Library/Application\ Support/Code/User
-	mkdir -p "$VSCODE_SETTINGS_DIR" && cp --remove-destination $SCRIPT_HOME/vscode/settings.json "$VSCODE_SETTINGS_DIR"/settings.json
+	mkdir -p "$VSCODE_SETTINGS_DIR" && cp -f $SCRIPT_HOME/vscode/settings.json "$VSCODE_SETTINGS_DIR"/settings.json
 
 elif [ $(uname) = Linux ]; then
 	if [ -n "$WSL_DISTRO_NAME" ]; then
@@ -27,7 +27,7 @@ elif [ $(uname) = Linux ]; then
     WINDOWS_HOME=$(wslpath $(powershell.exe '$env:UserProfile') | sed -e 's/\r//g')
 
 		VSCODE_SETTINGS_DIR=$WINDOWS_HOME/AppData/Roaming/Code/User
-		mkdir -p $VSCODE_SETTINGS_DIR && cp --remove-destination $SCRIPT_HOME/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json
+		mkdir -p $VSCODE_SETTINGS_DIR && cp -f $SCRIPT_HOME/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json
 		# https://github.com/microsoft/vscode/issues/1022
 		# https://github.com/microsoft/vscode/issues/166680
 
@@ -37,7 +37,7 @@ elif [ $(uname) = Linux ]; then
 		echo "(native linux)"
 
 		VSCODE_SETTINGS_DIR=$HOME/.config/Code/User
-		mkdir -p $VSCODE_SETTINGS_DIR && cp --remove-destination $SCRIPT_HOME/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json
+		mkdir -p $VSCODE_SETTINGS_DIR && cp -f $SCRIPT_HOME/vscode/settings.json $VSCODE_SETTINGS_DIR/settings.json
 	fi
 fi
 
@@ -81,11 +81,14 @@ done;
 if [ -n "$WINDOWS_HOME" ]; then
   ln -sf $HOME $WINDOWS_HOME/$HOME
 fi
-if [ -z "$CODESPACES" ]; then
-  find $HOME/.ssh/ -type f -exec chmod 600 {} \;; find $HOME/.ssh/ -type d -exec chmod 700 {} \;; find $HOME/.ssh/ -type f -name "*.pub" -exec chmod 644 {} \;
+
+if [ -z "$CODESPACES" ] && [ -d "$HOME/.ssh/" ]; then
+    find $HOME/.ssh/ -type f -exec chmod 600 {} \;
+    find $HOME/.ssh/ -type d -exec chmod 700 {} \;
+    find $HOME/.ssh/ -type f -name "*.pub" -exec chmod 644 {} \;
 fi
 
-mkdir -p "$HOME/Source" && curl -sSL "https://gist.githubusercontent.com/ridhwaans/08f2fc5e9b3614a3154cef749a43a568/raw/3b0eb5ed1d9a437815b129e0739fc76ee04f425f/scripts.sh" -o "$HOME/Source/scripts.sh" && chmod +x "$HOME/Source/scripts.sh"
+mkdir -p "$HOME/Source" && curl -sfSL "https://gist.githubusercontent.com/ridhwaans/08f2fc5e9b3614a3154cef749a43a568/raw/scripts.sh" -o "$HOME/Source/scripts.sh" && chmod +x "$HOME/Source/scripts.sh"
 
 # Moving to end because it lapses trailing code
 echo "Installing vim plugins..."

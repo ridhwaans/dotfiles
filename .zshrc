@@ -58,6 +58,8 @@ if [ $(uname) = Darwin ]; then
   launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist
 
   export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/mysql/lib
+
+  eval $(/opt/homebrew/bin/brew shellenv)
 fi
 
 if [ -n "$WSL_DISTRO_NAME" ]; then
