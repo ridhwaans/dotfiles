@@ -96,16 +96,16 @@ if [ $(uname) = Linux ]; then
 
   [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 
-  eval "$(pyenv init -)"
-
-  eval "$(pyenv virtualenv-init -)"
-
   export RBENV_ROOT="/usr/local/rbenv"
 
-  [[ -d $RBENV_ROOT/bin ]] && export PATH="$RBENV_ROOT/bin:$PATH"
-
-  eval "$(rbenv init -)"
+  [[ -d $RBENV_ROOT/bin ]] && export PATH="$RBENV_ROOT/bin:$PATH"  
 fi
+
+eval "$(pyenv init -)"
+
+eval "$(pyenv virtualenv-init -)"
+
+eval "$(rbenv init -)"
 
 export NVM_DIR="/usr/local/nvm"
 
