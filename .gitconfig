@@ -13,7 +13,7 @@
     undo = reset HEAD~1 --mixed
     undo2 = reset --soft HEAD^
     find = log --color --source -S
-    amend = commit -a --amend --reuse-message=HEAD
+    amend = commit -a --amend --reuse-message=HEAD --no-verify
     contrib = shortlog --summary --numbered
     show-ls = !git rev-parse HEAD | xargs git diff-tree --no-commit-id --name-only -r
     refresh-ignore = "!f() { git rm -r --cached . && git add . && git commit -am \"Refresh .gitignore\"; }; f"

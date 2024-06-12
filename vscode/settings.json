@@ -13,6 +13,7 @@
 	"terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
 	"terminal.integrated.defaultProfile.linux": "zsh",
 	"terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.sendKeybindingsToShell": true,
 	"terminal.external.osxExec": "iTerm.app",
 	"terminal.external.windowsExec": "wt.exe",
 	// Search
