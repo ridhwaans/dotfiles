@@ -2,6 +2,7 @@
 
 {
 	// Appearance
+  "window.newWindowDimensions": "maximized",
 	"workbench.iconTheme": "material-icon-theme",
 	"workbench.colorTheme": "Gotham",
 	"editor.fontFamily": "'Roboto Mono for Powerline', Menlo, Monaco, 'Courier New', monospace",
