@@ -26,8 +26,8 @@ jobs:
           increment: patch
 
       - name: Release
-          uses: softprops/action-gh-release@v1
-          with:
-            tag_name: ${{ steps.version.outputs.version }}
-            draft: false
-            prerelease: false
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          draft: false
+          prerelease: false
