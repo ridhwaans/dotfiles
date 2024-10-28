@@ -2,13 +2,16 @@ name: "Release"
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
+    inputs:
+      create_release:
+        description: "Should this push create a release?"
+        required: true
+        default: "false"
+        type: boolean
 
 jobs:
   release:
-    if: ${{ github.ref == 'refs/heads/main' }}
+    if: ${{ github.ref == 'refs/heads/main' && github.event.inputs.create_release == 'true' }}
     runs-on: ubuntu-24.04
 
     steps:
