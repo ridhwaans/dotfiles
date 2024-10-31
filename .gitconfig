@@ -2,6 +2,9 @@
 
 [user]
     name = Rid Shakeel
+    email = shakeel.ridhwaan@gmail.com
+[init]
+	defaultBranch = main
 [push]
     default = simple
 [alias]
@@ -19,6 +22,5 @@
     refresh-ignore = "!f() { git rm -r --cached . && git add . && git commit -am \"Refresh .gitignore\"; }; f"
     pr = "!f() { REMOTE=$(git remote); PR_BRANCH=$(git ls-remote --exit-code --heads $REMOTE refs/pull/$1/head | cut -f2); git fetch $REMOTE pull/$1/head:$PR_BRANCH; git checkout $PR_BRANCH; }; f"
     default-branch = "!f() { git remote show origin | grep 'HEAD branch' | cut -d ':' -f 2 | xargs; }; f"
-
 [url "git@github.com:"]
     pushInsteadOf = https://github.com/

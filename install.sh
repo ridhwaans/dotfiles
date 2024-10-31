@@ -9,7 +9,7 @@ echo "Setting up IDE..."
 if command -v code &>/dev/null; then
   while IFS= read -r extension || [ -n "$extension" ]; do
       code --install-extension "$extension"
-  done < "$SCRIPT_HOME/vscode/extensions.txt"
+  done < "$SCRIPT_HOME/vscode/extensions"
   code --install-extension alireza94.theme-gotham
   code --install-extension PKief.material-icon-theme
 fi
@@ -87,6 +87,8 @@ if [ -z "$CODESPACES" ] && [ -d "$HOME/.ssh/" ]; then
     find $HOME/.ssh/ -type d -exec chmod 700 {} \;
     find $HOME/.ssh/ -type f -name "*.pub" -exec chmod 644 {} \;
 fi
+
+#gh auth login -h 'github.com' -p 'ssh' --skip-ssh-key -w
 
 mkdir -p "$HOME/Source" && curl -sfSL "https://gist.githubusercontent.com/ridhwaans/08f2fc5e9b3614a3154cef749a43a568/raw/scripts.sh" -o "$HOME/Source/scripts.sh" && chmod +x "$HOME/Source/scripts.sh"
 
