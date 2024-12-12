@@ -21,3 +21,16 @@ call plug#begin(g:vim_plug_home . '/plugged')
 Plug 'whatyouhide/vim-gotham'
 
 call plug#end()
+
+map <F1> :set nonumber!<CR>
+map <F2> :NERDTreeToggle<CR>
+map <F3> :AirlineToggle<CR>
+
+try
+  colorscheme gotham256
+catch /^Vim\%((\a\+)\)\=:E185/
+  colorscheme default
+  set background=dark
+endtry
+
+let g:airline_theme='gotham256'

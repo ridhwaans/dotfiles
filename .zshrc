@@ -31,11 +31,18 @@ zplug load --verbose
 # ** Aliases and home vars **
 # ***************************
 
-alias cds='[ -d $HOME/Source ] && cd $HOME/Source'
-alias cddf='[ -d $HOME/Source/environment/dotfiles ] && cd $HOME/Source/environment/dotfiles'
-alias edc='[ -d $HOME/Source/environment/devcontainer-features ] && code $HOME/Source/environment/devcontainer-features'
-alias edf='[ -d $HOME/Source/environment/dotfiles ] && code $HOME/Source/environment/dotfiles'
-alias es='[ -f $HOME/Source/scripts.sh ] && code $HOME/Source/scripts.sh'
+export EDITOR="/usr/bin/vim"
+
+alias evi='$EDITOR $HOME/.vimrc'
+alias ezsh='$EDITOR $HOME/.zshrc'
+alias es='[ -f $HOME/Source/scripts.sh ] && $EDITOR $HOME/Source/scripts.sh'
+
+# tmux
+alias ta='tmux attach -t'
+alias tn='tmux new-session -s'
+alias tls='tmux list-sessions'
+alias tksv='tmux kill-server'
+alias tkss='tmux kill-session -t'
 
 if [ $(uname) = Darwin ]; then
   # Command + Shift + . (the period key) shows hidden files in Finder
@@ -77,8 +84,6 @@ fi
 if [ -n "$CODESPACES" ]; then
 fi
 
-export EDITOR="/usr/bin/vim"
-
 export PATH="$PATH:$HOME/bin"
 
 export PATH="$PATH:$HOME/.local/bin"
@@ -98,7 +103,7 @@ if [ $(uname) = Linux ]; then
 
   export RBENV_ROOT="/usr/local/rbenv"
 
-  [[ -d $RBENV_ROOT/bin ]] && export PATH="$RBENV_ROOT/bin:$PATH"  
+  [[ -d $RBENV_ROOT/bin ]] && export PATH="$RBENV_ROOT/bin:$PATH"
 fi
 
 eval "$(pyenv init -)"
@@ -111,6 +116,15 @@ export NVM_DIR="/usr/local/nvm"
 
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
+export BUN_INSTALL="/usr/local/.bun"
+
+export PATH="$BUN_INSTALL/bin:$PATH"
+
 export PATH="/usr/local/go/bin:$PATH"
 
 export GOPATH="/go"
+
+# for those who prefer to use a script instead of a terminal emulator theme
+GOTHAM_SHELL="$HOME/.local/share/themes/gotham.sh"
+
+[[ -s $GOTHAM_SHELL ]] && source $GOTHAM_SHELL

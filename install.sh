@@ -71,6 +71,7 @@ fi
 echo "Setting up initial files & permissions..."
 configs=(
 	.gitconfig
+  .tmux.conf
 	.vimrc
 	.zshrc
 )
@@ -79,6 +80,7 @@ for config in "${configs[@]}"; do
 done;
 
 if [ -n "$WINDOWS_HOME" ]; then
+  echo "(wsl)"
   ln -sf $HOME $WINDOWS_HOME/$HOME
 fi
 
@@ -89,7 +91,7 @@ if [ -z "$CODESPACES" ] && [ -d "$HOME/.ssh/" ]; then
 fi
 
 #gh auth login -h 'github.com' -p 'ssh' --skip-ssh-key -w
-
+# https://gist.github.com/ridhwaans/08f2fc5e9b3614a3154cef749a43a568
 mkdir -p "$HOME/Source" && curl -sfSL "https://gist.githubusercontent.com/ridhwaans/08f2fc5e9b3614a3154cef749a43a568/raw/scripts.sh" -o "$HOME/Source/scripts.sh" && chmod +x "$HOME/Source/scripts.sh"
 
 # Moving to end because it lapses trailing code
