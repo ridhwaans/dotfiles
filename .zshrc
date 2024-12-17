@@ -4,11 +4,11 @@
 
 export LANG=en_US.UTF-8
 
-export ZPLUG_HOME="~/.zsh/bundle"
-
 export ZPLUG_PATH="/usr/local/share/zsh/bundle"
 
 source $ZPLUG_PATH/init.zsh
+
+export ZPLUG_HOME="~/.zsh/bundle"
 
 zplug "agnoster/3712874", from:gist, as:theme, use:agnoster.zsh-theme
 
@@ -116,7 +116,7 @@ function tmux_session_selector() {
 # ** Aliases and home vars **
 # ***************************
 
-export $HISTFILE="$HOME/.zsh_history"
+export HISTFILE="$HOME/.zsh_history"
 export EDITOR="/usr/bin/vim"
 export SUDO_EDITOR="$EDITOR"
 
