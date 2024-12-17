@@ -164,7 +164,7 @@ if [ -n "$WSL_DISTRO_NAME" ]; then
 
   alias cdw='cd $WINDOWS_HOME'
 
-  ln -sf $HOME $WINDOWS_HOME/$HOME
+  ln -sf $HOME $WINDOWS_HOME/$(basename $HOME)
 
   export PATH=$PATH:/mnt/c/Program\ Files/Docker/Docker/resources/bin
 fi
