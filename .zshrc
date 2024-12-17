@@ -25,17 +25,105 @@ zplug load --verbose
 # ** Helper functions **
 # **********************
 
-[ -f $HOME/Source/scripts.sh ] && source $HOME/Source/scripts.sh
+if [ -f "$HOME/Source/scripts.sh" ]; then
+    echo "Sourcing bash-compatible helper functions in zsh..."
+
+    # Trap to capture errors
+    error_message=""
+    trap 'error_message="Error: $BASH_COMMAND failed at line $LINENO"' ERR
+
+    if emulate bash -c "source $HOME/Source/scripts.sh"; then
+        echo "Source successful"
+    else
+        echo "An error occurred. Source skipped"
+        echo "$error_message"
+    fi
+
+    # Reset the trap to avoid affecting subsequent commands
+    trap - ERR
+fi
+
+function start_tmux_sessions() {
+  # List of directories for each session
+  local sessions=(
+    "~/Source/test"
+    "~/Source/environment/devcontainer-features"
+    "~/Source/environment/dotfiles"
+    "~/Source/practice-vault"
+  )
+
+  # Check if tmux is already running
+  if ! tmux has-session 2>/dev/null; then
+    # tmux is not running, create and start sessions
+
+    # Loop through each session
+    for session in "${sessions[@]}"; do
+      # Expand ~ to full path
+      local expanded_session=$(eval echo $session)
+
+      # Check if the session directory exists
+      if [[ ! -d "$expanded_session" ]]; then
+        echo "Directory $expanded_session does not exist. Skipping session."
+        continue
+      fi
+
+      # Get the session name (last part of the path)
+      local session_name=$(basename "$expanded_session")
+
+      # Check if the tmux session exists, if not, create it in the specified directory
+      if ! tmux has-session -t "$session_name" 2>/dev/null; then
+        tmux new-session -d -s "$session_name" -c "$expanded_session"
+      fi
+    done
+  fi
+
+  # If we are inside tmux, switch to the last session in the list
+  if [ -n "$TMUX" ]; then
+    tmux switch-client -t "${sessions[-1]}"
+  else
+    # Attach to the last session if outside tmux
+    tmux attach-session -t "${sessions[-1]}"
+  fi
+}
+
+function tmux_session_selector() {
+    if [[ $# -eq 1 ]]; then
+        local selected=$1
+    else
+        local selected=$(find ~/Source -mindepth 1 -maxdepth 1 -type d | fzf)
+    fi
+
+    if [[ -z $selected ]]; then
+        return 0
+    fi
+
+    local selected_name=$(basename "$selected" | tr . _)
+    local tmux_running=$(pgrep tmux)
+
+    if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+        tmux new-session -s $selected_name -c $selected
+        return 0
+    fi
+
+    if ! tmux has-session -t=$selected_name 2> /dev/null; then
+        tmux new-session -ds $selected_name -c $selected
+    fi
+
+    tmux switch-client -t $selected_name
+}
 
 # ***************************
 # ** Aliases and home vars **
 # ***************************
 
+export $HISTFILE="$HOME/.zsh_history"
 export EDITOR="/usr/bin/vim"
+export SUDO_EDITOR="$EDITOR"
 
-alias evi='$EDITOR $HOME/.vimrc'
-alias ezsh='$EDITOR $HOME/.zshrc'
-alias es='[ -f $HOME/Source/scripts.sh ] && $EDITOR $HOME/Source/scripts.sh'
+alias evi="$EDITOR $HOME/.vimrc"
+alias ezsh="$EDITOR $HOME/.zshrc"
+alias et="$EDITOR $HOME/.tmux.conf"
+alias es="[ -f $HOME/Source/scripts.sh ] && $EDITOR $HOME/Source/scripts.sh"
 
 # tmux
 alias ta='tmux attach -t'

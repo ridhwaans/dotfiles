@@ -26,6 +26,10 @@ map <F1> :set nonumber!<CR>
 map <F2> :NERDTreeToggle<CR>
 map <F3> :AirlineToggle<CR>
 
+" jump half-page up/down and cursor middle
++nnoremap <C-d> <C-d>zz
++nnoremap <C-u> <C-u>zz
+
 try
   colorscheme gotham256
 catch /^Vim\%((\a\+)\)\=:E185/
