@@ -62,7 +62,7 @@ elif [ $(uname) = Linux ]; then
 
 		WINDOWS_HOME=$(wslpath $(powershell.exe '$env:UserProfile') | sed -e 's/\r//g')
     # Windows Terminal
-		# ${WINDOWS_HOME}/AppData/Local/Packages/Microsoft.WindowsTerminal*/LocalState/settings.json
+		cp "$SCRIPT_HOME/windowsterminal/settings.json" ${WINDOWS_HOME}/AppData/Local/Packages/Microsoft.WindowsTerminal*/LocalState/settings.json
 
 	elif [ -n "$CODESPACES" ]; then
 		echo "(github codespaces)"
