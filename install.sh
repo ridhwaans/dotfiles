@@ -2,10 +2,13 @@
 
 set -e
 
+start_time=$(date +%s)
+
 SCRIPT_HOME="$(dirname $0)"
 
-echo "For current user ${USERNAME}"
-echo "Setting up IDE..."
+echo "For user ${USERNAME}"
+
+echo "(1/3) Setting up IDE..."
 if command -v code &>/dev/null; then
   while IFS= read -r extension || [ -n "$extension" ]; do
       code --install-extension "$extension"
@@ -41,7 +44,7 @@ elif [ $(uname) = Linux ]; then
 	fi
 fi
 
-echo "Setting up terminal emulator..."
+echo "(2/3) Setting up terminal emulator..."
 if [ $(uname) = Darwin ]; then
 	echo "(mac)"
 
@@ -68,7 +71,7 @@ elif [ $(uname) = Linux ]; then
 	fi
 fi
 
-echo "Setting up initial files & permissions..."
+echo "(3/3) Setting up home files & permissions..."
 configs=(
 	.gitconfig
   .tmux.conf
@@ -76,12 +79,13 @@ configs=(
 	.zshrc
 )
 for config in "${configs[@]}"; do
-	cp $SCRIPT_HOME/$config $HOME/
+  [ -L "$HOME/$config" ] && rm "$HOME/$config" && echo "Symlink found and removed at $HOME/$config"
+	cp "$SCRIPT_HOME/$config" "$HOME/" && echo "Copied $SCRIPT_HOME/$config to $HOME/"
 done;
 
 if [ -n "$WINDOWS_HOME" ]; then
   echo "(wsl)"
-  ln -sf $HOME $WINDOWS_HOME/$HOME
+  ln -sf $HOME $WINDOWS_HOME/$(basename $HOME)
 fi
 
 if [ -z "$CODESPACES" ] && [ -d "$HOME/.ssh/" ]; then
@@ -95,7 +99,12 @@ fi
 mkdir -p "$HOME/Source" && curl -sfSL "https://gist.githubusercontent.com/ridhwaans/08f2fc5e9b3614a3154cef749a43a568/raw/scripts.sh" -o "$HOME/Source/scripts.sh" && chmod +x "$HOME/Source/scripts.sh"
 
 # Moving to end because it lapses trailing code
-echo "Installing vim plugins..."
-vim +silent! +PlugInstall +PlugClean +qall
+sudo -u $USERNAME vim +silent! +PlugInstall +PlugClean +qall
+
+echo "Done!"
+
+end_time=$(date +%s)
+elapsed=$(( end_time - start_time ))
+echo "Install took $elapsed seconds."
 
 exit $?
