@@ -43,46 +43,62 @@ if [ -f "$HOME/Source/scripts.sh" ]; then
     trap - ERR
 fi
 
-function start_tmux_sessions() {
-  # List of directories for each session
-  local sessions=(
-    "~/Source/test"
-    "~/Source/environment/devcontainer-features"
-    "~/Source/environment/dotfiles"
-    "~/Source/practice-vault"
-  )
+function tmux_attach_or_switch_last() {
+  # If inside a tmux session
+  if [[ -n $TMUX ]]; then
+    # Switch to the previous tmux session if it exists
+    tmux switch-client -p || echo "No previous tmux session found."
+  else
+    # Outside of tmux, shorthand attach to the last tmux session
+    tmux attach
+  fi
+}
 
+function tmux_default_sessions() {
+  # List of directories for each session
+  # dont use ~ since it does not work with -d or tmux commands
+  local sessions=(
+    "$HOME"
+    "$HOME/Source/environment/devcontainer-features"
+    "$HOME/Source/environment/dotfiles"
+    "$HOME/Source/practice-vault"
+    "$HOME/Source/cv"
+    "$HOME/Source/test"
+  )
+  
   # Check if tmux is already running
   if ! tmux has-session 2>/dev/null; then
     # tmux is not running, create and start sessions
 
     # Loop through each session
     for session in "${sessions[@]}"; do
-      # Expand ~ to full path
-      local expanded_session=$(eval echo $session)
-
-      # Check if the session directory exists
-      if [[ ! -d "$expanded_session" ]]; then
-        echo "Directory $expanded_session does not exist. Skipping session."
+      # Check if the starting directory exists
+      if [[ ! -d "$session" ]]; then
+        echo "Directory $session does not exist. Skipping session."
         continue
       fi
+      local session_name=$(basename "$session")
+      
+      echo "Session name: $session_name"
+      echo "Starting directory: $session"
 
-      # Get the session name (last part of the path)
-      local session_name=$(basename "$expanded_session")
+      # Check if the tmux session name exists
+      if tmux has-session -t "$session_name" 2>/dev/null; then
+        echo "Session name $session_name already exists. Skipping session."
+        continue
+      fi 
 
-      # Check if the tmux session exists, if not, create it in the specified directory
-      if ! tmux has-session -t "$session_name" 2>/dev/null; then
-        tmux new-session -d -s "$session_name" -c "$expanded_session"
-      fi
+      # Create a new session in detached mode with a starting directory
+      tmux new-session -d -s "$session_name" -c "$session"
     done
   fi
 
   # If we are inside tmux, switch to the last session in the list
   if [ -n "$TMUX" ]; then
-    tmux switch-client -t "${sessions[-1]}"
+    tmux switch-client -t "$(basename "${sessions[-1]}")"
   else
     # Attach to the last session if outside tmux
-    tmux attach-session -t "${sessions[-1]}"
+    tmux attach-session -t "$(basename "${sessions[-1]}")"
   fi
 }
 
@@ -126,7 +142,7 @@ alias et="$EDITOR $HOME/.tmux.conf"
 alias es="[ -f $HOME/Source/scripts.sh ] && $EDITOR $HOME/Source/scripts.sh"
 
 # tmux
-alias ta='tmux attach -t'
+alias tl='tmux_attach_or_switch_last'
 alias tn='tmux new-session -s'
 alias tls='tmux list-sessions'
 alias tksv='tmux kill-server'
@@ -216,3 +232,6 @@ export GOPATH="/go"
 GOTHAM_SHELL="$HOME/.local/share/themes/gotham.sh"
 
 [[ -s $GOTHAM_SHELL ]] && source $GOTHAM_SHELL
+
+# start or attach to a tmux session
+tmux_default_sessions
