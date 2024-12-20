@@ -141,6 +141,8 @@ alias ezsh="$EDITOR $HOME/.zshrc"
 alias et="$EDITOR $HOME/.tmux.conf"
 alias es="[ -f $HOME/Source/scripts.sh ] && $EDITOR $HOME/Source/scripts.sh"
 
+alias weather="curl http://v2.wttr.in"
+
 # tmux
 alias tl='tmux_attach_or_switch_last'
 alias tn='tmux new-session -s'
@@ -149,15 +151,16 @@ alias tksv='tmux kill-server'
 alias tkss='tmux kill-session -t'
 
 if [ $(uname) = Darwin ]; then
-  # Command + Shift + . (the period key) shows hidden files in Finder
-  alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+  # Command + Shift + . (period) shows hidden files in Finder
+  alias showHiddenFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 
-  alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+  alias hideHiddenFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 
   alias sleepoff='sudo pmset -a disablesleep 1'
 
   alias sleepon='sudo pmset -a disablesleep 0'
-
+  
+  showHiddenFiles
   defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Bluetooth -int 18
   defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Sound -int 18
   defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Display -int 18
