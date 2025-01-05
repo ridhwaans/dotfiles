@@ -65,7 +65,7 @@ function tmux_default_sessions() {
     "$HOME/Source/cv"
     "$HOME/Source/test"
   )
-  
+
   # Check if tmux is already running
   if ! tmux has-session 2>/dev/null; then
     # tmux is not running, create and start sessions
@@ -78,7 +78,7 @@ function tmux_default_sessions() {
         continue
       fi
       local session_name=$(basename "$session")
-      
+
       echo "Session name: $session_name"
       echo "Starting directory: $session"
 
@@ -86,7 +86,7 @@ function tmux_default_sessions() {
       if tmux has-session -t "$session_name" 2>/dev/null; then
         echo "Session name $session_name already exists. Skipping session."
         continue
-      fi 
+      fi
 
       # Create a new session in detached mode with a starting directory
       tmux new-session -d -s "$session_name" -c "$session"
@@ -144,11 +144,13 @@ alias es="[ -f $HOME/Source/scripts.sh ] && $EDITOR $HOME/Source/scripts.sh"
 alias weather="curl http://v2.wttr.in"
 
 # tmux
-alias tl='tmux_attach_or_switch_last'
 alias tn='tmux new-session -s'
 alias tls='tmux list-sessions'
 alias tksv='tmux kill-server'
 alias tkss='tmux kill-session -t'
+alias tds='tmux_default_sessions'
+alias tl='tmux_attach_or_switch_last'
+alias tss='tmux_session_selector'
 
 if [ $(uname) = Darwin ]; then
   # Command + Shift + . (period) shows hidden files in Finder
@@ -159,7 +161,7 @@ if [ $(uname) = Darwin ]; then
   alias sleepoff='sudo pmset -a disablesleep 1'
 
   alias sleepon='sudo pmset -a disablesleep 0'
-  
+
   showHiddenFiles
   defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Bluetooth -int 18
   defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Sound -int 18
@@ -231,10 +233,17 @@ export PATH="/usr/local/go/bin:$PATH"
 
 export GOPATH="/go"
 
-# for those who prefer to use a script instead of a terminal emulator theme
-GOTHAM_SHELL="$HOME/.local/share/themes/gotham.sh"
+# *****************
+# ** Shell theme **
+# *****************
 
-[[ -s $GOTHAM_SHELL ]] && source $GOTHAM_SHELL
+THEME_DIR="$HOME/Source/environment/devcontainer-features/src/base/themes"
 
-# start or attach to a tmux session
-tmux_default_sessions
+THEME_NAME="gotham"
+
+THEME_FILE="$THEME_DIR/$THEME_NAME/theme.sh"
+
+[[ -s $THEME_FILE ]] && source $THEME_FILE
+
+# start or attach to tmux default sessions
+tds
