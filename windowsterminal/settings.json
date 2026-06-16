@@ -44,12 +44,7 @@
                 "name": "Ubuntu",
                 "commandline": "C:\\WINDOWS\\system32\\wsl.exe -d Ubuntu",
                 "startingDirectory": "//wsl$/Ubuntu/home/ridhwaans",
-                "source": "Windows.Terminal.Wsl",
-                "font": {
-                    "face": "Roboto Mono for Powerline",
-                    "size": 10
-                },
-                "colorScheme": "Gotham"
+                "source": "Windows.Terminal.Wsl"
             },
             {
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
@@ -68,30 +63,5 @@
                 "source": "Windows.Terminal.Azure"
             }
         ]
-    },
-    "schemes": [
-        {
-            "name": "Gotham",
-            "background": "#0a0f14",
-            "foreground": "#98d1ce",
-            "cursorColor": "#98d1ce",
-            "black": "#0a0f14",
-            "blue": "#13789c",
-            "brightBlack": "#10151b",
-            "brightBlue": "#72b3ca",
-            "brightCyan": "#599caa",
-            "brightGreen": "#abe4bb",
-            "brightPurple": "#b8bcdf",
-            "brightRed": "#d26939",
-            "brightWhite": "#d3ebe9",
-            "brightYellow": "#f6d8a1",
-            "cyan": "#33859d",
-            "green": "#26a98b",
-            "purple": "#888ba5",
-            "red": "#dc362c",
-            "white": "#98d1ce",
-            "yellow": "#edb54b",
-            "selectionBackground": "#0c3040"
-        }
-    ]
+    }
 }

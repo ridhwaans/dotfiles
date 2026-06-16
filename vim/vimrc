@@ -1,0 +1,125 @@
+let $XDG_CONFIG_HOME = exists('$XDG_CONFIG_HOME') ? $XDG_CONFIG_HOME : expand('$HOME/.config')
+let $XDG_DATA_HOME = exists('$XDG_DATA_HOME') ? $XDG_DATA_HOME : expand('$HOME/.local/share')
+
+syntax enable
+
+set nocompatible    " allow backspace, arrow keys, other stuff
+set tabstop=4       " number of visual spaces per TAB
+set softtabstop=4   " number of spaces in tab when editing
+set expandtab       " tabs are spaces
+set cursorline      " highlight current line
+set incsearch       " search as characters are entered
+set hlsearch        " highlight search matches
+set lazyredraw      " redraw only when we need to.
+set showmatch       " highlight matching [{()}]
+set number          " show current line number
+set relativenumber  " show relative line numbers
+set laststatus=2    " display status line
+
+" vim-plug
+let g:vim_plug_home = expand('$XDG_DATA_HOME/vim')
+let g:vim_plug_colorscheme = ""
+let g:colorscheme = ""
+
+execute 'source ' . g:vim_plug_home . '/autoload/plug.vim'
+
+call plug#begin(g:vim_plug_home . '/plugged')
+
+if !empty(g:vim_plug_colorscheme)
+  execute 'Plug ' . string(g:vim_plug_colorscheme)
+endif
+Plug 'preservim/nerdtree'
+Plug 'vim-airline/vim-airline'
+Plug 'machakann/vim-highlightedyank'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+call plug#end()
+
+function! ToggleLineNumbers()
+        set nonumber!
+endfunction
+
+function! ToggleRelativeLineNumbers()
+    if &relativenumber
+        set norelativenumber
+        set number
+    else
+        set relativenumber
+        set number
+    endif
+endfunction
+
+map <F2> :call ToggleLineNumbers()<CR>
+map <F3> :call ToggleRelativeLineNumbers()<CR>
+map <F4> :NERDTreeToggle<CR>
+map <F5> :AirlineToggle<CR>
+
+let g:mapleader=' ' " \ by default
+
+" yanking to and pasting from system clipboard
+noremap <leader>y "+y
+noremap <leader>p "+p
+
+" jump half-page up/down with cursor in middle-of-page
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+
+" edit vimrc in a new tab
+nnoremap evi :tabedit $MYVIMRC<CR>
+" reload vimrc
+nnoremap rvi :source $MYVIMRC<CR>
+
+" tabs
+nnoremap tn  :tabnew<CR>
+nnoremap te  :tabedit<Space>
+nnoremap tc  :tabclose<CR>
+nnoremap t0  :tabfirst<CR>
+nnoremap th  :tabprev<CR>
+nnoremap tl  :tabnext<CR>
+nnoremap t$  :tablast<CR>
+nnoremap tm  :tabmove<Space>
+
+" goto tab by index
+nnoremap <leader>1 1gt
+nnoremap <leader>2 2gt
+nnoremap <leader>3 3gt
+nnoremap <leader>4 4gt
+nnoremap <leader>5 5gt
+
+" windows
+nnoremap <leader><Bar> :vsplit<CR>
+nnoremap <leader>- :split<CR>
+nnoremap <leader>h <C-w>h
+nnoremap <leader>j <C-w>j
+nnoremap <leader>k <C-w>k
+nnoremap <leader>l <C-w>l
+nnoremap <leader>c <C-w>c
+nnoremap <leader>o <C-w>o
+
+" buffers
+nnoremap n<left>  :topleft  vnew<CR>
+nnoremap n<up>    :topleft  new<CR>
+nnoremap n<right> :botright vnew<CR>
+nnoremap n<down>  :botright new<CR>
+nnoremap bh       :bprevious<CR>
+nnoremap bl       :bnext<CR>
+nnoremap bc       :bdelete<CR>
+
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fg :Rg<CR>
+nnoremap <leader>fb :Buffers<CR>
+
+if !empty(g:colorscheme)
+  try
+    execute 'colorscheme ' . g:colorscheme
+  catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme default
+    set background=dark
+  endtry
+endif
+
+" vim-airline status bar theme
+if !empty(g:colorscheme)
+  let g:airline_theme = g:colorscheme
+endif

@@ -1,0 +1,18 @@
+[tools]
+
+fastfetch = "latest"
+
+bun = "latest"
+node = "latest"
+go = "latest"
+java = { version = "latest", vendor = "openjdk" }
+python = "latest"
+ruby = "latest"
+rust = "latest"
+
+gh = "latest"
+pipx = "latest"
+aws-cli = "latest"
+aws-sam-cli = "latest"
+cfn-lint = "latest"
+terraform = "latest"

@@ -1,20 +1,17 @@
 // See https://code.visualstudio.com/docs/getstarted/settings#_default-settings for more
 
 {
-	// Appearance
-  "window.newWindowDimensions": "maximized",
-	"workbench.iconTheme": "material-icon-theme",
-	"workbench.colorTheme": "Gotham",
-	"editor.fontFamily": "'Roboto Mono for Powerline', Menlo, Monaco, 'Courier New', monospace",
+	"window.newWindowDimensions": "maximized",
+	"editor.parameterHints.enabled":false,
+	"extensions.ignoreRecommendations":true,
 	"editor.detectIndentation": true,
 	"editor.tabSize": 2,
 	"editor.insertSpaces": true,
-	"terminal.integrated.fontFamily": "'Roboto Mono for Powerline'",
 	// Core
 	"terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
 	"terminal.integrated.defaultProfile.linux": "zsh",
 	"terminal.integrated.defaultProfile.osx": "zsh",
-  "terminal.integrated.sendKeybindingsToShell": true,
+	"terminal.integrated.sendKeybindingsToShell": true,
 	"terminal.external.osxExec": "iTerm.app",
 	"terminal.external.windowsExec": "wt.exe",
 	// Search
@@ -24,9 +21,9 @@
 		"build/": true,
 		"dist/": true
 	},
-  // Windows
-  "security.allowedUNCHosts": [
-    "wsl.localhost",
-    "wsl$"
-  ]
+	// Windows
+	"security.allowedUNCHosts": [
+		"wsl.localhost",
+		"wsl$"
+	]
 }
